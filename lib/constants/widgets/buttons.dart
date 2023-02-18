@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tech_sprint_hackathon/auth/profile_option.dart';
 
 import '../loading_screen.dart';
 
@@ -18,7 +19,7 @@ class GetStartedButton extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoadingScreen(),
+              builder: (context) => const ProfileOption(),
             ),
           );
         },

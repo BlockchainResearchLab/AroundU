@@ -9,6 +9,7 @@ class ImageLink{
   static const String reg = "assets/images/RegistrationPage.png";
   static const String login = "assets/images/LoginPage.png";
   static const String choosing = "assets/images/ChoosingImage.png";
+  static const String splash = "assets/videos/splash.mp4";
 }
 
 class AppTheme{

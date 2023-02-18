@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:tech_sprint_hackathon/auth/profile_option.dart';
 import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
+import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,11 +18,12 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/profile-choose',
+      initialRoute: '/splash',
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/intro': (context) => const OnBoardingPage(),
         '/profile-choose': (context) => const ProfileOption(),
+        '/splash': (context) => SplashScreen(),
       },
     );
   }
