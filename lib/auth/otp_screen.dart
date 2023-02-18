@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   InkWell(
                     splashColor: Colors.black,
                     onTap: () {
-                      Navigator.pushReplacement(
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => const RegistrationPage(),

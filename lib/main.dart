@@ -8,7 +8,9 @@ import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(const AroundU());
+  runApp(
+    const AroundU(),
+  );
 }
 
 class AroundU extends StatelessWidget {

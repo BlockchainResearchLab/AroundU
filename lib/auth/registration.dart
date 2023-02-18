@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:tech_sprint_hackathon/auth/registration.dart';
+import 'package:tech_sprint_hackathon/auth/login.dart';
 
 import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/widgets/buttons.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegistrationPage extends StatefulWidget {
+  const RegistrationPage({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegistrationPage> createState() => _RegistrationPageState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationPageState extends State<RegistrationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +23,12 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: <Widget>[
               const Header(),
-
-              Image.asset(ImageLink.login),
               const SizedBox(
                 height: 24,
               ),
               Center(
                 child: Text(
-                  "Welcome Back!",
+                  "Welcome",
                   style: GoogleFonts.inter(
                       color: const Color(0xff5a5a5a),
                       fontWeight: FontWeight.bold,
@@ -41,13 +39,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 12,
               ),
               Text(
-                "Log in to your existing account",
+                "Register for your account",
                 style: GoogleFonts.inter(
                     color: const Color(0xffa9aaaa),
                     fontWeight: FontWeight.w200,
                     fontSize: 23),
               ),
-
+              Image.asset(ImageLink.reg),
               const SizedBox(
                 height: 23,
               ),
@@ -55,7 +53,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 hintlines: "enter your email",
                 prefixIcon: Icon(Icons.account_circle_rounded),
               ),
-
+              const TextfieldWidget(
+                hintlines: "mobile number",
+                prefixIcon: Icon(Icons.call_rounded),
+              ),
               const TextfieldWidget(
                 hintlines: "password",
                 prefixIcon: Icon(Icons.lock_outline),
@@ -64,8 +65,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 23,
               ),
               FooterButton(
-                buttonName: "LOG IN",
-                pushToPage: () {},
+                buttonName: "Register",
+                pushToPage: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const RegistrationPage(),
+                    ),
+                  );
+                },
               ),
               // ignore: prefer_const_constructors
               SizedBox(
@@ -75,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account?  ",
+                    "Already have an account?  ",
                     style: GoogleFonts.inter(
                       color: Color(0xff565656),
                     ),
@@ -83,15 +91,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   InkWell(
                     splashColor: Colors.black,
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegistrationPage(),
-                        ),
-                      );
+                      Navigator.pushReplacement(context, MaterialPageRoute(
+                        builder: (context) {
+                          return const LoginScreen();
+                        },
+                      ));
                     },
                     child: Text(
-                      "Register",
+                      "Login",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w600,
                         color: Color(0xff0476ff),

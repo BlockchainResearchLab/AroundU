@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:tech_sprint_hackathon/constants/widgets/buttons.dart';
+import '../../auth/registration.dart';
 import 'Page1.dart';
 import 'Page2.dart';
 import 'Page3.dart';
@@ -78,7 +79,17 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             const SizedBox(
               height: 20.0,
             ),
-            const GetStartedButton(),
+            FooterButton(
+              buttonName: "Get Started",
+              pushToPage: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RegistrationPage(),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
