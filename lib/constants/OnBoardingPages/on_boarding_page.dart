@@ -7,14 +7,14 @@ import 'Page1.dart';
 import 'Page2.dart';
 import 'Page3.dart';
 
-class IntroPage extends StatefulWidget {
-  const IntroPage({Key? key}) : super(key: key);
+class OnBoardingPage extends StatefulWidget {
+  const OnBoardingPage({Key? key}) : super(key: key);
 
   @override
-  State<IntroPage> createState() => _IntroPageState();
+  State<OnBoardingPage> createState() => _OnBoardingPageState();
 }
 
-class _IntroPageState extends State<IntroPage> {
+class _OnBoardingPageState extends State<OnBoardingPage> {
   final controller = PageController(viewportFraction: 1.1, keepPage: false);
   final pages = <Widget>[
     const PageOne(),
@@ -25,6 +25,7 @@ class _IntroPageState extends State<IntroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

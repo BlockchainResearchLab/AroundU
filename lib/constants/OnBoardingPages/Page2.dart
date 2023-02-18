@@ -16,7 +16,7 @@ class PageTwo extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.4,
             width: double.infinity,
-            child: const Placeholder(),
+            child: Image.asset(ImageLink.pg2),
           ),
           const SizedBox(
             height: 20.0,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:tech_sprint_hackathon/constants/intro_pages/intro_page.dart';
+import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class AroundU extends StatelessWidget {
       initialRoute: '/intro',
       routes: {
         '/loading': (context) => const LoadingScreen(),
-        '/intro': (context) => const IntroPage(),
+        '/intro': (context) => const OnBoardingPage(),
       },
     );
   }
