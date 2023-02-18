@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tech_sprint_hackathon/constants/intro_pages/intro_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 
 void main() {
