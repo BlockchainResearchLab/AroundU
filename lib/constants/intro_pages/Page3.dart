@@ -7,55 +7,45 @@ class PageThree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Image.asset(
-          ImageLink.mLogo,
-          scale: 1.8,
-        ),
-        const SizedBox(
-          height: 20.0,
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
-          width: double.infinity,
-          child: const Placeholder(),
-        ),
-        const SizedBox(
-          height: 20.0,
-        ),
-        Expanded(
-          child: Text(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.4,
+            width: double.infinity,
+            child: const Placeholder(),
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Text(
             "Personalised to the way you work",
             textAlign: TextAlign.center,
             style: GoogleFonts.inter(
               textStyle: const TextStyle(
-                fontSize: 40.0,
+                fontSize: 30.0,
                 fontWeight: FontWeight.w700,
                 color: Color(0xff565656),
               ),
             ),
           ),
-        ),
-        Expanded(
-          child: Text(
+          const SizedBox(height: 40.0,),
+          Text(
             "Customize ClickUp to work\nfor you. No opinions,\njust options",
             style: GoogleFonts.inter(
               textStyle: const TextStyle(
-                fontSize: 26.0,
+                fontSize: 20.0,
                 fontWeight: FontWeight.w600,
                 color: Color(0xff565656),
               ),
             ),
             textAlign: TextAlign.center,
           ),
-        ),
-        const SizedBox(
-          height: 50.0,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

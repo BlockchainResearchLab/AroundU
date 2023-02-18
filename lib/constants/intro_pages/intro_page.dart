@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
@@ -14,7 +15,7 @@ class IntroPage extends StatefulWidget {
 }
 
 class _IntroPageState extends State<IntroPage> {
-  final controller = PageController(viewportFraction: 0.8, keepPage: false);
+  final controller = PageController(viewportFraction: 1.1, keepPage: false);
   final pages = <Widget>[
     const PageOne(),
     const PageTwo(),
@@ -24,50 +25,60 @@ class _IntroPageState extends State<IntroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 16),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.82,
-                child: PageView.builder(
-                  controller: controller,
-                  // itemCount: pages.length,
-                  itemBuilder: (_, index) {
-                    return pages[index % pages.length];
-                  },
-                ),
-              ),
-
-              // WORM EFFECT
-
-              const SizedBox(
-                height: 10.0,
-              ),
-              SmoothPageIndicator(
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const SizedBox(
+              height: 50.0,
+            ),
+            Image.asset(
+              ImageLink.mLogo,
+              scale: 2.5,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            // const SizedBox(height: 16),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.72,
+              child: PageView.builder(
+                // pageSnapping: false,
                 controller: controller,
-                count: pages.length,
-                effect: WormEffect(
-                  spacing: 20,
-                  radius: 16,
-                  activeDotColor: AppTheme.primaryColor,
-                  dotHeight: 10,
-                  dotWidth: 10,
-                  type: WormType.thin,
-                  // strokeWidth: 5,
-                ),
+                // dragStartBehavior: DragStartBehavior.down,
+                // allowImplicitScrolling: false,
+                // itemCount: pages.length,
+                padEnds: true,
+                itemBuilder: (_, index) {
+                  return pages[index % pages.length];
+                },
               ),
-              const SizedBox(
-                height: 20.0,
+            ),
+
+            // WORM EFFECT
+
+            const SizedBox(
+              height: 10.0,
+            ),
+            SmoothPageIndicator(
+              controller: controller,
+              count: pages.length,
+              effect: WormEffect(
+                spacing: 20,
+                radius: 16,
+                activeDotColor: AppTheme.primaryColor,
+                dotHeight: 10,
+                dotWidth: 10,
+                type: WormType.thin,
+                // strokeWidth: 5,
               ),
-              const InkWell(
-                splashColor: Colors.black,
-                child: GetStartedButton(),
-              ),
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            const GetStartedButton(),
+          ],
         ),
       ),
     );
