@@ -5,6 +5,10 @@ class ImageLink{
   static const String pg1 = "assets/images/Page1.png";
   static const String pg2 = "assets/images/Page2.png";
   static const String pg3 = "assets/images/Page3.png";
+  static const String otp = "assets/images/OTP.png";
+  static const String reg = "assets/images/RegistrationPage.png";
+  static const String login = "assets/images/LoginPage.png";
+  static const String choosing = "assets/images/ChoosingImage.png";
 }
 
 class AppTheme{
