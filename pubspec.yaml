@@ -42,6 +42,7 @@ dependencies:
 #  firebase_messaging: ^14.2.4
   google_sign_in: ^5.4.4
   video_player: ^2.5.1
+  flutter_otp_text_field: ^1.1.1
 
 dev_dependencies:
   flutter_test:

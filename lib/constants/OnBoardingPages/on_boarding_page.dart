@@ -1,8 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:tech_sprint_hackathon/constants/widgets/buttons.dart';
+import '../../Routes/routes.dart';
 import '../../auth/registration.dart';
 import 'Page1.dart';
 import 'Page2.dart';
@@ -82,12 +84,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             FooterButton(
               buttonName: "Get Started",
               pushToPage: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RegistrationPage(),
-                  ),
-                );
+                Navigator.pushNamed(context, Routes.OTPScreen);
               },
             ),
           ],

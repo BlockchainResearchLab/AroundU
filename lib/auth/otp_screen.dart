@@ -5,15 +5,16 @@ import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/widgets/buttons.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class OTPScreen extends StatefulWidget {
+  const OTPScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<OTPScreen> createState() => _OTPScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +24,19 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             children: <Widget>[
               const Header(),
-
-              Image.asset(ImageLink.login),
+              const SizedBox(
+                height: 30,
+              ),
+              Image.asset(
+                ImageLink.otp,
+                scale: 3,
+              ),
               const SizedBox(
                 height: 24,
               ),
               Center(
                 child: Text(
-                  "Welcome Back!",
+                  "Enter the OTP send to\n your Phone Number",
                   style: GoogleFonts.inter(
                       color: const Color(0xff5a5a5a),
                       fontWeight: FontWeight.bold,
@@ -40,25 +46,17 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 12,
               ),
-              Text(
-                "Log in to your existing account",
-                style: GoogleFonts.inter(
-                    color: const Color(0xffa9aaaa),
-                    fontWeight: FontWeight.w200,
-                    fontSize: 23),
-              ),
-
-              const SizedBox(
-                height: 23,
-              ),
-              const TextfieldWidget(
-                hintlines: "enter your email",
-                prefixIcon: Icon(Icons.account_circle_rounded),
-              ),
-
-              const TextfieldWidget(
-                hintlines: "password",
-                prefixIcon: Icon(Icons.lock_outline),
+              OtpTextField(
+                focusedBorderColor: AppTheme.shadowColor,
+                cursorColor: AppTheme.primaryColor,
+                borderRadius: BorderRadius.circular(15),
+                numberOfFields: 4,
+                borderColor: const Color(0xfff0f0f0),
+                showFieldAsBox: true,
+                onCodeChanged: (String code) {},
+                onSubmit: (String verificationCode) {
+                  null;
+                }, // end onSubmit
               ),
               const SizedBox(
                 height: 23,

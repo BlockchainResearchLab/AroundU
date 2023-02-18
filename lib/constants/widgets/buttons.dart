@@ -20,14 +20,7 @@ class FooterButton extends StatelessWidget {
     return Material(
       child: InkWell(
         splashColor: Colors.black,
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const RegistrationPage(),
-            ),
-          );
-        },
+        onTap: () => pushToPage,
         child: Container(
           // group2TAA (3:103)
           margin: EdgeInsets.fromLTRB(14 * fem, 0 * fem, 15 * fem, 0 * fem),

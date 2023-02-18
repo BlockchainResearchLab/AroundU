@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/auth/login.dart';
+import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 
+import '../Routes/routes.dart';
 import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -67,12 +69,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               FooterButton(
                 buttonName: "Register",
                 pushToPage: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const RegistrationPage(),
-                    ),
-                  );
+                  Navigator.pushReplacementNamed(context, Routes.OTPScreen);
                 },
               ),
               // ignore: prefer_const_constructors
