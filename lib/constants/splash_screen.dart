@@ -16,30 +16,6 @@ class _SplashScreenState extends State<SplashScreen> {
   late VideoPlayerController _controller;
   late Function _onVideoCompleted;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _controller = VideoPlayerController.asset(ImageLink.splash);
-  //   _onVideoCompleted = () {
-  //     Navigator.of(context).pushReplacementNamed(Routes.OnBoardingScreen);
-  //   };
-  //   _controller.addListener(() {
-  //     setState(() {});
-  //     if (_controller.value.position == _controller.value.duration) {
-  //       _onVideoCompleted();
-  //     }
-  //   });
-  //
-  //   _controller.initialize().then((_) {
-  //     setState(() {
-  //       _controller.play();
-  //     });
-  //   });
-  //   _controller.play();
-  // }
-
-
-  // APPOORVA
 
   @override
   void initState() {
@@ -52,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
           setState(
                 () {
               Timer(
-                const Duration(milliseconds: 5000),
+                const Duration(milliseconds: 5800),
                     () => Navigator.pushReplacementNamed(
                   context,
                   Routes.OnBoardingScreen
@@ -67,26 +43,23 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0),
-        child: Center(
-          child: AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
-          ),
-
-          // child: _controller.value.isInitialized        //false
-          //     ? AspectRatio(
-          //         aspectRatio: _controller.value.aspectRatio,
-          //         child: VideoPlayer(_controller),
-          //       )
-          //     : Container(
-          //         child: const LinearProgressIndicator(
-          //           color: Colors.blue,
-          //         ),
-          //       ),
+      backgroundColor: AppTheme.primaryColor,
+      body: Center(
+        child: AspectRatio(
+          aspectRatio: _controller.value.aspectRatio,
+          child: VideoPlayer(_controller),
         ),
+
+        // child: _controller.value.isInitialized        //false
+        //     ? AspectRatio(
+        //         aspectRatio: _controller.value.aspectRatio,
+        //         child: VideoPlayer(_controller),
+        //       )
+        //     : Container(
+        //         child: const LinearProgressIndicator(
+        //           color: Colors.blue,
+        //         ),
+        //       ),
       ),
     );
   }

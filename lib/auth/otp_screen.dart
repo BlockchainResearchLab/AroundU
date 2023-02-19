@@ -64,7 +64,9 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               FooterButton(
                 buttonName: "LOG IN",
-                pushToPage: () => Routes.ProfileChoose,
+                pushToPage: (){
+                  Navigator.pushNamed(context, Routes.ProfileChoose);
+                }
               ),
               // ignore: prefer_const_constructors
               SizedBox(
@@ -76,7 +78,7 @@ class _OTPScreenState extends State<OTPScreen> {
                   Text(
                     "Don't have an account?  ",
                     style: GoogleFonts.inter(
-                      color: Color(0xff565656),
+                      color: const Color(0xff565656),
                     ),
                   ),
                   InkWell(
