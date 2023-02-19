@@ -7,6 +7,7 @@ import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
+import 'package:tech_sprint_hackathon/service-providers/provider_home_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,7 @@ class AroundU extends StatelessWidget {
         '/otp': (context) => const OTPScreen(),
         '/login': (context) => const LoginScreen(),
         '/registration': (context) => const RegistrationPage(),
+        '/provider_home': (context) => const ProviderHomePage(),
       },
     );
   }

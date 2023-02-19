@@ -48,8 +48,15 @@ class _ProfileOptionState extends State<ProfileOption> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  backgroundColor: mutex == null ? Colors.white : (mutex == 0 ? Colors.white : AppTheme.primaryColor),      // 0 == JOB PROVIDER && 1 == JOB SEEKER
-                  foregroundColor: mutex == null ? Colors.black : (mutex == 0 ? Colors.black : Colors.white),
+                  backgroundColor: mutex == null
+                      ? Colors.white
+                      : (mutex == 0
+                          ? Colors.white
+                          : AppTheme
+                              .primaryColor), // 0 == JOB PROVIDER && 1 == JOB SEEKER
+                  foregroundColor: mutex == null
+                      ? Colors.black
+                      : (mutex == 0 ? Colors.black : Colors.white),
                   shadowColor: AppTheme.shadowColor,
                   fixedSize: Size(250, 74 * fem),
                 ),
@@ -81,8 +88,15 @@ class _ProfileOptionState extends State<ProfileOption> {
                   side: BorderSide(
                     color: AppTheme.shadowColor,
                   ),
-                  backgroundColor: mutex == null ? Colors.white : (mutex == 0 ? AppTheme.primaryColor : Colors.white),      // 0 == JOB PROVIDER && 1 == JOB SEEKER
-                  foregroundColor: mutex == null ? Colors.black : (mutex == 0 ? Colors.white : Colors.black),
+                  backgroundColor: mutex == null
+                      ? Colors.white
+                      : (mutex == 0
+                          ? AppTheme.primaryColor
+                          : Colors
+                              .white), // 0 == JOB PROVIDER && 1 == JOB SEEKER
+                  foregroundColor: mutex == null
+                      ? Colors.black
+                      : (mutex == 0 ? Colors.white : Colors.black),
                   shadowColor: AppTheme.shadowColor,
                   fixedSize: Size(250, 74 * fem),
                 ),
@@ -106,7 +120,8 @@ class _ProfileOptionState extends State<ProfileOption> {
                   Navigator.pushNamed(context, Routes.LoadingScreen);
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 30.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 12.0, horizontal: 30.0),
                   elevation: 10.0,
                   foregroundColor: Colors.white,
                   backgroundColor: AppTheme.primaryColor,

@@ -63,11 +63,10 @@ class _OTPScreenState extends State<OTPScreen> {
                 height: 23,
               ),
               FooterButton(
-                buttonName: "LOG IN",
-                pushToPage: (){
-                  Navigator.pushNamed(context, Routes.ProfileChoose);
-                }
-              ),
+                  buttonName: "LOG IN",
+                  pushToPage: () {
+                    Navigator.pushNamed(context, Routes.ProfileChoose);
+                  }),
               // ignore: prefer_const_constructors
               SizedBox(
                 height: 23,
@@ -76,7 +75,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Don't have an account?  ",
+                    "Didn't recieve code?  ",
                     style: GoogleFonts.inter(
                       color: const Color(0xff565656),
                     ),
@@ -92,10 +91,10 @@ class _OTPScreenState extends State<OTPScreen> {
                       );
                     },
                     child: Text(
-                      "Register",
+                      "Request Again",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff0476ff),
+                        color: const Color(0xff0476ff),
                       ),
                     ),
                   ),

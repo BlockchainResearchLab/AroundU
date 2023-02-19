@@ -6,4 +6,5 @@ class Routes {
   static String OTPScreen = "/otp";
   static String LoginScreen = "/login";
   static String RegistrationScreen = "/registration";
+  static String ProviderHomePage = "/provider_home";
 }

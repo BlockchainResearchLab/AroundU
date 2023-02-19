@@ -66,7 +66,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               FooterButton(
                 buttonName: "LOG IN",
-                pushToPage: () => Navigator.pushReplacementNamed(context, Routes.OTPScreen),
+                pushToPage: () =>
+                    Navigator.pushReplacementNamed(context, Routes.OTPScreen),
               ),
               // ignore: prefer_const_constructors
               SizedBox(
