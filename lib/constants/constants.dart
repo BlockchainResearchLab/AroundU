@@ -13,6 +13,8 @@ class ImageLink {
   static const String splash = "assets/videos/splash.mp4";
   static const String home = "assets/images/Home.png";
   static const String homeBlue = "assets/images/HomeBlue.png";
+  static const String bookmark = "assets/images/Bookmark.png";
+  static const String priceTag = "assets/images/PriceTag.png";
 }
 
 class AppTheme {
