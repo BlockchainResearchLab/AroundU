@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:video_player/video_player.dart';
-
 import '../Routes/routes.dart';
 import 'constants.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }

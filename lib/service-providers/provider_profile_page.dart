@@ -4,14 +4,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:tech_sprint_hackathon/constants/widgets/buttons.dart';
 
-class ProviderHomePage extends StatefulWidget {
-  const ProviderHomePage({super.key});
+class ProviderProfilePage extends StatefulWidget {
+  const ProviderProfilePage({super.key});
 
   @override
-  State<ProviderHomePage> createState() => _ProviderHomePageState();
+  State<ProviderProfilePage> createState() => _ProviderProfilePageState();
 }
 
-class _ProviderHomePageState extends State<ProviderHomePage> {
+class _ProviderProfilePageState extends State<ProviderProfilePage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(

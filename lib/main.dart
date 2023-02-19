@@ -7,7 +7,9 @@ import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
-import 'package:tech_sprint_hackathon/service-providers/provider_home_page.dart';
+import 'package:tech_sprint_hackathon/service-providers/provider_profile_page.dart';
+import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.dart';
+import 'package:tech_sprint_hackathon/workers/workers_routing_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,16 +26,18 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/splash',
+      initialRoute: '/wrouting',                                                //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
         '/profile-choose': (context) => const ProfileOption(),
-        '/splash': (context) => SplashScreen(),
+        '/splash': (context) => const SplashScreen(),
         '/otp': (context) => const OTPScreen(),
         '/login': (context) => const LoginScreen(),
         '/registration': (context) => const RegistrationPage(),
-        '/provider_home': (context) => const ProviderHomePage(),
+        '/provider_home': (context) => const ProviderProfilePage(),
+        '/wrouting': (context) => const WorkerRoutingPage(),
+        '/prouting': (context) => const ProvidersRoutingPage(),
       },
     );
   }

@@ -27,7 +27,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: EdgeInsets.only(top: 43),
+        margin: const EdgeInsets.only(top: 43),
         height: 36,
         width: 177,
         child: Image.asset(ImageLink.mLogo),
