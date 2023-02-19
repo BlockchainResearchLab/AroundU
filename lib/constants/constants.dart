@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class ImageLink {
   static const String mLogo = "assets/images/MainLogo.png";
+  static const String mLogoWhite = "assets/images/MainLogoWhite.png";
   static const String pg1 = "assets/images/Page1.png";
   static const String pg2 = "assets/images/Page2.png";
   static const String pg3 = "assets/images/Page3.png";
