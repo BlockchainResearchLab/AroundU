@@ -49,6 +49,7 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
               ),
               child: GNav(
                 textStyle: GoogleFonts.inter(
+                  color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),
@@ -69,14 +70,15 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 300),
                 color: AppTheme.primaryColor,
-                tabs: const [
+                tabs: [
                   GButton(
                     backgroundColor: Colors.white,
-                    icon: FontAwesomeIcons.houseUser,
+                    icon: Icons.home_filled,
+                    leading: Image.asset(ImageLink.home,scale: 3,),
                     iconSize: 25,
                     gap: 15,
                     text: 'Home',
-                    textColor: Colors.white,
+                    textColor: AppTheme.primaryColor,
                     textSize: 40,
                   ),
                   GButton(
@@ -85,7 +87,7 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
                     iconSize: 25,
                     text: 'Skill',
                     gap: 15,
-                    textColor: Colors.red,
+                    textColor: AppTheme.primaryColor,
                     textSize: 40,
                   ),
                   GButton(
@@ -94,7 +96,7 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
                     iconSize: 25,
                     text: 'Menu',
                     gap: 15,
-                    textColor: Colors.white,
+                    textColor: AppTheme.primaryColor,
                     textSize: 40,
                   ),
                 ],
