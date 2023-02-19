@@ -3,7 +3,7 @@ import 'package:tech_sprint_hackathon/Routes/routes.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-int mutex = 0; // 0 == JOB PROVIDER && 1 == JOB SEEKER
+int? mutex; // 0 == JOB PROVIDER && 1 == JOB SEEKER
 int clicked = 0;
 
 class ProfileOption extends StatefulWidget {
@@ -48,10 +48,8 @@ class _ProfileOptionState extends State<ProfileOption> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15.0),
                   ),
-                  backgroundColor:
-                      (mutex == 0) ? Colors.white : AppTheme.primaryColor,
-                  // 0 == JOB PROVIDER && 1 == JOB SEEKER
-                  foregroundColor: (mutex == 0) ? Colors.black : Colors.white,
+                  backgroundColor: mutex == null ? Colors.white : (mutex == 0 ? Colors.white : AppTheme.primaryColor),      // 0 == JOB PROVIDER && 1 == JOB SEEKER
+                  foregroundColor: mutex == null ? Colors.black : (mutex == 0 ? Colors.black : Colors.white),
                   shadowColor: AppTheme.shadowColor,
                   fixedSize: Size(250, 74 * fem),
                 ),
@@ -83,9 +81,8 @@ class _ProfileOptionState extends State<ProfileOption> {
                   side: BorderSide(
                     color: AppTheme.shadowColor,
                   ),
-                  backgroundColor:
-                      (mutex == 0) ? AppTheme.primaryColor : Colors.white,
-                  foregroundColor: (mutex == 0) ? Colors.white : Colors.black,
+                  backgroundColor: mutex == null ? Colors.white : (mutex == 0 ? AppTheme.primaryColor : Colors.white),      // 0 == JOB PROVIDER && 1 == JOB SEEKER
+                  foregroundColor: mutex == null ? Colors.black : (mutex == 0 ? Colors.white : Colors.black),
                   shadowColor: AppTheme.shadowColor,
                   fixedSize: Size(250, 74 * fem),
                 ),
@@ -100,21 +97,29 @@ class _ProfileOptionState extends State<ProfileOption> {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 50.0),
+            padding: const EdgeInsets.only(top: 40.0),
             child: Visibility(
               visible: clicked == 0 ? false : true,
               child: ElevatedButton(
-                clipBehavior: Clip.hardEdge,
-                onPressed: () {},
+                // clipBehavior: Clip.hardEdge,
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.LoadingScreen);
+                },
                 style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 12.0,horizontal: 30.0),
                   elevation: 10.0,
                   foregroundColor: Colors.white,
-                  backgroundColor: Colors.green,
+                  backgroundColor: AppTheme.primaryColor,
+                  shadowColor: AppTheme.shadowColor,
+                  side: const BorderSide(color: Colors.white),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(100),
-                  )
+                  ),
                 ),
-                child: const Icon(Icons.arrow_circle_right_outlined,size: 70,),
+                child: Text(
+                  "Proceed",
+                  style: GoogleFonts.inter(fontSize: 25.0),
+                ),
               ),
             ),
           ),
