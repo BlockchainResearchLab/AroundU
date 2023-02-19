@@ -21,13 +21,17 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
     return SafeArea(
       child: Scaffold(
         extendBody: true,
-        backgroundColor: Colors.green,  //TODO:CHANGES
+        backgroundColor: Colors.green,
+        //TODO:CHANGES
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.white,
           title: Padding(
             padding: const EdgeInsets.only(left: 10.0),
-            child: SizedBox(width:150,child: Image.asset(ImageLink.mLogo),),
+            child: SizedBox(
+              width: 150,
+              child: Image.asset(ImageLink.mLogo),
+            ),
           ),
         ),
         body: WorkerRoutes.allWorkerPages.elementAt(_currentIndex),
@@ -67,14 +71,22 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
                 activeColor: Colors.white,
                 iconSize: 24,
                 padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 300),
                 color: AppTheme.primaryColor,
                 tabs: [
                   GButton(
                     backgroundColor: Colors.white,
                     icon: Icons.home_filled,
-                    leading: _currentIndex == 0 ? Image.asset(ImageLink.home,scale: 3,) : Image.asset(ImageLink.homeBlue,scale: 4.65,),
+                    leading: _currentIndex == 0
+                        ? Image.asset(
+                            ImageLink.home,
+                            scale: 3,
+                          )
+                        : Image.asset(
+                            ImageLink.homeBlue,
+                            scale: 4.65,
+                          ),
                     iconSize: 25,
                     gap: 15,
                     text: 'Home',
@@ -103,7 +115,7 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
                 selectedIndex: _currentIndex,
                 onTabChange: (index) {
                   setState(
-                        () {
+                    () {
                       _currentIndex = index;
                     },
                   );
