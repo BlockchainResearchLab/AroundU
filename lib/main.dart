@@ -28,7 +28,7 @@ class AroundU extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute:
-          '/wrouting', //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
+          '/prouting', //TODO: CURRENTLY WORKING ON PROVIDER ROUTING PAGE
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
