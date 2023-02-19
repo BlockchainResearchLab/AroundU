@@ -1,9 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
-
 import '../constants/constants.dart';
 
 int _currentIndex = 0;
@@ -24,20 +24,20 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
         backgroundColor: Colors.green,  //TODO:CHANGES
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: AppTheme.primaryColor,
-          title: Text(
-            "Around U",
-            style: GoogleFonts.inter(),
+          backgroundColor: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: SizedBox(width:150,child: Image.asset(ImageLink.mLogo),),
           ),
         ),
         body: WorkerRoutes.allWorkerPages.elementAt(_currentIndex),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            color: AppTheme.primaryColor,
+            color: Colors.white,
             boxShadow: [
               BoxShadow(
                 blurRadius: 20,
-                color: Colors.black.withOpacity(.2),
+                color: Colors.black.withOpacity(.25),
               ),
             ],
           ),
@@ -48,36 +48,54 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
                 vertical: 8,
               ),
               child: GNav(
-                textStyle: GoogleFonts.orbitron(),
+                textStyle: GoogleFonts.inter(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
                 haptic: true,
-                // tabBackgroundGradient: const LinearGradient(
-                //   colors: [
-                //     AppTheme.highlightColor,
-                //     AppTheme.highlightColor2,
-                //   ],
-                // ),
-                // rippleColor: AppTheme.highlightColor,
-                // hoverColor: AppTheme.secondaryColor,
+                tabBackgroundGradient: LinearGradient(
+                  colors: [
+                    AppTheme.primaryColor,
+                    AppTheme.shadowColor,
+                  ],
+                ),
+                tabBackgroundColor: AppTheme.primaryColor,
+                rippleColor: AppTheme.shadowColor,
+                // hoverColor: Colors.black38,
                 gap: 10,
-                activeColor: AppTheme.primaryColor,
+                activeColor: Colors.white,
                 iconSize: 24,
                 padding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 300),
-                // tabBackgroundColor: AppTheme.secondaryColor,
-                // color: AppTheme.highlightColor2,
+                color: AppTheme.primaryColor,
                 tabs: const [
                   GButton(
-                    icon: FontAwesomeIcons.house,
+                    backgroundColor: Colors.white,
+                    icon: FontAwesomeIcons.houseUser,
+                    iconSize: 25,
+                    gap: 15,
                     text: 'Home',
+                    textColor: Colors.white,
+                    textSize: 40,
                   ),
                   GButton(
-                    icon: Icons.shopping_cart,
-                    text: 'SKill',
+                    backgroundColor: Colors.white,
+                    icon: FontAwesomeIcons.graduationCap,
+                    iconSize: 25,
+                    text: 'Skill',
+                    gap: 15,
+                    textColor: Colors.red,
+                    textSize: 40,
                   ),
                   GButton(
-                    icon: FontAwesomeIcons.heart,
+                    backgroundColor: Colors.white,
+                    icon: FontAwesomeIcons.barsStaggered,
+                    iconSize: 25,
                     text: 'Menu',
+                    gap: 15,
+                    textColor: Colors.white,
+                    textSize: 40,
                   ),
                 ],
                 selectedIndex: _currentIndex,

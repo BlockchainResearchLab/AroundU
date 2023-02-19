@@ -28,96 +28,108 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
       ),
     );
     return Scaffold(
-        body: Container(
-      padding: const EdgeInsets.only(left: 10, right: 10),
-      child: ListView(
-        children: [
-          Column(
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                height: 350,
-                decoration: const BoxDecoration(
+      body: Container(
+        padding: const EdgeInsets.only(left: 10, right: 10),
+        child: ListView(
+          children: [
+            Column(
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  height: 350,
+                  decoration: const BoxDecoration(
                     color: Color(0xff0476ff),
                     borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(42),
-                        bottomRight: Radius.circular(42))),
-                child: Column(
-                  // ignore: prefer_const_literals_to_create_immutables
-                  children: <Widget>[
-                    const Placeholder(fallbackHeight: 100),
-                    // ignore: prefer_const_constructors
-                    SizedBox(height: 30),
-                    const CircleAvatar(
+                      bottomLeft: Radius.circular(42),
+                      bottomRight: Radius.circular(42),
+                    ),
+                  ),
+                  child: Column(
+                    // ignore: prefer_const_literals_to_create_immutables
+                    children: <Widget>[
+                      const Placeholder(fallbackHeight: 100),
+                      // ignore: prefer_const_constructors
+                      SizedBox(height: 30),
+                      const CircleAvatar(
                         minRadius: 20,
                         maxRadius: 70,
                         // ignore: sort_child_properties_last
                         backgroundImage: NetworkImage(
-                            "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500")),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      "Welcome, Name",
-                      style: GoogleFonts.inter(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22),
-                    ),
-                  ],
+                            "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Welcome, Name",
+                        style: GoogleFonts.inter(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 22),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ListTile(
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 2, color: Color(0xff8f8f8f)),
-                    borderRadius: BorderRadius.circular(15)),
-                title: Text("Email"),
-                subtitle: Text("name@gmail.com"),
-                leading: Icon(Icons.email),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ListTile(
-                shape: RoundedRectangleBorder(
-                    side: BorderSide(width: 2, color: Color(0xff8f8f8f)),
-                    borderRadius: BorderRadius.circular(15)),
-                title: Text("Phone Number"),
-                subtitle: Text("123456789"),
-                leading: Icon(Icons.phone),
-              ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ListTile(
+                  shape: RoundedRectangleBorder(
+                    side: const BorderSide(
+                      width: 2,
+                      color: Color(0xff8f8f8f),
+                    ),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  title: const Text("Email"),
+                  subtitle: const Text("name@gmail.com"),
+                  leading: const Icon(Icons.email),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                ListTile(
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(
+                        width: 2,
+                        color: Color(0xff8f8f8f),
+                      ),
+                      borderRadius: BorderRadius.circular(15)),
+                  title: const Text("Phone Number"),
+                  subtitle: const Text("123456789"),
+                  leading: const Icon(Icons.phone),
+                ),
 
-              // ignore: prefer_const_constructors
-              SizedBox(
-                height: 30,
-              ),
-              ProviderHomePageEdittableFields(
-                icon: Icon(Icons.location_on_rounded),
-                textBoxfieldtitle: "Address",
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              // ignore: prefer_const_constructors
-              ProviderHomePageEdittableFields(
-                  suffixIcon: Icon(Icons.arrow_drop_down_rounded),
-                  icon: Icon(Icons.description),
-                  textBoxfieldtitle: "Skills",
-                  textBoxfielddesc: "Electrician"),
-              // ignore: prefer_const_constructors
-              SizedBox(
-                height: 30,
-              ),
-
-              FooterButton(buttonName: "SUBMIT", pushToPage: () {})
-            ],
-          ),
-        ],
+                // ignore: prefer_const_constructors
+                SizedBox(
+                  height: 30,
+                ),
+                const ProviderHomePageEditableFields(
+                  icon: Icon(Icons.location_on_rounded),
+                  textBoxFieldTitle: "Address",
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                // ignore: prefer_const_constructors
+                ProviderHomePageEditableFields(
+                    suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
+                    icon: const Icon(Icons.description),
+                    textBoxFieldTitle: "Skills",
+                    textBoxFieldDesc: "Electrician"),
+                // ignore: prefer_const_constructors
+                SizedBox(
+                  height: 30,
+                ),
+                FooterButton(
+                  buttonName: "SUBMIT", pushToPage: () {}, //TODO
+                )
+              ],
+            ),
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
 
@@ -127,6 +139,7 @@ class ProviderHomePageNonEditFields extends StatelessWidget {
       required this.leadingIcon,
       required this.fieldTitle,
       required this.fieldSubtitle});
+
   final Icon leadingIcon;
   final String fieldTitle;
   final String fieldSubtitle;
@@ -141,7 +154,7 @@ class ProviderHomePageNonEditFields extends StatelessWidget {
         style: GoogleFonts.inter(
           fontSize: 17,
           fontWeight: FontWeight.w200,
-          color: const Color(0x8f8f8f),
+          color: const Color(0xff8f8f8f),
         ),
       ),
       title: Text(
@@ -149,54 +162,56 @@ class ProviderHomePageNonEditFields extends StatelessWidget {
         style: GoogleFonts.inter(
           fontSize: 17,
           fontWeight: FontWeight.w500,
-          color: const Color(0x8f8f8f),
+          color: const Color(0xff8f8f8f),
         ),
       ),
     );
   }
 }
 
-class ProviderHomePageEdittableFields extends StatefulWidget {
-  const ProviderHomePageEdittableFields(
+class ProviderHomePageEditableFields extends StatefulWidget {
+  const ProviderHomePageEditableFields(
       {super.key,
       this.icon,
-      this.textBoxfieldtitle,
-      this.textBoxfielddesc,
+      this.textBoxFieldTitle,
+      this.textBoxFieldDesc,
       this.suffixIcon});
+
   final Icon? icon;
-  final String? textBoxfieldtitle;
-  final String? textBoxfielddesc;
+  final String? textBoxFieldTitle;
+  final String? textBoxFieldDesc;
   final Icon? suffixIcon;
 
   @override
-  State<ProviderHomePageEdittableFields> createState() =>
-      _ProviderHomePageEdittableFieldsState();
+  State<ProviderHomePageEditableFields> createState() =>
+      _ProviderHomePageEditableFieldsState();
 }
 
-class _ProviderHomePageEdittableFieldsState
-    extends State<ProviderHomePageEdittableFields> {
+class _ProviderHomePageEditableFieldsState
+    extends State<ProviderHomePageEditableFields> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Colors.black),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
-            borderSide: BorderSide(color: Color(0xff8f8f8f)),
-          ),
-          border: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.black),
-          ),
-          labelText: widget.textBoxfieldtitle,
-          prefixIcon: widget.icon,
-          suffixIcon: widget.suffixIcon,
-          suffixIconColor: Color(0xff8f8f8f),
-          hintMaxLines: 3,
-          hintText: widget.textBoxfielddesc,
-          prefixIconColor: Color(0xff8f8f8f)),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(color: Colors.black),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15),
+          borderSide: const BorderSide(color: Color(0xff8f8f8f)),
+        ),
+        border: const OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.black),
+        ),
+        labelText: widget.textBoxFieldTitle,
+        prefixIcon: widget.icon,
+        suffixIcon: widget.suffixIcon,
+        suffixIconColor: const Color(0xff8f8f8f),
+        hintMaxLines: 3,
+        hintText: widget.textBoxFieldDesc,
+        prefixIconColor: const Color(0xff8f8f8f),
+      ),
     );
   }
 }

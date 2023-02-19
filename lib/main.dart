@@ -38,6 +38,7 @@ class AroundU extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/registration': (context) => const RegistrationPage(),
         '/pprofile': (context) => const ProviderProfilePage(),
+        '/wprofile': (context) => const WorkerProfilePage(),
         '/wrouting': (context) => const WorkerRoutingPage(),
         '/prouting': (context) => const ProvidersRoutingPage(),
       },
