@@ -74,7 +74,7 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
                   GButton(
                     backgroundColor: Colors.white,
                     icon: Icons.home_filled,
-                    leading: Image.asset(ImageLink.home,scale: 3,),
+                    leading: _currentIndex == 0 ? Image.asset(ImageLink.home,scale: 3,) : Image.asset(ImageLink.homeBlue,scale: 4.65,),
                     iconSize: 25,
                     gap: 15,
                     text: 'Home',

@@ -12,6 +12,7 @@ class ImageLink {
   static const String choosing = "assets/images/ChoosingImage.png";
   static const String splash = "assets/videos/splash.mp4";
   static const String home = "assets/images/Home.png";
+  static const String homeBlue = "assets/images/HomeBlue.png";
 }
 
 class AppTheme {
