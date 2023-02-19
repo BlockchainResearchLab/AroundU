@@ -47,6 +47,7 @@ dependencies:
   font_awesome_flutter: ^10.4.0
   firebase_messaging: ^14.2.4
   chips_choice_null_safety: ^2.0.6
+  custom_refresh_indicator: ^2.0.1
  
 
 dev_dependencies:

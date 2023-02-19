@@ -15,6 +15,7 @@ class ImageLink {
   static const String homeBlue = "assets/images/HomeBlue.png";
   static const String bookmark = "assets/images/Bookmark.png";
   static const String priceTag = "assets/images/PriceTag.png";
+  static const String circle = "assets/images/AroundCircle.png";
 }
 
 class AppTheme {
