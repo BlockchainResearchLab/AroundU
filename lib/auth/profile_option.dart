@@ -117,7 +117,7 @@ class _ProfileOptionState extends State<ProfileOption> {
               child: ElevatedButton(
                 // clipBehavior: Clip.hardEdge,
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.LoadingScreen);
+                  Navigator.pushNamed(context, Routes.WorkerHomePage);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(

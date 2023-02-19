@@ -98,8 +98,6 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
               ProviderHomePageEdittableFields(
                 icon: Icon(Icons.description),
                 textBoxfieldtitle: "Description",
-                textBoxfielddesc:
-                    "Mechanical, Fan Repairing, Coil burn repair, Motor expecialist, Cooler, AC.",
               ),
               // ignore: prefer_const_constructors
               SizedBox(
