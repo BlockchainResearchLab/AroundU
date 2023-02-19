@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/auth/registration.dart';
 
+import '../Routes/routes.dart';
 import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,7 +21,7 @@ class _OTPScreenState extends State<OTPScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
+          padding: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             children: <Widget>[
               const Header(),
@@ -63,7 +64,7 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               FooterButton(
                 buttonName: "LOG IN",
-                pushToPage: () {},
+                pushToPage: () => Routes.ProfileChoose,
               ),
               // ignore: prefer_const_constructors
               SizedBox(

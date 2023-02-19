@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/auth/login.dart';
-import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 
 import '../Routes/routes.dart';
 import '../constants/constants.dart';
@@ -21,7 +20,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
+          padding: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             children: <Widget>[
               const Header(),
@@ -68,9 +67,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               FooterButton(
                 buttonName: "Register",
-                pushToPage: () {
-                  Navigator.pushReplacementNamed(context, Routes.OTPScreen);
-                },
+                pushToPage: () => Navigator.pushReplacementNamed(context, Routes.OTPScreen),
               ),
               // ignore: prefer_const_constructors
               SizedBox(
@@ -82,23 +79,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   Text(
                     "Already have an account?  ",
                     style: GoogleFonts.inter(
-                      color: Color(0xff565656),
+                      color: const Color(0xff565656),
                     ),
                   ),
                   InkWell(
                     splashColor: Colors.black,
                     onTap: () {
-                      Navigator.pushReplacement(context, MaterialPageRoute(
-                        builder: (context) {
-                          return const LoginScreen();
-                        },
-                      ));
+                      Navigator.pushReplacementNamed(
+                        context,
+                        Routes.LoginScreen,
+                      );
                     },
                     child: Text(
                       "Login",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff0476ff),
+                        color: const Color(0xff0476ff),
                       ),
                     ),
                   ),
@@ -119,6 +115,7 @@ class TextfieldWidget extends StatelessWidget {
   // controllers yet to be implemented.....
   const TextfieldWidget(
       {super.key, required this.hintlines, required this.prefixIcon});
+
   final String hintlines;
   final Icon prefixIcon;
 
@@ -128,13 +125,18 @@ class TextfieldWidget extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: TextFormField(
         decoration: InputDecoration(
-            prefixIcon: prefixIcon,
-            hintStyle: GoogleFonts.inter(color: Color(0xff565656)),
-            hintText: hintlines,
-            focusedBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.5)),
-            enabledBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.5))),
+          prefixIcon: prefixIcon,
+          hintStyle: GoogleFonts.inter(
+            color: const Color(0xff565656),
+          ),
+          hintText: hintlines,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.5),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(32.5),
+          ),
+        ),
       ),
     );
   }

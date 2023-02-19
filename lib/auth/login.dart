@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/auth/registration.dart';
 
+import '../Routes/routes.dart';
 import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -19,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(left: 10, right: 10),
+          padding: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             children: <Widget>[
               const Header(),
@@ -65,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               FooterButton(
                 buttonName: "LOG IN",
-                pushToPage: () {},
+                pushToPage: () => Navigator.pushReplacementNamed(context, Routes.OTPScreen),
               ),
               // ignore: prefer_const_constructors
               SizedBox(
@@ -77,24 +78,22 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     "Don't have an account?  ",
                     style: GoogleFonts.inter(
-                      color: Color(0xff565656),
+                      color: const Color(0xff565656),
                     ),
                   ),
                   InkWell(
                     splashColor: Colors.black,
                     onTap: () {
-                      Navigator.pushReplacement(
+                      Navigator.pushReplacementNamed(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegistrationPage(),
-                        ),
+                        Routes.RegistrationScreen,
                       );
                     },
                     child: Text(
                       "Register",
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.w600,
-                        color: Color(0xff0476ff),
+                        color: const Color(0xff0476ff),
                       ),
                     ),
                   ),

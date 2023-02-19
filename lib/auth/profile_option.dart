@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_sprint_hackathon/Routes/routes.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -24,7 +25,8 @@ class ProfileOption extends StatelessWidget {
           Column(
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, Routes.LoadingScreen),
                 style: ElevatedButton.styleFrom(
                   elevation: 10.0,
                   side: const BorderSide(color: Colors.black12),
@@ -48,7 +50,8 @@ class ProfileOption extends StatelessWidget {
                 height: 25.0,
               ),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () =>
+                    Navigator.pushNamed(context, Routes.LoadingScreen),
                 style: ElevatedButton.styleFrom(
                   elevation: 15.0,
                   shape: RoundedRectangleBorder(

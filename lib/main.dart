@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:tech_sprint_hackathon/auth/login.dart';
 import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 import 'package:tech_sprint_hackathon/auth/profile_option.dart';
+import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
@@ -21,13 +23,15 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/otp',
+      initialRoute: '/splash',
       routes: {
         '/loading': (context) => const LoadingScreen(),
-        '/intro': (context) => const OnBoardingPage(),
+        '/onboarding': (context) => const OnBoardingPage(),
         '/profile-choose': (context) => const ProfileOption(),
         '/splash': (context) => SplashScreen(),
         '/otp': (context) => const OTPScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/registration': (context) => const RegistrationPage(),
       },
     );
   }
