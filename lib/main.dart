@@ -7,14 +7,7 @@ import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
-<<<<<<< Updated upstream
-import 'package:tech_sprint_hackathon/service-providers/provider_profile_page.dart';
-import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.dart';
-import 'package:tech_sprint_hackathon/workers/workers_routing_page.dart';
-=======
-import 'package:tech_sprint_hackathon/service-providers/provider_home_page.dart';
-import 'package:tech_sprint_hackathon/workers/worker_home_page.dart';
->>>>>>> Stashed changes
+import 'package:tech_sprint_hackathon/workers/worker_profile_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,7 +24,8 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/wrouting',                                                //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
+      initialRoute:
+          '/wrouting', //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
@@ -40,14 +34,7 @@ class AroundU extends StatelessWidget {
         '/otp': (context) => const OTPScreen(),
         '/login': (context) => const LoginScreen(),
         '/registration': (context) => const RegistrationPage(),
-<<<<<<< Updated upstream
-        '/provider_home': (context) => const ProviderProfilePage(),
-        '/wrouting': (context) => const WorkerRoutingPage(),
-        '/prouting': (context) => const ProvidersRoutingPage(),
-=======
-        '/provider_home': (context) => const ProviderHomePage(),
         '/worker_home': (context) => const WorkerProfilePage(),
->>>>>>> Stashed changes
       },
     );
   }
