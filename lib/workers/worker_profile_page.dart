@@ -1,15 +1,25 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:tech_sprint_hackathon/constants/widgets/buttons.dart';
+import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 
-List<String> skillSet = [
+List<String> tags = [];
+List<String> options = [
   "Fan Repair",
   "A.C./Cooler Repair",
   "Motor Repair",
-  "Bikes/Scooty ",
+  "Bikes/Scooty",
 ];
+
+void printTag() {
+  for (var tag in tags) {
+    log(tag);
+  }
+}
 
 class WorkerProfilePage extends StatefulWidget {
   const WorkerProfilePage({super.key});
@@ -29,14 +39,15 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
     );
     return Scaffold(
       body: Container(
-        padding: const EdgeInsets.only(left: 10, right: 10),
+        padding: const EdgeInsets.only(left: 20, right: 20),
         child: ListView(
           children: [
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
                   width: double.infinity,
-                  height: 350,
+                  height: 330,
                   decoration: const BoxDecoration(
                     color: Color(0xff0476ff),
                     borderRadius: BorderRadius.only(
@@ -47,9 +58,15 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                   child: Column(
                     // ignore: prefer_const_literals_to_create_immutables
                     children: <Widget>[
-                      const Placeholder(fallbackHeight: 100),
+                      Image.asset(
+                        ImageLink.mLogoWhite,
+                        scale: 3,
+                        height: 50.55,
+                      ),
                       // ignore: prefer_const_constructors
-                      SizedBox(height: 30),
+                      SizedBox(height: 50),
+                      // ignore: prefer_const_constructors
+
                       const CircleAvatar(
                         minRadius: 20,
                         maxRadius: 70,
@@ -112,18 +129,49 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                   height: 30,
                 ),
                 // ignore: prefer_const_constructors
-                ProviderHomePageEditableFields(
-                    suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
-                    icon: const Icon(Icons.description),
-                    textBoxFieldTitle: "Skills",
-                    textBoxFieldDesc: "Electrician"),
+
                 // ignore: prefer_const_constructors
                 SizedBox(
-                  height: 30,
+                  height: 10,
+                ),
+                Text(
+                  "Choose your Skills:",
+                  style: GoogleFonts.inter(
+                    color: Color(0xff8f8f8f),
+                    fontSize: 20,
+                  ),
+                ),
+                Column(
+                  children: [
+                    ChipsChoice.multiple(
+                      wrapped: true,
+                      textDirection: TextDirection.rtl,
+                      value: tags,
+                      onChanged: (val) {
+                        setState(() => tags = val);
+                        printTag();
+                      },
+                      choiceItems: C2Choice.listFrom<String, String>(
+                        source: options,
+                        value: (i, v) => v,
+                        label: (i, v) => v,
+                      ),
+                      choiceStyle: C2ChoiceStyle(
+                          color: Color(0xff1c1c1c),
+                          borderRadius: BorderRadius.circular(5)),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 FooterButton(
                   buttonName: "SUBMIT", pushToPage: () {}, //TODO
-                )
+                ),
+                // ignore: prefer_const_constructors
+                SizedBox(
+                  height: 20,
+                ),
               ],
             ),
           ],

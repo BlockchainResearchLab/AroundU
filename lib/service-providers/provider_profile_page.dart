@@ -22,14 +22,14 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
     );
     return Scaffold(
         body: Container(
-      padding: const EdgeInsets.only(left: 10, right: 10),
+      padding: const EdgeInsets.only(left: 20, right: 20),
       child: ListView(
         children: [
           Column(
             children: <Widget>[
               Container(
                 width: double.infinity,
-                height: 350,
+                height: 330,
                 decoration: const BoxDecoration(
                     color: Color(0xff0476ff),
                     borderRadius: BorderRadius.only(
@@ -38,9 +38,15 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                 child: Column(
                   // ignore: prefer_const_literals_to_create_immutables
                   children: <Widget>[
-                    const Placeholder(fallbackHeight: 100),
+                    Image.asset(
+                      ImageLink.mLogoWhite,
+                      scale: 3,
+                      height: 50.55,
+                    ),
                     // ignore: prefer_const_constructors
-                    SizedBox(height: 30),
+                    SizedBox(height: 50),
+                    // ignore: prefer_const_constructors
+
                     const CircleAvatar(
                         minRadius: 20,
                         maxRadius: 70,
@@ -98,6 +104,8 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
               ProviderHomePageEdittableFields(
                 icon: Icon(Icons.description),
                 textBoxfieldtitle: "Description",
+                textBoxfielddesc:
+                    "It will be cherry on the top, if we know you",
               ),
               // ignore: prefer_const_constructors
               SizedBox(
