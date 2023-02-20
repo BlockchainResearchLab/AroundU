@@ -3,6 +3,10 @@ import 'package:tech_sprint_hackathon/Routes/routes.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../service-providers/provider_profile_page.dart';
+import '../service-providers/provider_profile_page.dart';
+import '../workers/worker_profile_page.dart';
+
 int? mutex; // 0 == JOB PROVIDER && 1 == JOB SEEKER
 int clicked = 0;
 
@@ -117,7 +121,11 @@ class _ProfileOptionState extends State<ProfileOption> {
               child: ElevatedButton(
                 // clipBehavior: Clip.hardEdge,
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.WorkerHomePage);
+                  mutex == 1
+                      ? Navigator.pushNamed(
+                          context, WorkerRoutes.WorkersProfilePage)
+                      : Navigator.pushNamed(
+                          context, ProviderRoutes.ProviderProfilePage);
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(
