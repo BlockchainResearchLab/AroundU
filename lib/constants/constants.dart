@@ -16,6 +16,7 @@ class ImageLink {
   static const String bookmark = "assets/images/Bookmark.png";
   static const String priceTag = "assets/images/PriceTag.png";
   static const String circle = "assets/images/AroundCircle.png";
+  static const String plus = "assets/images/Plus.png";
 }
 
 class AppTheme {
@@ -40,3 +41,4 @@ class Header extends StatelessWidget {
     );
   }
 }
+
