@@ -128,7 +128,7 @@ class _JobFeedCardState extends State<JobFeedCard> {
       break;
     }
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0,horizontal: 12),
+      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
       child: SizedBox(
         width: 328 * fem,
         height: 200 * fem,
@@ -164,8 +164,8 @@ class _JobFeedCardState extends State<JobFeedCard> {
                   ],
                 ),
                 Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 10),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,

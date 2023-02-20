@@ -11,9 +11,14 @@ import 'package:tech_sprint_hackathon/service-providers/provider_profile_page.da
 import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.dart';
 import 'package:tech_sprint_hackathon/workers/worker_profile_page.dart';
 import 'package:tech_sprint_hackathon/workers/workers_routing_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+var tokenPrefs;
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  tokenPrefs = prefs.getString("authTokenPrefs");
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     const AroundU(),
@@ -27,8 +32,7 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute:
-          '/prouting', //TODO: CURRENTLY WORKING ON PROVIDER ROUTING PAGE
+      initialRoute: '/registration', //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
