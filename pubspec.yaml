@@ -48,6 +48,8 @@ dependencies:
   firebase_messaging: ^14.2.4
   chips_choice_null_safety: ^2.0.6
   custom_refresh_indicator: ^2.0.1
+  shared_preferences: ^2.0.17
+  http: ^0.13.5
  
 
 dev_dependencies:
