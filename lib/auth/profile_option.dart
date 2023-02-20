@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
+import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tech_sprint_hackathon/models/registration_model.dart';
+import 'package:tech_sprint_hackathon/services/auth-api-service/registration_api.dart';
 
 import '../service-providers/provider_profile_page.dart';
 import '../service-providers/provider_profile_page.dart';
@@ -9,6 +12,7 @@ import '../workers/worker_profile_page.dart';
 
 int? mutex; // 0 == JOB PROVIDER && 1 == JOB SEEKER
 int clicked = 0;
+String? profile;
 
 class ProfileOption extends StatefulWidget {
   const ProfileOption({Key? key}) : super(key: key);
@@ -18,6 +22,39 @@ class ProfileOption extends StatefulWidget {
 }
 
 class _ProfileOptionState extends State<ProfileOption> {
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Logging in..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {
+      mutex == 0 ? profile = "Provider" : profile = "Worker";
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -65,7 +102,7 @@ class _ProfileOptionState extends State<ProfileOption> {
                   fixedSize: Size(250, 74 * fem),
                 ),
                 child: Text(
-                  "Job Seeker",
+                  "Job Worker",
                   style: GoogleFonts.inter(
                     textStyle: TextStyle(
                         fontSize: 23 * ffem, fontWeight: FontWeight.w700),
@@ -120,12 +157,30 @@ class _ProfileOptionState extends State<ProfileOption> {
               visible: clicked == 0 ? false : true,
               child: ElevatedButton(
                 // clipBehavior: Clip.hardEdge,
-                onPressed: () {
-                  mutex == 1
-                      ? Navigator.pushNamed(
-                          context, WorkerRoutes.WorkersProfilePage)
-                      : Navigator.pushNamed(
-                          context, ProviderRoutes.ProviderProfilePage);
+                onPressed: () async {
+                  // mutex == 1
+                  //     ? Navigator.pushNamed(
+                  //         context, WorkerRoutes.WorkersProfilePage)
+                  //     : Navigator.pushNamed(
+                  //         context, ProviderRoutes.ProviderProfilePage);
+                  showLoaderDialog(context);
+                  Registered? dataFromBackend =
+                      await register(email!, password!, phone!, profile!);
+                  if (dataFromBackend!.status == 200) {
+                    print(dataFromBackend.token);
+                    if (mutex == 0) {
+                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(
+                          context, Routes.LoadingScreen);
+                    } else {
+                      Navigator.pop(context);
+                      Navigator.pushReplacementNamed(
+                          context, Routes.LoadingScreen);
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(dataFromBackend.status.toString())));
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(

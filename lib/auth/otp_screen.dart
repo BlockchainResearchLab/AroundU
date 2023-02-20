@@ -8,6 +8,9 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/widgets/buttons.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
+import '../models/otp_model.dart';
+import '../services/auth-api-service/otp_api.dart';
+
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
 
@@ -16,6 +19,30 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Logging in..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +57,7 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               Image.asset(
                 ImageLink.otp,
-                scale: 3,
+                scale: 2,
               ),
               const SizedBox(
                 height: 24,
@@ -63,9 +90,11 @@ class _OTPScreenState extends State<OTPScreen> {
                 height: 23,
               ),
               FooterButton(
-                  buttonName: "LOG IN",
-                  pushToPage: () {
-                    Navigator.pushNamed(context, Routes.ProfileChoose);
+                  buttonName: "VERIFY",
+                  pushToPage: () async {
+                    // Navigator.pushNamed(context, Routes.ProfileChoose);
+                    showLoaderDialog(context);
+                    // OTP? otpFromBackend = await verifyOTP(phone!);
                   }),
               // ignore: prefer_const_constructors
               SizedBox(

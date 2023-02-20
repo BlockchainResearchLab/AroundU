@@ -2,25 +2,20 @@ import 'package:http/http.dart' as http;
 
 import 'dart:convert';
 
+import '../../models/otp_model.dart';
 import '../../models/registration_model.dart';
 
-Future<Registered?> register(
-    String email, String password, String phone, String profile) async {
+Future<OTP?> verifyOTP(String phone) async {
   var response = await http.post(
-    Uri.parse("http://43.207.160.124/registration/"),
+    Uri.parse("http://43.207.160.124/sendotp/"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, String>{
-      "email": email,
-      "password": password,
-      "phone": phone,
-      "profile": profile
-    }),
+    body: jsonEncode(<String, String>{"phone": phone}),
   );
   if (response.statusCode == 200) {
     print(jsonDecode(response.body));
-    return Registered.fromJson(jsonDecode(response.body));
+    return OTP.fromJson(jsonDecode(response.body));
   } else {
     print(response.reasonPhrase);
     return null;
