@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_sprint_hackathon/auth/profile_option.dart';
 import 'package:tech_sprint_hackathon/auth/registration.dart';
 
 import '../Routes/routes.dart';
@@ -9,7 +10,11 @@ import '../constants/widgets/buttons.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import '../models/otp_model.dart';
+import '../models/registration_model.dart';
 import '../services/auth-api-service/otp_api.dart';
+import '../services/auth-api-service/registration_api.dart';
+
+String? otpTyped;
 
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
@@ -81,10 +86,15 @@ class _OTPScreenState extends State<OTPScreen> {
                 numberOfFields: 4,
                 borderColor: const Color(0xfff0f0f0),
                 showFieldAsBox: true,
-                onCodeChanged: (String code) {},
-                onSubmit: (String verificationCode) {
-                  null;
-                }, // end onSubmit
+                onCodeChanged: (String code) {
+                  setState(() {
+                    otpTyped = code;
+                  });
+                },
+                onSubmit: (value) {
+                  otpTyped = value;
+                },
+                // end onSubmit
               ),
               const SizedBox(
                 height: 23,
@@ -93,7 +103,13 @@ class _OTPScreenState extends State<OTPScreen> {
                   buttonName: "VERIFY",
                   pushToPage: () async {
                     // Navigator.pushNamed(context, Routes.ProfileChoose);
-                    showLoaderDialog(context);
+                    if (otpTyped == null || otpRecieved != otpTyped) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text("Wrong OTP")));
+                    } else {
+                      Navigator.pushReplacementNamed(
+                          context, Routes.ProfileChoose);
+                    }
                     // OTP? otpFromBackend = await verifyOTP(phone!);
                   }),
               // ignore: prefer_const_constructors

@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import '../constants/constants.dart';
 
-int isEmptyProvider = 0;
+bool isEmptyProvider = true;
 
 // ENUMS FOR STATUS & PRIORITY
 
@@ -23,9 +23,9 @@ class _ProviderJobPageState extends State<ProviderJobPage> {
   Widget build(BuildContext context) {
     return CustomRefreshIndicator(
       onRefresh: () {
-        return Future.delayed(
-          const Duration(seconds: 2),
-        );
+        return Future.delayed(const Duration(seconds: 2), () {
+          setState(() {});
+        });
       },
       builder: MaterialIndicatorDelegate(
         backgroundColor: AppTheme.primaryColor,
@@ -36,7 +36,7 @@ class _ProviderJobPageState extends State<ProviderJobPage> {
           );
         },
       ),
-      child: isEmptyProvider == 0
+      child: isEmptyProvider == true
           ? const EmptyProviderJobScreen()
           : Scaffold(
               backgroundColor: Colors.white,
@@ -369,12 +369,16 @@ class EmptyProviderJobScreen extends StatefulWidget {
 class _EmptyProviderJobScreenState extends State<EmptyProviderJobScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(
-        child: Text(
-          "EMPTY PAGE [PROVIDER]",
-        ),
+      body: ListView(
+        children: [
+          Center(
+            child: Text(
+              "EMPTY PAGE [PROVIDER]",
+            ),
+          ),
+        ],
       ),
     );
   }

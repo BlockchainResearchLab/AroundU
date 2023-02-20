@@ -13,6 +13,7 @@ import '../workers/worker_profile_page.dart';
 int? mutex; // 0 == JOB PROVIDER && 1 == JOB SEEKER
 int clicked = 0;
 String? profile;
+String? token;
 
 class ProfileOption extends StatefulWidget {
   const ProfileOption({Key? key}) : super(key: key);
@@ -168,18 +169,21 @@ class _ProfileOptionState extends State<ProfileOption> {
                       await register(email!, password!, phone!, profile!);
                   if (dataFromBackend!.status == 200) {
                     print(dataFromBackend.token);
-                    if (mutex == 0) {
-                      Navigator.pop(context);
+                    setState(() {
+                      token = dataFromBackend.token.toString();
+                    });
+
+                    if (profile == "Worker") {
                       Navigator.pushReplacementNamed(
-                          context, Routes.LoadingScreen);
+                          context, WorkerRoutes.WorkersRoutingPage);
                     } else {
-                      Navigator.pop(context);
                       Navigator.pushReplacementNamed(
-                          context, Routes.LoadingScreen);
+                          context, ProviderRoutes.ProviderRoutingPage);
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(dataFromBackend.status.toString())));
+                    Navigator.pop(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

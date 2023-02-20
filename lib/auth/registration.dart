@@ -6,11 +6,14 @@ import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/widgets/buttons.dart';
+import '../models/otp_model.dart';
+import '../services/auth-api-service/otp_api.dart';
 
 String? name;
 String? email;
 String? phone;
 String? password;
+String? otpRecieved;
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -128,7 +131,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               ),
               FooterButton(
                   buttonName: "Register",
-                  pushToPage: () {
+                  pushToPage: () async {
                     if (name == null ||
                         email == null ||
                         phone == null ||
@@ -139,7 +142,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Future.delayed(Duration(seconds: 2), () {
                         showLoaderDialog(context);
                       });
+                      OTP? otpFromBackend = await verifyOTP(phone!);
+                      setState(() {
+                        otpRecieved = otpFromBackend!.otp;
+                      });
                       Navigator.pushNamed(context, Routes.OTPScreen);
+                      Navigator.pop(context);
+                      emailController.dispose();
+                      nameController.dispose();
+                      passwordController.dispose();
+                      phoneController.dispose();
                     }
                   }),
               // ignore: prefer_const_constructors

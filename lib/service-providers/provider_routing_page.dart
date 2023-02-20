@@ -27,7 +27,11 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
             ? FloatingActionButton(
                 enableFeedback: true,
                 backgroundColor: AppTheme.primaryColor,
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    isEmptyProvider = !isEmptyProvider;
+                  });
+                },
                 child: Image.asset(
                   ImageLink.plus,
                   scale: 3,
