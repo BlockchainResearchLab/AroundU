@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -10,10 +11,13 @@ import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/widgets/buttons.dart';
+import '../models/login_model.dart';
+import 'package:http/http.dart' as http;
 
 String? email;
 String? password;
 String? isSuccess = "false";
+var token;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -25,6 +29,34 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  Future<Login?> login(String email, String password) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('POST', Uri.parse('http://43.207.160.124/login/'));
+    request.body = json.encode({"username": email, "password": password});
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var data = await response.stream.bytesToString();
+      setState(() {
+        token = jsonDecode(data);
+        isSuccess = "true";
+      });
+      var jsontoken = response.stream.bytesToString();
+      log(token);
+    } else {
+      setState(() {
+        isSuccess = "false";
+      });
+      print(response.reasonPhrase);
+      return null;
+    }
+    return null;
+  }
+
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: Row(
@@ -156,6 +188,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   pushToPage: () async {
                     log(email.toString());
                     log(password.toString());
+                    log(isSuccess.toString());
                     if (email == null || password == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
@@ -167,35 +200,30 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     } else {
                       showLoaderDialog(context);
-                      try {
-                        await login(email!, password!).then((value) {
-                          if (value != null) {
-                            setState(() {
-                              isSuccess = "true";
-                            });
-                          }
-                        }).catchError((e) {
+                      await login(email!, password!).then((value) {
+                        if (value != null) {
                           setState(() {
-                            isSuccess = "false";
+                            log("hii");
+                            isSuccess = "true";
                           });
-                        });
-                        if (isSuccess == "false") {
-                          Navigator.of(context, rootNavigator: true).pop();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text(
-                                "Unauthorized Access",
-                              ),
-                              duration: Duration(seconds: 1),
-                            ),
-                          );
-                        } else {
-                          Navigator.pushReplacementNamed(
-                              context, Routes.LoadingScreen);
                         }
-                      } catch (e) {
-                        // Navigator.of(context, rootNavigator: true).pop();
-                        print("cannot process");
+                      }).catchError((e) {
+                        log(e.toString());
+                      });
+                      if (isSuccess == "false") {
+                        Navigator.of(context, rootNavigator: true).pop();
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Unauthorized Access",
+                            ),
+                            duration: Duration(seconds: 1),
+                          ),
+                        );
+                      } else {
+                        Navigator.pop(context);
+                        Navigator.pushReplacementNamed(
+                            context, Routes.LoadingScreen);
                       }
                     }
                   }),
