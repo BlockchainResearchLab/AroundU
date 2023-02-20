@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
-
+import 'provider_job_page.dart';
 import '../constants/constants.dart';
 
 int _currentIndex = 0;
@@ -21,65 +21,103 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
     return SafeArea(
       child: Scaffold(
         extendBody: true,
-        backgroundColor: Colors.green,  //TODO:CHANGES
+        backgroundColor: Colors.white,
+        //TODO:CHANGES
+        floatingActionButton: _currentIndex == 0
+            ? FloatingActionButton(
+                enableFeedback: true,
+                backgroundColor: AppTheme.primaryColor,
+                onPressed: () {},
+                child: Image.asset(
+                  ImageLink.plus,
+                  scale: 3,
+                ),
+              )
+            : null,
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: AppTheme.primaryColor,
-          title: Text(
-            "AroundU",
-            style: GoogleFonts.inter(),
+          backgroundColor: Colors.white,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: SizedBox(
+              width: 150,
+              child: Image.asset(ImageLink.mLogo),
+            ),
           ),
         ),
-        body: WorkerRoutes.allWorkerPages.elementAt(_currentIndex),
+        body: ProviderRoutes.allProviderPages.elementAt(_currentIndex),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
-            color: AppTheme.primaryColor,
+            color: Colors.white,
             boxShadow: [
               BoxShadow(
                 blurRadius: 20,
-                color: Colors.black.withOpacity(.2),
+                color: Colors.black.withOpacity(.25),
               ),
             ],
           ),
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                horizontal: 15.0,
+                horizontal: 50.0,
                 vertical: 8,
               ),
               child: GNav(
-                textStyle: GoogleFonts.orbitron(),
+                textStyle: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                ),
                 haptic: true,
-                // tabBackgroundGradient: const LinearGradient(
-                //   colors: [
-                //     AppTheme.highlightColor,
-                //     AppTheme.highlightColor2,
-                //   ],
-                // ),
-                // rippleColor: AppTheme.highlightColor,
-                // hoverColor: AppTheme.secondaryColor,
+                tabBackgroundGradient: LinearGradient(
+                  colors: [
+                    AppTheme.primaryColor,
+                    AppTheme.shadowColor,
+                  ],
+                ),
+                tabBackgroundColor: AppTheme.primaryColor,
+                rippleColor: AppTheme.shadowColor,
+                // hoverColor: Colors.black38,
                 gap: 10,
-                activeColor: AppTheme.primaryColor,
+                activeColor: Colors.white,
                 iconSize: 24,
                 padding:
-                const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                 duration: const Duration(milliseconds: 300),
-                // tabBackgroundColor: AppTheme.secondaryColor,
-                // color: AppTheme.highlightColor2,
-                tabs: const [
+                color: AppTheme.primaryColor,
+                tabs: [
                   GButton(
-                    icon: FontAwesomeIcons.house,
+                    backgroundColor: Colors.white,
+                    icon: Icons.home_filled,
+                    leading: _currentIndex == 0
+                        ? Image.asset(
+                            ImageLink.home,
+                            scale: 3,
+                          )
+                        : Image.asset(
+                            ImageLink.homeBlue,
+                            scale: 4.65,
+                          ),
+                    iconSize: 25,
+                    gap: 15,
                     text: 'Home',
+                    textColor: AppTheme.primaryColor,
+                    textSize: 40,
                   ),
                   GButton(
-                    icon: Icons.shopping_cart,
+                    backgroundColor: Colors.white,
+                    icon: FontAwesomeIcons.barsStaggered,
+                    iconSize: 25,
                     text: 'Menu',
+                    gap: 15,
+                    textColor: AppTheme.primaryColor,
+                    textSize: 40,
                   ),
                 ],
                 selectedIndex: _currentIndex,
                 onTabChange: (index) {
                   setState(
-                        () {
+                    () {
                       _currentIndex = index;
                     },
                   );

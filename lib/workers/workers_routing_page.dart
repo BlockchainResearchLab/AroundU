@@ -21,7 +21,7 @@ class _WorkerRoutingPageState extends State<WorkerRoutingPage> {
     return SafeArea(
       child: Scaffold(
         extendBody: true,
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.white,
         //TODO:CHANGES
         appBar: AppBar(
           centerTitle: true,
