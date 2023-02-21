@@ -17,6 +17,13 @@ class ImageLink {
   static const String priceTag = "assets/images/PriceTag.png";
   static const String circle = "assets/images/AroundCircle.png";
   static const String plus = "assets/images/Plus.png";
+  static const String providerEmptyScreen = "assets/images/ProviderEmptyScreen.png";
+  static const String bookmarkHollow = "assets/images/BookmarkHollow.png";
+  static const String chooseLanguage = "assets/images/ChooseLanguage.png";
+  static const String helpCenter = "assets/images/HelpCenter.png";
+  static const String history = "assets/images/History.png";
+  static const String profileUpdate = "assets/images/ProfileUpdate.png";
+  static const String comingSoon = "assets/images/ComingSoon.png";
 }
 
 class AppTheme {

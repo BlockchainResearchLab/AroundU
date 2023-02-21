@@ -373,10 +373,15 @@ class _EmptyProviderJobScreenState extends State<EmptyProviderJobScreen> {
       backgroundColor: Colors.white,
       body: ListView(
         children: [
-          Center(
-            child: Text(
-              "EMPTY PAGE [PROVIDER]",
-            ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.18,
+          ),
+          Image.asset(
+            ImageLink.providerEmptyScreen,
+            scale: 1.5,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.1,
           ),
         ],
       ),

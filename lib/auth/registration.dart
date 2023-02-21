@@ -27,6 +27,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController nameController = TextEditingController();
+
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: Row(
@@ -130,30 +131,34 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 23,
               ),
               FooterButton(
-                  buttonName: "Register",
-                  pushToPage: () async {
-                    if (name == null ||
-                        email == null ||
-                        phone == null ||
-                        password == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Please provide all the details")));
-                    } else {
-                      Future.delayed(Duration(seconds: 2), () {
-                        showLoaderDialog(context);
-                      });
-                      OTP? otpFromBackend = await verifyOTP(phone!);
-                      setState(() {
+                buttonName: "Register",
+                pushToPage: () async {
+                  if (name == null ||
+                      email == null ||
+                      phone == null ||
+                      password == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please provide all the details"),
+                      ),
+                    );
+                  } else {
+                    showLoaderDialog(context);
+                    OTP? otpFromBackend = await verifyOTP(phone!);
+                    setState(
+                      () {
                         otpRecieved = otpFromBackend!.otp;
-                      });
-                      Navigator.pushNamed(context, Routes.OTPScreen);
-                      Navigator.pop(context);
-                      emailController.dispose();
-                      nameController.dispose();
-                      passwordController.dispose();
-                      phoneController.dispose();
-                    }
-                  }),
+                      },
+                    );
+                    Navigator.pushNamed(context, Routes.OTPScreen);
+                    Navigator.pop(context);
+                    emailController.dispose();
+                    nameController.dispose();
+                    passwordController.dispose();
+                    phoneController.dispose();
+                  }
+                },
+              ),
               // ignore: prefer_const_constructors
               SizedBox(
                 height: 23,

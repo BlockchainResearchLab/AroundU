@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:http/http.dart' as http;
 
 import 'dart:convert';
@@ -11,18 +13,24 @@ Future<Registered?> register(
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, String>{
-      "email": email,
-      "password": password,
-      "phone": phone,
-      "profile": profile
-    }),
+    body: jsonEncode(
+      <String, String>{
+        "email": email,
+        "password": password,
+        "phone": phone,
+        "profile": profile
+      },
+    ),
   );
   if (response.statusCode == 200) {
-    print(jsonDecode(response.body));
-    return Registered.fromJson(jsonDecode(response.body));
+    log(jsonDecode(response.body));
+    return Registered.fromJson(
+      jsonDecode(response.body),
+    );
   } else {
-    print(response.reasonPhrase);
+    log(
+      response.reasonPhrase.toString(),
+    );
     return null;
   }
 }

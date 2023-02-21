@@ -6,10 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tech_sprint_hackathon/models/registration_model.dart';
 import 'package:tech_sprint_hackathon/services/auth-api-service/registration_api.dart';
 
-import '../service-providers/provider_profile_page.dart';
-import '../service-providers/provider_profile_page.dart';
-import '../workers/worker_profile_page.dart';
-
 int? mutex; // 0 == JOB PROVIDER && 1 == JOB SEEKER
 int clicked = 0;
 String? profile;
