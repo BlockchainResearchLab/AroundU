@@ -160,11 +160,6 @@ class _ProfileOptionState extends State<ProfileOption> {
               child: ElevatedButton(
                 // clipBehavior: Clip.hardEdge,
                 onPressed: () async {
-                  // mutex == 1
-                  //     ? Navigator.pushNamed(
-                  //         context, WorkerRoutes.WorkersProfilePage)
-                  //     : Navigator.pushNamed(
-                  //         context, ProviderRoutes.ProviderProfilePage);
                   showLoaderDialog(context);
                   Registered? dataFromBackend =
                       await register(email!, password!, phone!, profile!);
@@ -174,13 +169,19 @@ class _ProfileOptionState extends State<ProfileOption> {
                       token = dataFromBackend.token.toString();
                     });
 
-                    if (mutex == 1) {
-                      Navigator.pushReplacementNamed(
-                          context, WorkerRoutes.WorkersProfilePage);
-                    } else {
-                      Navigator.pushReplacementNamed(
-                          context, ProviderRoutes.ProviderProfilePage);
-                    }
+                    // if (mutex == 1) {
+                    //   Navigator.pushReplacementNamed(
+                    //       context, WorkerRoutes.WorkersProfilePage);
+                    // } else {
+                    //   Navigator.pushReplacementNamed(
+                    //       context, ProviderRoutes.ProviderProfilePage);
+                    // }
+
+                    mutex == 1
+                        ? Navigator.pushNamed(
+                            context, WorkerRoutes.WorkersProfilePage)
+                        : Navigator.pushNamed(
+                            context, ProviderRoutes.ProviderProfilePage);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text(dataFromBackend.status.toString())));

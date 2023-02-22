@@ -23,7 +23,7 @@ Future<Registered?> register(
     ),
   );
   if (response.statusCode == 200) {
-    log(jsonDecode(response.body));
+    // log(jsonDecode(response.body));
     return Registered.fromJson(
       jsonDecode(response.body),
     );

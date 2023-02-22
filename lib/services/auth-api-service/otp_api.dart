@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -10,10 +9,9 @@ Future<OTP?> verifyOTP(String phone) async {
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
-    body: jsonEncode(<String, String>{"phone": phone}),
+    body: jsonEncode(<String, dynamic>{"phone": phone}),
   );
   if (response.statusCode == 200) {
-    log(jsonDecode(response.body));
     return OTP.fromJson(jsonDecode(response.body));
   } else {
     log(response.reasonPhrase.toString());

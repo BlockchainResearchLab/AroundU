@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/auth/login.dart';
+import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 
 import '../Routes/routes.dart';
 import '../constants/constants.dart';
@@ -133,16 +136,21 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   buttonName: "Register",
                   pushToPage: () async {
                     if (email == null || phone == null || password == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: Text("Please provide all the details"),),);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Please provide all the details"),
+                        ),
+                      );
                     } else {
-                      Future.delayed(const Duration(seconds: 2), () {
+                      Future.delayed(Duration(seconds: 5), () {
                         showLoaderDialog(context);
                       });
                       OTP? otpFromBackend = await verifyOTP(phone!);
                       setState(() {
                         otpRecieved = otpFromBackend!.otp;
                       });
+                      log(otpRecieved!);
+                      // log(otpTyped!);
                       Navigator.pop(context);
                       Navigator.pushNamed(context, Routes.OTPScreen);
                     }
