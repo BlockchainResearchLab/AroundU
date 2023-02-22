@@ -33,6 +33,7 @@ class WorkerRoutes{
 class ProviderRoutes{
   static String ProviderRoutingPage = "/prouting";
   static String ProviderProfilePage = "/pprofile";
+  static String JobFormPage = "/jobPost";
   static String ProviderFeedPage = "/pfeed";
   static const List<Widget> allProviderPages = [
     ProviderJobPage(),

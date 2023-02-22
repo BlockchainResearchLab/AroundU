@@ -7,6 +7,7 @@ import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
+import 'package:tech_sprint_hackathon/service-providers/job_post_form_page.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_profile_page.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.dart';
 import 'package:tech_sprint_hackathon/workers/worker_profile_page.dart';
@@ -30,8 +31,7 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute:
-          '/registration', //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
+      initialRoute: '/prouting', //TODO: CURRENTLY WORKING ON JOB POST PAGE
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
@@ -44,6 +44,7 @@ class AroundU extends StatelessWidget {
         '/wprofile': (context) => const WorkerProfilePage(),
         '/wrouting': (context) => const WorkerRoutingPage(),
         '/prouting': (context) => const ProvidersRoutingPage(),
+        '/jobPost': (context) => const JobFormPage(),
         '/maps': (context) => const Maps(),
       },
     );
