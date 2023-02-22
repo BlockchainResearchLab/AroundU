@@ -10,11 +10,9 @@ import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_profile_page.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.dart';
 import 'package:tech_sprint_hackathon/workers/worker_profile_page.dart';
-import 'package:tech_sprint_hackathon/workers/workers_feed.dart';
 import 'package:tech_sprint_hackathon/workers/workers_routing_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'service-providers/provider_job_page.dart';
+import 'maps/google_maps.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +44,7 @@ class AroundU extends StatelessWidget {
         '/wprofile': (context) => const WorkerProfilePage(),
         '/wrouting': (context) => const WorkerRoutingPage(),
         '/prouting': (context) => const ProvidersRoutingPage(),
+        '/maps': (context) => const Maps(),
       },
     );
   }

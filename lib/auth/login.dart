@@ -135,23 +135,27 @@ class _LoginScreenState extends State<LoginScreen> {
               TextfieldWidget(
                 cntrl: emailController,
                 onChanged: (value) {
-                  setState(() {
-                    email = value;
-                  });
+                  setState(
+                    () {
+                      email = value;
+                    },
+                  );
                 },
                 hintlines: "enter your email",
-                prefixIcon: Icon(Icons.account_circle_rounded),
+                prefixIcon: const Icon(Icons.account_circle_rounded),
               ),
 
               TextfieldWidget(
                 onChanged: (value) {
-                  setState(() {
-                    password = value;
-                  });
+                  setState(
+                    () {
+                      password = value;
+                    },
+                  );
                 },
                 cntrl: passwordController,
                 hintlines: "password",
-                prefixIcon: Icon(Icons.lock_outline),
+                prefixIcon: const Icon(Icons.lock_outline),
               ),
               const SizedBox(
                 height: 23,
@@ -161,14 +165,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   pushToPage: () async {
                     if (email == null || password == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Provide essential details")));
+                        const SnackBar(
+                          content: Text("Provide essential details"),
+                        ),
+                      );
                     } else {
                       showLoaderDialog(context);
                       Login? logData = await login(email!, password!);
                       if (logData != null) {
-                        print(logData.token);
+                        log(logData.token.toString());
                         token = logData.token;
-
                         Navigator.pop(context);
                         // emailController.dispose();
                         // passwordController.dispose();
@@ -183,7 +189,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       } else {
                         Navigator.pop(context);
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Incorrect Credentials.")));
+                          const SnackBar(
+                            content: Text("Incorrect Credentials."),
+                          ),
+                        );
                         // emailController.dispose();
                         // passwordController.dispose();
                       }
@@ -282,6 +291,7 @@ class TextfieldWidget extends StatefulWidget {
       required this.prefixIcon,
       required this.cntrl,
       required this.onChanged});
+
   final String hintlines;
   final Icon prefixIcon;
   final TextEditingController cntrl;

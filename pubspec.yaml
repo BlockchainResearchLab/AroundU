@@ -50,6 +50,9 @@ dependencies:
   custom_refresh_indicator: ^2.0.1
   shared_preferences: ^2.0.17
   http: ^0.13.5
+  flutter_polyline_points: ^1.0.0
+  google_maps_flutter: ^2.2.3
+  location: ^4.4.0
  
 
 dev_dependencies:

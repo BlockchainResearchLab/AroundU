@@ -16,6 +16,7 @@ class Routes {
   static String RegistrationScreen = "/registration";
   static String ProviderHomePage = "/provider_home";
   static String WorkerHomePage = "/worker_home";
+  static String Maps = "/maps";
 }
 
 class WorkerRoutes{

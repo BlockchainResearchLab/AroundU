@@ -11,6 +11,7 @@ import '../service-providers/provider_profile_page.dart';
 import '../workers/worker_profile_page.dart';
 
 int? mutex; // 0 == JOB PROVIDER && 1 == JOB WORKER
+
 int clicked = 0;
 String? profile;
 String? token;
