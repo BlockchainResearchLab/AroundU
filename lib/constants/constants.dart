@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ImageLink {
   static const String mLogo = "assets/images/MainLogo.png";
@@ -24,6 +25,12 @@ class ImageLink {
   static const String history = "assets/images/History.png";
   static const String profileUpdate = "assets/images/ProfileUpdate.png";
   static const String comingSoon = "assets/images/ComingSoon.png";
+}
+
+class MapsConstants{
+  static const String apiKey = "AIzaSyBmqqDVOlVdZLi1mY70I-jDiOn8XZAZXeI";
+  static const LatLng sourceLocation = LatLng(28.676792506635017, 77.50076897100702);
+  static const LatLng destination = LatLng(28.53908747355857, 77.25509413212828);
 }
 
 class AppTheme {

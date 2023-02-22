@@ -12,6 +12,7 @@ import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.da
 import 'package:tech_sprint_hackathon/workers/worker_profile_page.dart';
 import 'package:tech_sprint_hackathon/workers/workers_routing_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'maps/google_maps.dart';
 
 
 void main() async {
@@ -31,7 +32,7 @@ class AroundU extends StatelessWidget {
     return MaterialApp(
 
       debugShowCheckedModeBanner: false,
-      initialRoute: '/wrouting', //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
+      initialRoute: '/splash', //TODO: CURRENTLY WORKING ON MAPS
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
@@ -44,6 +45,7 @@ class AroundU extends StatelessWidget {
         '/wprofile': (context) => const WorkerProfilePage(),
         '/wrouting': (context) => const WorkerRoutingPage(),
         '/prouting': (context) => const ProvidersRoutingPage(),
+        '/maps': (context) => const Maps(),
       },
     );
   }
