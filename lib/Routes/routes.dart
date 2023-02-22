@@ -22,7 +22,6 @@ class Routes {
 class WorkerRoutes{
   static String WorkersRoutingPage = "/wrouting";
   static String WorkersProfilePage = "/wprofile";
-  static String WorkerFeedPage = "/wfeed";
   static const List<Widget> allWorkerPages = [
     WorkersFeedPage(),
     WorkerSkillPage(),
@@ -34,7 +33,6 @@ class ProviderRoutes{
   static String ProviderRoutingPage = "/prouting";
   static String ProviderProfilePage = "/pprofile";
   static String JobFormPage = "/jobPost";
-  static String ProviderFeedPage = "/pfeed";
   static const List<Widget> allProviderPages = [
     ProviderJobPage(),
     ProviderMenuPage(),

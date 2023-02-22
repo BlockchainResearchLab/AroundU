@@ -1,17 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:tech_sprint_hackathon/auth/profile_option.dart';
+import 'package:tech_sprint_hackathon/auth/registration.dart';
 import '../constants/constants.dart';
+import '../models/JobDetailsForProviderFeedModel.dart';
+import '../services/jobDetailsForProvider.dart';
+import 'job_post_form_page.dart';
 
 bool isEmptyProvider = true;
-
-// ENUMS FOR STATUS & PRIORITY
-
-enum Status { ACTIVE, INACTIVE, COMPLETED }
-
-String state = "ACTIVE";
-
-enum Priority { ULTRA_HIGH, HIGH, MEDIUM, LOW }
 
 class ProviderJobPage extends StatefulWidget {
   const ProviderJobPage({Key? key}) : super(key: key);
@@ -41,18 +40,31 @@ class _ProviderJobPageState extends State<ProviderJobPage> {
       child: isEmptyProvider == true
           ? const EmptyProviderJobScreen()
           : Scaffold(
-              backgroundColor: Colors.white,
-              body: Center(
-                child: ListView(
-                  children: const [
-                    JobPostCard(
-                        heading: "DDDD",
-                        status: "ACTIVE",
-                        priority: "LOW",
-                        date: "15/02/2023",
-                        price: "280"),
-                  ],
-                ),
+              backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+              body: FutureBuilder<JobDetailsForProviderFeedModel?>(
+                future: getJobsForProvider(token!, email!),
+                builder: (context, snapshot) {
+                  log(snapshot.data!.data![0].priority!);
+                  log(state.toString());
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else {
+                    // isEmptyProvider = false;
+                    // setState(() {});
+                    return ListView.builder(
+                      itemCount: snapshot.data!.data!.length,
+                      itemBuilder: (context, index) {
+                        return JobPostCard(
+                          heading: snapshot.data!.data![index].title!,
+                          date: snapshot.data!.data![index].dueDate!,
+                          price: snapshot.data!.data![index].price!.toString(),
+                          priority: snapshot.data!.data![index].priority!,
+                          status: snapshot.data!.data![index].status!,
+                        );
+                      },
+                    );
+                  }
+                },
               ),
             ),
     );
@@ -108,7 +120,6 @@ class _JobPostCardState extends State<JobPostCard> {
         });
         break;
     }
-    ;
     switch (widget.priority) {
       case "LOW":
         setState(() {

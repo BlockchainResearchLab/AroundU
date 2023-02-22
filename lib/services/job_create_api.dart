@@ -24,7 +24,7 @@ Future<JobCreateModel?> createJob(
       body: jsonEncode({
         "title": title,
         "description": description,
-        "type": type, //electrician
+        "type": type,
         "price": price,
         "latitude": latitude,
         "longitude": logitude

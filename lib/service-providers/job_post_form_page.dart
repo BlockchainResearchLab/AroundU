@@ -5,10 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
+import 'package:tech_sprint_hackathon/maps/google_maps.dart';
+import 'package:tech_sprint_hackathon/service-providers/provider_job_page.dart';
 import 'package:tech_sprint_hackathon/services/job_create_api.dart';
 import '../auth/profile_option.dart';
 import '../auth/registration.dart';
 import '../constants/constants.dart';
+
+
+String? state;
 
 class JobFormPage extends StatefulWidget {
   const JobFormPage({Key? key}) : super(key: key);
@@ -31,7 +36,7 @@ class _JobFormPageState extends State<JobFormPage> {
   String? dueDate;
   String? title;
   String? job_type;
-  String? state;
+  
   String? job_location;
   String? description;
   String? price;
@@ -553,16 +558,27 @@ class _JobFormPageState extends State<JobFormPage> {
                     height: 25,
                   ),
                   SubmitButton(submitFunction: () async {
-                    var res = await createJob(title!, description!, job_type!,
-                        price!, "28.5388565", "77.2552762", token!, email!);
-                    if (res == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Not Submitted")));
-                    } else {
-                      log(res.message.toString());
-                      Navigator.pushReplacementNamed(
-                          context, WorkerRoutes.WorkerFeedPage);
-                    }
+                    log(title.toString());
+                    log(dueDate.toString());
+                    log(price.toString());
+                    var res = await createJob(
+                        title!,
+                        description!,
+                        job_type!,
+                        price!,
+                        MapsConstants.destination.latitude.toString(),
+                        MapsConstants.destination.longitude.toString(),
+                        token!,
+                        email!);
+                    Future.delayed(Duration(seconds: 3), () {
+                      return showLoaderDialog(context);
+                    });
+                    setState(() {
+                      isEmptyProvider = false;
+                      
+                    });
+                    Navigator.pushReplacementNamed(
+                        context, ProviderRoutes.ProviderRoutingPage);
                   }),
                 ],
               ),

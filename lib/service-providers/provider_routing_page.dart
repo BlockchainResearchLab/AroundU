@@ -29,9 +29,6 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
                 backgroundColor: AppTheme.primaryColor,
                 onPressed: () {
                   Navigator.pushNamed(context, ProviderRoutes.JobFormPage);
-                  setState(() {
-                    isEmptyProvider = !isEmptyProvider;
-                  });
                 },
                 child: Image.asset(
                   ImageLink.plus,
