@@ -155,10 +155,10 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "Start Date:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.45,
+                          width: MediaQuery.of(context).size.width * 0.4,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             validator: (startDate) {
@@ -263,7 +263,7 @@ class _JobFormPageState extends State<JobFormPage> {
                               fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.45,
+                          width: MediaQuery.of(context).size.width * 0.4,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             validator: (startDate) {
