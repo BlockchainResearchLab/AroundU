@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:tech_sprint_hackathon/services/job_create_api.dart';
+import '../auth/registration.dart';
 import '../constants/constants.dart';
 
 class JobFormPage extends StatefulWidget {
@@ -25,6 +27,12 @@ class _JobFormPageState extends State<JobFormPage> {
 
   String? startDate;
   String? dueDate;
+  String? title;
+  String? job_type;
+  String? state;
+  String? job_location;
+  String? description;
+  String? price;
 
   @override
   void initState() {
@@ -54,7 +62,8 @@ class _JobFormPageState extends State<JobFormPage> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 30.0),
             child: Form(
               key: _validationKey,
               child: Column(
@@ -80,6 +89,11 @@ class _JobFormPageState extends State<JobFormPage> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _titleController,
+                            onChanged: (value) {
+                              setState(() {
+                                title = value;
+                              });
+                            },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.inter(
                                 color: const Color(0xff565656),
@@ -112,6 +126,11 @@ class _JobFormPageState extends State<JobFormPage> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _jobTypeController,
+                            onChanged: (value) {
+                              setState(() {
+                                job_type = value;
+                              });
+                            },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.inter(
                                 color: const Color(0xff565656),
@@ -339,7 +358,6 @@ class _JobFormPageState extends State<JobFormPage> {
                       ],
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
@@ -355,6 +373,11 @@ class _JobFormPageState extends State<JobFormPage> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _state,
+                            onChanged: (value) {
+                              setState(() {
+                                state = value;
+                              });
+                            },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.inter(
                                 color: const Color(0xff565656),
@@ -372,7 +395,6 @@ class _JobFormPageState extends State<JobFormPage> {
                       ],
                     ),
                   ),
-
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
@@ -388,6 +410,11 @@ class _JobFormPageState extends State<JobFormPage> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _jobLocation,
+                            onChanged: (value) {
+                              setState(() {
+                                job_location = value;
+                              });
+                            },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.inter(
                                 color: const Color(0xff565656),
@@ -405,8 +432,6 @@ class _JobFormPageState extends State<JobFormPage> {
                       ],
                     ),
                   ),
-
-
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: Row(
@@ -426,6 +451,11 @@ class _JobFormPageState extends State<JobFormPage> {
                     padding: const EdgeInsets.all(10),
                     child: TextFormField(
                       controller: _description,
+                      onChanged: (value) {
+                        setState(() {
+                          description = value;
+                        });
+                      },
                       decoration: InputDecoration(
                         hintStyle: GoogleFonts.inter(
                           color: const Color(0xff565656),
@@ -456,6 +486,11 @@ class _JobFormPageState extends State<JobFormPage> {
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _price,
+                            onChanged: (value) {
+                              setState(() {
+                                price = value;
+                              });
+                            },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.inter(
                                 color: const Color(0xff565656),
@@ -476,7 +511,7 @@ class _JobFormPageState extends State<JobFormPage> {
                   const SizedBox(
                     height: 25,
                   ),
-                  SubmitButton(logoutFunction: () {}),
+                  SubmitButton(submitFunction: () async {}),
                 ],
               ),
             ),
@@ -488,9 +523,9 @@ class _JobFormPageState extends State<JobFormPage> {
 }
 
 class SubmitButton extends StatefulWidget {
-  const SubmitButton({Key? key, required this.logoutFunction})
+  const SubmitButton({Key? key, required this.submitFunction})
       : super(key: key);
-  final VoidCallback? logoutFunction;
+  final VoidCallback? submitFunction;
 
   @override
   State<SubmitButton> createState() => _SubmitButtonState();
@@ -506,7 +541,7 @@ class _SubmitButtonState extends State<SubmitButton> {
       child: SizedBox(
         height: 50 * fem,
         child: ElevatedButton(
-          onPressed: widget.logoutFunction,
+          onPressed: widget.submitFunction,
           style: ElevatedButton.styleFrom(
             padding:
                 const EdgeInsets.symmetric(vertical: 12.0, horizontal: 30.0),
