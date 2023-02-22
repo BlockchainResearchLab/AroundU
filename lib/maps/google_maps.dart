@@ -28,7 +28,6 @@ class _MapsState extends State<Maps> {
         currentLocation = liveLocation;
       },
     );
-    setState(() {});
   }
 
   void getPolyPoints() async {
@@ -57,11 +56,14 @@ class _MapsState extends State<Maps> {
   void initState() {
     getPolyPoints();
     timer = Timer.periodic(
-        const Duration(milliseconds: 2000), (Timer t) => getCurrentLocation());
-    currentLocation == null
-        ? log("Fetching")
-        : log(
-            "Current Location : ${currentLocation!.latitude} , ${currentLocation!.longitude}");
+        const Duration(milliseconds: 2000), (Timer t){
+      getCurrentLocation();
+      currentLocation == null
+          ? log("Fetching")
+          : log(
+          "Current Location : ${currentLocation!.latitude} , ${currentLocation!.longitude}");
+      setState(() {});
+    });
     super.initState();
   }
 
@@ -73,10 +75,6 @@ class _MapsState extends State<Maps> {
 
   @override
   Widget build(BuildContext context) {
-    currentLocation == null
-        ? log("Fetching")
-        : log(
-            "Current Location : ${currentLocation!.latitude} , ${currentLocation!.longitude}");
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -122,6 +120,9 @@ class _MapsState extends State<Maps> {
                     color: AppTheme.primaryColor,
                     width: 6)
               },
+        onMapCreated: (mapController){
+                _controller.complete(mapController);
+        },
             ),
     );
   }

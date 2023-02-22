@@ -133,10 +133,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   buttonName: "Register",
                   pushToPage: () async {
                     if (email == null || phone == null || password == null) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text("Please provide all the details")));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          content: Text("Please provide all the details"),),);
                     } else {
-                      Future.delayed(Duration(seconds: 2), () {
+                      Future.delayed(const Duration(seconds: 2), () {
                         showLoaderDialog(context);
                       });
                       OTP? otpFromBackend = await verifyOTP(phone!);
