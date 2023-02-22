@@ -40,14 +40,14 @@ class _ProviderJobPageState extends State<ProviderJobPage> {
       child: isEmptyProvider == true
           ? const EmptyProviderJobScreen()
           : Scaffold(
-              backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+              backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
               body: FutureBuilder<JobDetailsForProviderFeedModel?>(
                 future: getJobsForProvider(token!, email!),
                 builder: (context, snapshot) {
                   log(snapshot.data!.data![0].priority!);
                   log(state.toString());
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else {
                     // isEmptyProvider = false;
                     // setState(() {});
