@@ -12,7 +12,6 @@ import '../auth/profile_option.dart';
 import '../auth/registration.dart';
 import '../constants/constants.dart';
 
-
 String? state;
 
 class JobFormPage extends StatefulWidget {
@@ -36,10 +35,9 @@ class _JobFormPageState extends State<JobFormPage> {
   String? dueDate;
   String? title;
   String? job_type;
-  
   String? job_location;
   String? description;
-  String? price;
+  int? price;
 
   @override
   void initState() {
@@ -533,7 +531,7 @@ class _JobFormPageState extends State<JobFormPage> {
                             controller: _price,
                             onChanged: (value) {
                               setState(() {
-                                price = value;
+                                price = int.parse(value);
                               });
                             },
                             decoration: InputDecoration(
@@ -558,27 +556,22 @@ class _JobFormPageState extends State<JobFormPage> {
                     height: 25,
                   ),
                   SubmitButton(submitFunction: () async {
-                    log(title.toString());
-                    log(dueDate.toString());
-                    log(price.toString());
-                    var res = await createJob(
-                        title!,
-                        description!,
-                        job_type!,
-                        price!,
-                        MapsConstants.destination.latitude.toString(),
-                        MapsConstants.destination.longitude.toString(),
-                        token!,
-                        email!);
-                    Future.delayed(Duration(seconds: 3), () {
-                      return showLoaderDialog(context);
-                    });
-                    setState(() {
-                      isEmptyProvider = false;
-                      
-                    });
+                    log(title.toString() +
+                        startDate.toString() +
+                        job_type.toString() +
+                        dueDate.toString());
+
                     Navigator.pushReplacementNamed(
                         context, ProviderRoutes.ProviderRoutingPage);
+
+                    setState(() {
+                      isEmptyProvider = false;
+                    });
+                    // Future.delayed(Duration(seconds: 5), () {
+                    //   return showLoaderDialog(context);
+                    // });
+                    // Navigator.pushReplacementNamed(
+                    //     context, ProviderRoutes.ProviderRoutingPage);
                   }),
                 ],
               ),

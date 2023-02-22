@@ -3,6 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import '../constants/constants.dart';
 
+// ENUMS FOR STATUS & PRIORITY
+
+enum Status { ACTIVE, INACTIVE, COMPLETED }
+
+enum Priority { ULTRA_HIGH, HIGH, MEDIUM, LOW }
+
 class WorkersFeedPage extends StatefulWidget {
   const WorkersFeedPage({Key? key}) : super(key: key);
 
@@ -45,10 +51,76 @@ class _WorkersFeedPageState extends State<WorkersFeedPage> {
             children: const [
               JobFeedCard(
                   heading: "Designer",
-                  status: "ACTIVE",
-                  priority: "LOW",
+                  status: Status.ACTIVE,
+                  priority: Priority.LOW,
                   date: "15/02/2023",
                   price: "280"),
+              JobFeedCard(
+                  heading: "Chacha",
+                  status: Status.COMPLETED,
+                  priority: Priority.ULTRA_HIGH,
+                  date: "15/02/2023",
+                  price: "582"),
+              JobFeedCard(
+                  heading: "Harsh",
+                  status: Status.ACTIVE,
+                  priority: Priority.HIGH,
+                  date: "15/02/2023",
+                  price: "589"),
+              JobFeedCard(
+                  heading: "Pankha",
+                  status: Status.INACTIVE,
+                  priority: Priority.MEDIUM,
+                  date: "18/01/2023",
+                  price: "456"),
+              JobFeedCard(
+                  heading: "Cooler",
+                  status: Status.ACTIVE,
+                  priority: Priority.ULTRA_HIGH,
+                  date: "17/02/2023",
+                  price: "123"),
+              JobFeedCard(
+                  heading: "Desi",
+                  status: Status.COMPLETED,
+                  priority: Priority.LOW,
+                  date: "15/02/2023",
+                  price: "258"),
+              JobFeedCard(
+                  heading: "Janmejay",
+                  status: Status.ACTIVE,
+                  priority: Priority.MEDIUM,
+                  date: "15/01/2023",
+                  price: "742"),
+              JobFeedCard(
+                  heading: "Aadarsh",
+                  status: Status.INACTIVE,
+                  priority: Priority.LOW,
+                  date: "15/02/2023",
+                  price: "985"),
+              JobFeedCard(
+                  heading: "Developer",
+                  status: Status.COMPLETED,
+                  priority: Priority.HIGH,
+                  date: "15/12/2023",
+                  price: "321"),
+              JobFeedCard(
+                  heading: "Backend",
+                  status: Status.INACTIVE,
+                  priority: Priority.LOW,
+                  date: "15/05/2023",
+                  price: "587"),
+              JobFeedCard(
+                  heading: "OOPS",
+                  status: Status.ACTIVE,
+                  priority: Priority.ULTRA_HIGH,
+                  date: "15/09/2023",
+                  price: "458"),
+              JobFeedCard(
+                  heading: "TESTING",
+                  status: Status.ACTIVE,
+                  priority: Priority.MEDIUM,
+                  date: "15/07/2023",
+                  price: "652"),
             ],
           ),
         ),
@@ -68,8 +140,8 @@ class JobFeedCard extends StatefulWidget {
       : super(key: key);
 
   final String heading;
-  final String status;
-  final String priority;
+  final Status status;
+  final Priority priority;
   final String date;
   final String price;
 
@@ -87,19 +159,19 @@ class _JobFeedCardState extends State<JobFeedCard> {
     String? _priority;
     Color? priorityColor;
     switch (widget.status) {
-      case "ACTIVE":
+      case Status.ACTIVE:
         setState(() {
           _status = "Active";
           statusColor = Colors.green;
         });
         break;
-      case "COMPLETED":
+      case Status.COMPLETED:
         setState(() {
           _status = "Completed";
           statusColor = Colors.grey;
         });
         break;
-      case "INACTIVE":
+      case Status.INACTIVE:
         setState(() {
           _status = "Inactive";
           statusColor = Colors.orange;
@@ -108,25 +180,25 @@ class _JobFeedCardState extends State<JobFeedCard> {
     }
     ;
     switch (widget.priority) {
-      case "LOW":
+      case Priority.LOW:
         setState(() {
           _priority = "Low";
           priorityColor = Colors.green;
         });
         break;
-      case "MEDIUM":
+      case Priority.MEDIUM:
         setState(() {
           _priority = "Medium";
           priorityColor = Colors.yellow;
         });
         break;
-      case "HIGH":
+      case Priority.HIGH:
         setState(() {
           _priority = "High";
           priorityColor = Colors.orange;
         });
         break;
-      case "ULTRA_HIGH":
+      case Priority.ULTRA_HIGH:
         setState(() {
           _priority = "Ultra High";
           priorityColor = Colors.red;

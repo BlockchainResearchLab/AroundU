@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
 import 'package:tech_sprint_hackathon/auth/registration.dart';
@@ -9,6 +11,7 @@ import 'package:tech_sprint_hackathon/services/auth-api-service/registration_api
 import '../service-providers/provider_profile_page.dart';
 import '../service-providers/provider_profile_page.dart';
 import '../workers/worker_profile_page.dart';
+import 'dart:developer';
 
 int? mutex; // 0 == JOB PROVIDER && 1 == JOB WORKER
 
@@ -48,14 +51,14 @@ class _ProfileOptionState extends State<ProfileOption> {
     );
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    setState(() {
-      mutex == 0 ? profile = "Provider" : profile = "Worker";
-    });
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   setState(() {
+  //     mutex == 0 ? profile = "Provider" : profile = "Worker";
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +85,8 @@ class _ProfileOptionState extends State<ProfileOption> {
                   setState(() {
                     clicked = clicked + 1; // For counting the clicks
                     mutex = 1;
+                    profile = "Worker";
+                    print(profile);
                     print("Mutex = $mutex & ClickCount = $clicked");
                   });
                 },
@@ -120,6 +125,8 @@ class _ProfileOptionState extends State<ProfileOption> {
                   setState(() {
                     clicked = clicked + 1; // For counting the clicks
                     mutex = 0;
+                    profile = "Provider";
+                    print(profile);
                     print("Mutex = $mutex & ClickCount = $clicked");
                   });
                 },

@@ -41,32 +41,38 @@ class _ProviderJobPageState extends State<ProviderJobPage> {
           ? const EmptyProviderJobScreen()
           : Scaffold(
               backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-              body: FutureBuilder<JobDetailsForProviderFeedModel?>(
-                future: getJobsForProvider(token!, email!),
-                builder: (context, snapshot) {
-                  log(snapshot.data!.data![0].priority!);
-                  log(state.toString());
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
-                  } else {
-                    // isEmptyProvider = false;
-                    // setState(() {});
-                    return ListView.builder(
-                      itemCount: snapshot.data!.data!.length,
-                      itemBuilder: (context, index) {
-                        return JobPostCard(
-                          heading: snapshot.data!.data![index].title!,
-                          date: snapshot.data!.data![index].dueDate!,
-                          price: snapshot.data!.data![index].price!.toString(),
-                          priority: snapshot.data!.data![index].priority!,
-                          status: snapshot.data!.data![index].status!,
-                        );
-                      },
-                    );
-                  }
-                },
-              ),
-            ),
+              body: ListView(
+                children: [
+                  JobPostCard(
+                    heading: "Fan Repair",
+                    date: "22/02/2023",
+                    price: "250",
+                    priority: "HIGH",
+                    status: "ACTIVE",
+                  ),
+                  JobPostCard(
+                    heading: "Motor Repair",
+                    date: "22/02/2023",
+                    price: "687",
+                    priority: "HIGH",
+                    status: "ACTIVE",
+                  ),
+                  JobPostCard(
+                    heading: "Cooler not working",
+                    date: "22/02/2023",
+                    price: "417",
+                    priority: "LOW",
+                    status: "ACTIVE",
+                  ),
+                  JobPostCard(
+                    heading: "Need of Plumber",
+                    date: "22/02/2023",
+                    price: "504",
+                    priority: "MEDIUM",
+                    status: "ACTIVE",
+                  ),
+                ],
+              )),
     );
   }
 }
