@@ -25,6 +25,8 @@ class ImageLink {
   static const String history = "assets/images/History.png";
   static const String profileUpdate = "assets/images/ProfileUpdate.png";
   static const String comingSoon = "assets/images/ComingSoon.png";
+  static const String iconImage = "assets/images/Icon.png";
+  static const String chatImage = "assets/images/Chat.png";
 }
 
 class MapsConstants{
