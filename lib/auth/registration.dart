@@ -9,7 +9,6 @@ import '../constants/widgets/buttons.dart';
 import '../models/otp_model.dart';
 import '../services/auth-api-service/otp_api.dart';
 
-String? name;
 String? email;
 String? phone;
 String? password;
@@ -26,7 +25,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
+
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
       content: Row(
@@ -86,16 +85,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
               const SizedBox(
                 height: 23,
               ),
-              TextfieldWidget(
-                controller: nameController,
-                hintlines: "enter your name",
-                prefixIcon: Icon(Icons.account_circle_rounded),
-                onChanged: (value) {
-                  setState(() {
-                    name = value;
-                  });
-                },
-              ),
+              // TextfieldWidget(
+              //   controller: nameController,
+              //   hintlines: "enter your name",
+              //   prefixIcon: Icon(Icons.account_circle_rounded),
+              //   onChanged: (value) {
+              //     setState(() {
+              //       name = value;
+              //     });
+              //   },
+              // ),
               TextfieldWidget(
                 controller: emailController,
                 hintlines: "enter your email",
@@ -132,10 +131,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               FooterButton(
                   buttonName: "Register",
                   pushToPage: () async {
-                    if (name == null ||
-                        email == null ||
-                        phone == null ||
-                        password == null) {
+                    if (email == null || phone == null || password == null) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           content: Text("Please provide all the details")));
                     } else {
@@ -146,12 +142,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       setState(() {
                         otpRecieved = otpFromBackend!.otp;
                       });
-                      Navigator.pushNamed(context, Routes.OTPScreen);
                       Navigator.pop(context);
-                      emailController.dispose();
-                      nameController.dispose();
-                      passwordController.dispose();
-                      phoneController.dispose();
+                      Navigator.pushNamed(context, Routes.OTPScreen);
                     }
                   }),
               // ignore: prefer_const_constructors

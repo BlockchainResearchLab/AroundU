@@ -10,7 +10,7 @@ import '../service-providers/provider_profile_page.dart';
 import '../service-providers/provider_profile_page.dart';
 import '../workers/worker_profile_page.dart';
 
-int? mutex; // 0 == JOB PROVIDER && 1 == JOB SEEKER
+int? mutex; // 0 == JOB PROVIDER && 1 == JOB WORKER
 int clicked = 0;
 String? profile;
 String? token;
@@ -173,12 +173,12 @@ class _ProfileOptionState extends State<ProfileOption> {
                       token = dataFromBackend.token.toString();
                     });
 
-                    if (profile == "Worker") {
+                    if (mutex == 1) {
                       Navigator.pushReplacementNamed(
-                          context, WorkerRoutes.WorkersRoutingPage);
+                          context, WorkerRoutes.WorkersProfilePage);
                     } else {
                       Navigator.pushReplacementNamed(
-                          context, ProviderRoutes.ProviderRoutingPage);
+                          context, ProviderRoutes.ProviderProfilePage);
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
