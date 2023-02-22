@@ -130,7 +130,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 height: 23,
               ),
               FooterButton(
-<<<<<<< HEAD
                   buttonName: "Register",
                   pushToPage: () async {
                     if (email == null || phone == null || password == null) {
@@ -148,36 +147,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
                       Navigator.pushNamed(context, Routes.OTPScreen);
                     }
                   }),
-=======
-                buttonName: "Register",
-                pushToPage: () async {
-                  if (name == null ||
-                      email == null ||
-                      phone == null ||
-                      password == null) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Please provide all the details"),
-                      ),
-                    );
-                  } else {
-                    showLoaderDialog(context);
-                    OTP? otpFromBackend = await verifyOTP(phone!);
-                    setState(
-                      () {
-                        otpRecieved = otpFromBackend!.otp;
-                      },
-                    );
-                    Navigator.pushNamed(context, Routes.OTPScreen);
-                    Navigator.pop(context);
-                    emailController.dispose();
-                    nameController.dispose();
-                    passwordController.dispose();
-                    phoneController.dispose();
-                  }
-                },
-              ),
->>>>>>> e430cec947efe03ae113c9d27a0f326b1537e353
               // ignore: prefer_const_constructors
               SizedBox(
                 height: 23,
