@@ -9,6 +9,8 @@ bool isEmptyProvider = true;
 
 enum Status { ACTIVE, INACTIVE, COMPLETED }
 
+String state = "ACTIVE";
+
 enum Priority { ULTRA_HIGH, HIGH, MEDIUM, LOW }
 
 class ProviderJobPage extends StatefulWidget {
@@ -45,76 +47,10 @@ class _ProviderJobPageState extends State<ProviderJobPage> {
                   children: const [
                     JobPostCard(
                         heading: "DDDD",
-                        status: Status.ACTIVE,
-                        priority: Priority.LOW,
+                        status: "ACTIVE",
+                        priority: "LOW",
                         date: "15/02/2023",
                         price: "280"),
-                    JobPostCard(
-                        heading: "Chacha",
-                        status: Status.COMPLETED,
-                        priority: Priority.ULTRA_HIGH,
-                        date: "15/02/2023",
-                        price: "582"),
-                    JobPostCard(
-                        heading: "Harsh",
-                        status: Status.ACTIVE,
-                        priority: Priority.HIGH,
-                        date: "15/02/2023",
-                        price: "589"),
-                    JobPostCard(
-                        heading: "Pankha",
-                        status: Status.INACTIVE,
-                        priority: Priority.MEDIUM,
-                        date: "18/01/2023",
-                        price: "456"),
-                    JobPostCard(
-                        heading: "Cooler",
-                        status: Status.ACTIVE,
-                        priority: Priority.ULTRA_HIGH,
-                        date: "17/02/2023",
-                        price: "123"),
-                    JobPostCard(
-                        heading: "Desi",
-                        status: Status.COMPLETED,
-                        priority: Priority.LOW,
-                        date: "15/02/2023",
-                        price: "258"),
-                    JobPostCard(
-                        heading: "Janmejay",
-                        status: Status.ACTIVE,
-                        priority: Priority.MEDIUM,
-                        date: "15/01/2023",
-                        price: "742"),
-                    JobPostCard(
-                        heading: "Aadarsh",
-                        status: Status.INACTIVE,
-                        priority: Priority.LOW,
-                        date: "15/02/2023",
-                        price: "985"),
-                    JobPostCard(
-                        heading: "Developer",
-                        status: Status.COMPLETED,
-                        priority: Priority.HIGH,
-                        date: "15/12/2023",
-                        price: "321"),
-                    JobPostCard(
-                        heading: "Backend",
-                        status: Status.INACTIVE,
-                        priority: Priority.LOW,
-                        date: "15/05/2023",
-                        price: "587"),
-                    JobPostCard(
-                        heading: "OOPS",
-                        status: Status.ACTIVE,
-                        priority: Priority.ULTRA_HIGH,
-                        date: "15/09/2023",
-                        price: "458"),
-                    JobPostCard(
-                        heading: "TESTING",
-                        status: Status.ACTIVE,
-                        priority: Priority.MEDIUM,
-                        date: "15/07/2023",
-                        price: "652"),
                   ],
                 ),
               ),
@@ -134,8 +70,8 @@ class JobPostCard extends StatefulWidget {
       : super(key: key);
 
   final String heading;
-  final Status status;
-  final Priority priority;
+  final String status;
+  final String priority;
   final String date;
   final String price;
 
@@ -153,19 +89,19 @@ class _JobPostCardState extends State<JobPostCard> {
     String? _priority;
     Color? priorityColor;
     switch (widget.status) {
-      case Status.ACTIVE:
+      case "ACTIVE":
         setState(() {
           _status = "Active";
           statusColor = Colors.green;
         });
         break;
-      case Status.COMPLETED:
+      case "COMPLETED":
         setState(() {
           _status = "Completed";
           statusColor = Colors.grey;
         });
         break;
-      case Status.INACTIVE:
+      case "INACTIVE":
         setState(() {
           _status = "Inactive";
           statusColor = Colors.orange;
@@ -174,25 +110,25 @@ class _JobPostCardState extends State<JobPostCard> {
     }
     ;
     switch (widget.priority) {
-      case Priority.LOW:
+      case "LOW":
         setState(() {
           _priority = "Low";
           priorityColor = Colors.green;
         });
         break;
-      case Priority.MEDIUM:
+      case "MEDIUM":
         setState(() {
           _priority = "Medium";
           priorityColor = Colors.yellow;
         });
         break;
-      case Priority.HIGH:
+      case "HIGH":
         setState(() {
           _priority = "High";
           priorityColor = Colors.orange;
         });
         break;
-      case Priority.ULTRA_HIGH:
+      case "ULTRA_HIGH":
         setState(() {
           _priority = "Ultra High";
           priorityColor = Colors.red;

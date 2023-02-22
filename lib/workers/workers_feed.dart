@@ -3,17 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import '../constants/constants.dart';
 
-
-// ENUMS FOR STATUS & PRIORITY
-
-enum Status{
-  ACTIVE,INACTIVE,COMPLETED
-}
-
-enum Priority{
-  ULTRA_HIGH,HIGH,MEDIUM,LOW
-}
-
 class WorkersFeedPage extends StatefulWidget {
   const WorkersFeedPage({Key? key}) : super(key: key);
 
@@ -23,10 +12,19 @@ class WorkersFeedPage extends StatefulWidget {
 
 class _WorkersFeedPageState extends State<WorkersFeedPage> {
   @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return CustomRefreshIndicator(
       onRefresh: () {
-        return Future.delayed(const Duration(seconds: 2),);
+        return Future.delayed(
+          const Duration(seconds: 2),
+        );
       },
       builder: MaterialIndicatorDelegate(
         backgroundColor: AppTheme.primaryColor,
@@ -45,18 +43,12 @@ class _WorkersFeedPageState extends State<WorkersFeedPage> {
           // ),
           child: ListView(
             children: const [
-              JobFeedCard(heading: "Designer", status: Status.ACTIVE, priority: Priority.LOW, date: "15/02/2023", price: "280"),
-              JobFeedCard(heading: "Chacha", status: Status.COMPLETED, priority: Priority.ULTRA_HIGH, date: "15/02/2023", price: "582"),
-              JobFeedCard(heading: "Harsh", status: Status.ACTIVE, priority: Priority.HIGH, date: "15/02/2023", price: "589"),
-              JobFeedCard(heading: "Pankha", status: Status.INACTIVE, priority: Priority.MEDIUM, date: "18/01/2023", price: "456"),
-              JobFeedCard(heading: "Cooler", status: Status.ACTIVE, priority: Priority.ULTRA_HIGH, date: "17/02/2023", price: "123"),
-              JobFeedCard(heading: "Desi", status: Status.COMPLETED, priority: Priority.LOW, date: "15/02/2023", price: "258"),
-              JobFeedCard(heading: "Janmejay", status: Status.ACTIVE, priority: Priority.MEDIUM, date: "15/01/2023", price: "742"),
-              JobFeedCard(heading: "Aadarsh", status: Status.INACTIVE, priority: Priority.LOW, date: "15/02/2023", price: "985"),
-              JobFeedCard(heading: "Developer", status: Status.COMPLETED, priority: Priority.HIGH, date: "15/12/2023", price: "321"),
-              JobFeedCard(heading: "Backend", status: Status.INACTIVE, priority: Priority.LOW, date: "15/05/2023", price: "587"),
-              JobFeedCard(heading: "OOPS", status: Status.ACTIVE, priority: Priority.ULTRA_HIGH, date: "15/09/2023", price: "458"),
-              JobFeedCard(heading: "TESTING", status: Status.ACTIVE, priority: Priority.MEDIUM, date: "15/07/2023", price: "652"),
+              JobFeedCard(
+                  heading: "Designer",
+                  status: "ACTIVE",
+                  priority: "LOW",
+                  date: "15/02/2023",
+                  price: "280"),
             ],
           ),
         ),
@@ -66,14 +58,20 @@ class _WorkersFeedPageState extends State<WorkersFeedPage> {
 }
 
 class JobFeedCard extends StatefulWidget {
-  const JobFeedCard({Key? key, required this.heading, required this.status, required this.priority, required this.date, required this.price}) : super(key: key);
+  const JobFeedCard(
+      {Key? key,
+      required this.heading,
+      required this.status,
+      required this.priority,
+      required this.date,
+      required this.price})
+      : super(key: key);
 
   final String heading;
-  final Status status;
-  final Priority priority;
+  final String status;
+  final String priority;
   final String date;
   final String price;
-
 
   @override
   State<JobFeedCard> createState() => _JobFeedCardState();
@@ -88,44 +86,52 @@ class _JobFeedCardState extends State<JobFeedCard> {
     Color? statusColor;
     String? _priority;
     Color? priorityColor;
-    switch(widget.status){
-      case Status.ACTIVE : setState(() {
-        _status = "Active";
-        statusColor = Colors.green;
-      });
-      break;
-      case Status.COMPLETED : setState(() {
-        _status = "Completed";
-        statusColor = Colors.grey;
-      });
-      break;
-      case Status.INACTIVE : setState(() {
-        _status = "Inactive";
-        statusColor = Colors.orange;
-      });
-      break;
-    };
-    switch(widget.priority){
-      case Priority.LOW : setState(() {
-        _priority = "Low";
-        priorityColor = Colors.green;
-      });
-      break;
-      case Priority.MEDIUM : setState(() {
-        _priority = "Medium";
-        priorityColor = Colors.yellow;
-      });
-      break;
-      case Priority.HIGH : setState(() {
-        _priority = "High";
-        priorityColor = Colors.orange;
-      });
-      break;
-      case Priority.ULTRA_HIGH : setState(() {
-        _priority = "Ultra High";
-        priorityColor = Colors.red;
-      });
-      break;
+    switch (widget.status) {
+      case "ACTIVE":
+        setState(() {
+          _status = "Active";
+          statusColor = Colors.green;
+        });
+        break;
+      case "COMPLETED":
+        setState(() {
+          _status = "Completed";
+          statusColor = Colors.grey;
+        });
+        break;
+      case "INACTIVE":
+        setState(() {
+          _status = "Inactive";
+          statusColor = Colors.orange;
+        });
+        break;
+    }
+    ;
+    switch (widget.priority) {
+      case "LOW":
+        setState(() {
+          _priority = "Low";
+          priorityColor = Colors.green;
+        });
+        break;
+      case "MEDIUM":
+        setState(() {
+          _priority = "Medium";
+          priorityColor = Colors.yellow;
+        });
+        break;
+      case "HIGH":
+        setState(() {
+          _priority = "High";
+          priorityColor = Colors.orange;
+        });
+        break;
+      case "ULTRA_HIGH":
+        setState(() {
+          _priority = "Ultra High";
+          priorityColor = Colors.red;
+        });
+        break;
     }
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),

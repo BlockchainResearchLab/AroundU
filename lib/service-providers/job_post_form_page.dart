@@ -5,6 +5,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
+import 'package:tech_sprint_hackathon/services/job_create_api.dart';
+import '../auth/profile_option.dart';
+import '../auth/registration.dart';
 import '../constants/constants.dart';
 
 class JobFormPage extends StatefulWidget {
@@ -42,6 +45,29 @@ class _JobFormPageState extends State<JobFormPage> {
   }
 
   final _validationKey = GlobalKey<FormState>();
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Logging in..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +184,7 @@ class _JobFormPageState extends State<JobFormPage> {
                               fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.6,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             validator: (startDate) {
@@ -263,7 +289,7 @@ class _JobFormPageState extends State<JobFormPage> {
                               fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.4,
+                          width: MediaQuery.of(context).size.width * 0.6,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             validator: (startDate) {
@@ -523,9 +549,21 @@ class _JobFormPageState extends State<JobFormPage> {
                     ),
                   ),
                   const SizedBox(
+                    // 28.5388565 , 77.2552762
                     height: 25,
                   ),
-                  SubmitButton(submitFunction: () async {}),
+                  SubmitButton(submitFunction: () async {
+                    var res = await createJob(title!, description!, job_type!,
+                        price!, "28.5388565", "77.2552762", token!, email!);
+                    if (res == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Not Submitted")));
+                    } else {
+                      log(res.message.toString());
+                      Navigator.pushReplacementNamed(
+                          context, WorkerRoutes.WorkerFeedPage);
+                    }
+                  }),
                 ],
               ),
             ),
