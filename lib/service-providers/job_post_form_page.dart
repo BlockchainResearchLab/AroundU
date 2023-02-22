@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:tech_sprint_hackathon/services/job_create_api.dart';
-import '../auth/registration.dart';
+import 'package:tech_sprint_hackathon/Routes/routes.dart';
 import '../constants/constants.dart';
 
 class JobFormPage extends StatefulWidget {
@@ -431,6 +430,21 @@ class _JobFormPageState extends State<JobFormPage> {
                         ),
                       ],
                     ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () =>
+                            Navigator.pushNamed(context, Routes.Maps),
+                        child: Row(
+                          children: const [
+                            Text("Show on map"),
+                            Icon(Icons.my_location)
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
