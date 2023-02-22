@@ -152,7 +152,7 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                         );
                       });
                       Navigator.pushReplacementNamed(
-                          context, WorkerRoutes.WorkersRoutingPage);
+                          context, ProviderRoutes.ProviderRoutingPage);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(content: Text("Error Ocurred")));
