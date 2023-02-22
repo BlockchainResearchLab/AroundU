@@ -75,10 +75,10 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "Title:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.52,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _titleController,
@@ -107,10 +107,10 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "Job Type:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.52,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _jobTypeController,
@@ -142,7 +142,7 @@ class _JobFormPageState extends State<JobFormPage> {
                               fontSize: 25, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             validator: (startDate) {
@@ -244,10 +244,10 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "Due Date:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.5,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             validator: (startDate) {
@@ -349,10 +349,10 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "State:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.52,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _state,
@@ -381,10 +381,10 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "Job Location:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.52,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _jobLocation,
@@ -428,7 +428,7 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "Description:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                       ],
                     ),
@@ -462,10 +462,10 @@ class _JobFormPageState extends State<JobFormPage> {
                         Text(
                           "Price:",
                           style: GoogleFonts.inter(
-                              fontSize: 25, fontWeight: FontWeight.w500),
+                              fontSize: 20, fontWeight: FontWeight.w500),
                         ),
                         Container(
-                          width: MediaQuery.of(context).size.width * 0.52,
+                          width: MediaQuery.of(context).size.width * 0.45,
                           padding: const EdgeInsets.all(10),
                           child: TextFormField(
                             controller: _price,
