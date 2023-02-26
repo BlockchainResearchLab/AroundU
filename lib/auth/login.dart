@@ -15,7 +15,7 @@ import '../constants/widgets/buttons.dart';
 import '../models/login_model.dart';
 import 'package:http/http.dart' as http;
 
-String? email;
+String? loggedEmail;
 String? password;
 String? isSuccess = "false";
 
@@ -74,12 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void _printLatestUsername() {
     setState(
       () {
-        email = emailController.text;
+        loggedEmail = emailController.text;
       },
     );
 
     if (kDebugMode) {
-      print(email);
+      print(loggedEmail);
     }
   }
 
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onChanged: (value) {
                   setState(
                     () {
-                      email = value;
+                      loggedEmail = value;
                     },
                   );
                 },
@@ -163,7 +163,7 @@ class _LoginScreenState extends State<LoginScreen> {
               FooterButton(
                   buttonName: "LOG IN",
                   pushToPage: () async {
-                    if (email == null || password == null) {
+                    if (loggedEmail == null || password == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text("Provide essential details"),
@@ -171,20 +171,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     } else {
                       showLoaderDialog(context);
-                      Login? logData = await login(email!, password!);
+                      Login? logData = await login(loggedEmail!, password!);
                       if (logData != null) {
                         log(logData.token.toString());
-                        token = logData.token;
-                        Navigator.pop(context);
-                        // emailController.dispose();
-                        // passwordController.dispose();
-                        if (logData.profile == "Worker") {
+                        setState(() {
+                          token = logData.token;
+                        });
+                        setState(() {
+                          email = loggedEmail;
                           profile = logData.profile;
-                          Navigator.pushReplacementNamed(
-                              context, WorkerRoutes.WorkersRoutingPage);
+                        });
+                        if (logData.profile == "Worker") {
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context)
+                              .pushNamed(WorkerRoutes.WorkersRoutingPage);
                         } else {
-                          Navigator.pushReplacementNamed(
-                              context, ProviderRoutes.ProviderRoutingPage);
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context)
+                              .pushNamed(ProviderRoutes.ProviderRoutingPage);
                         }
                       } else {
                         Navigator.pop(context);

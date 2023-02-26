@@ -162,7 +162,7 @@ class _JobDetailCardState extends State<JobDetailCard> {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
       child: SizedBox(
         width: 340 * fem,
-        height: 610 * fem,
+        height: 710 * fem,
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15 * fem),
@@ -524,7 +524,7 @@ class _AppliedWorkerCardState extends State<AppliedWorkerCard> {
                       borderSideColor: Colors.blueGrey.shade500,
                       childWidget: Image.asset(
                         ImageLink.chatImage,
-                        scale: 2,
+                        scale: 4,
                       ),
                     ),
                   ],

@@ -5,27 +5,53 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:tech_sprint_hackathon/auth/profile_option.dart';
 import 'package:tech_sprint_hackathon/auth/registration.dart';
+import 'package:tech_sprint_hackathon/service-providers/job_details.dart';
 import '../constants/constants.dart';
 import '../models/JobDetailsForProviderFeedModel.dart';
-import '../services/jobDetailsForProvider.dart';
+import '../services/jobDetailsForProviderAPI.dart';
 import 'job_post_form_page.dart';
 
-bool isEmptyProvider = true;
+late String jobId = "";
 
 class ProviderJobPage extends StatefulWidget {
-  const ProviderJobPage({Key? key}) : super(key: key);
+  ProviderJobPage({Key? key}) : super(key: key);
 
   @override
   State<ProviderJobPage> createState() => _ProviderJobPageState();
 }
 
 class _ProviderJobPageState extends State<ProviderJobPage> {
+  // @override
+  // void initState() {
+  //   setState(() {});
+  //   // TODO: implement initState
+  //   resGetJobsForProvider = getJobsForProvider(token!, email!);
+  //   if (resGetJobsForProvider == null) {
+  //     isEmptyProvider = true;
+  //   } else {
+  //     isEmptyProvider = false;
+  //   }
+  //   super.initState();
+  // }
+
+  JobDetails jobDetails = JobDetails();
+
+  late Future<JobDetailsForProviderFeedModel> fetch;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    fetch = jobDetails.getJobsForProvider(token!, email!);
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomRefreshIndicator(
       onRefresh: () {
         return Future.delayed(const Duration(seconds: 2), () {
-          setState(() {});
+          // setState(() {
+          //   resGetJobsForProvider = getJobsForProvider(token!, email!);
+          // });
         });
       },
       builder: MaterialIndicatorDelegate(
@@ -37,42 +63,42 @@ class _ProviderJobPageState extends State<ProviderJobPage> {
           );
         },
       ),
-      child: isEmptyProvider == true
-          ? const EmptyProviderJobScreen()
-          : Scaffold(
-              backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-              body: ListView(
-                children: [
-                  JobPostCard(
-                    heading: "Fan Repair",
-                    date: "22/02/2023",
-                    price: "250",
-                    priority: "HIGH",
-                    status: "ACTIVE",
-                  ),
-                  JobPostCard(
-                    heading: "Motor Repair",
-                    date: "22/02/2023",
-                    price: "687",
-                    priority: "HIGH",
-                    status: "ACTIVE",
-                  ),
-                  JobPostCard(
-                    heading: "Cooler not working",
-                    date: "22/02/2023",
-                    price: "417",
-                    priority: "LOW",
-                    status: "ACTIVE",
-                  ),
-                  JobPostCard(
-                    heading: "Need of Plumber",
-                    date: "22/02/2023",
-                    price: "504",
-                    priority: "MEDIUM",
-                    status: "ACTIVE",
-                  ),
-                ],
-              )),
+      child: Scaffold(
+          backgroundColor: Color.fromRGBO(255, 255, 255, 1),
+          body: FutureBuilder<JobDetailsForProviderFeedModel>(
+            future: fetch,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.data!.length,
+                  itemBuilder: (context, index) {
+                    return JobPostCard(
+                      onTap: () {
+                        setState(() {
+                          jobId = snapshot.data!.data![index].sId
+                              .toString(); //use this jobID to track the current tapped job tile.
+                        });
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return JobDetailPage();
+                          },
+                        ));
+                      },
+                      price: snapshot.data!.data![index].price!.toString(),
+                      heading: snapshot.data!.data![index].title!,
+                      date: snapshot.data!.data![index].dueDate!,
+                      priority: snapshot.data!.data![index].priority!,
+                      status: snapshot.data!.data![index].status!,
+                    );
+                  },
+                );
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else {
+                return EmptyProviderJobScreen();
+              }
+            },
+          )),
     );
   }
 }
@@ -84,7 +110,8 @@ class JobPostCard extends StatefulWidget {
       required this.status,
       required this.priority,
       required this.date,
-      required this.price})
+      required this.price,
+      required this.onTap})
       : super(key: key);
 
   final String heading;
@@ -92,7 +119,7 @@ class JobPostCard extends StatefulWidget {
   final String priority;
   final String date;
   final String price;
-
+  final VoidCallback onTap;
   @override
   State<JobPostCard> createState() => _JobPostCardState();
 }
@@ -152,158 +179,161 @@ class _JobPostCardState extends State<JobPostCard> {
         });
         break;
     }
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
-      child: SizedBox(
-        width: 328 * fem,
-        height: 200 * fem,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15 * fem),
-            color: const Color(0xffffffff),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0x3f000000),
-                offset: Offset(0 * fem, 4 * fem),
-                blurRadius: 9 * fem,
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      widget.heading,
-                      style: GoogleFonts.inter(
-                          fontSize: 28, fontWeight: FontWeight.w800),
-                    ),
-                    Image.asset(
-                      ImageLink.bookmark,
-                      scale: 4,
-                    ),
-                  ],
+    return InkWell(
+      onTap: widget.onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+        child: SizedBox(
+          width: 328 * fem,
+          height: 200 * fem,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15 * fem),
+              color: const Color(0xffffffff),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0x3f000000),
+                  offset: Offset(0 * fem, 4 * fem),
+                  blurRadius: 9 * fem,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 15.0, vertical: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Status: ",
-                            style: GoogleFonts.inter(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            width: 125,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: statusColor,
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 4),
-                                child: Text(
-                                  _status!,
-                                  style: GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10.0,
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Priority:",
-                            style: GoogleFonts.inter(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            width: 125,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(25),
-                              color: priorityColor,
-                            ),
-                            child: Center(
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 8.0, vertical: 4),
-                                child: Text(
-                                  _priority!,
-                                  style: GoogleFonts.inter(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
-                  child: Row(
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Due Date: ${widget.date}", // DATE
+                        widget.heading,
                         style: GoogleFonts.inter(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.w600,
-                        ),
+                            fontSize: 28, fontWeight: FontWeight.w800),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(
-                            ImageLink.priceTag,
-                            scale: 4,
-                          ),
-                          Text(
-                            "   ₹ ${widget.price}", // PRICE
-                            style: GoogleFonts.inter(
-                              color: AppTheme.primaryColor,
-                              fontSize: 25.0,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      )
+                      Image.asset(
+                        ImageLink.bookmark,
+                        scale: 4,
+                      ),
                     ],
                   ),
-                )
-              ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Status: ",
+                              style: GoogleFonts.inter(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              width: 125,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: statusColor,
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0, vertical: 4),
+                                  child: Text(
+                                    _status!,
+                                    style: GoogleFonts.inter(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Row(
+                          children: [
+                            Text(
+                              "Priority:",
+                              style: GoogleFonts.inter(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Container(
+                              width: 125,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(25),
+                                color: priorityColor,
+                              ),
+                              child: Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8.0, vertical: 4),
+                                  child: Text(
+                                    _priority!,
+                                    style: GoogleFonts.inter(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Due Date: ${widget.date}", // DATE
+                          style: GoogleFonts.inter(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Image.asset(
+                              ImageLink.priceTag,
+                              scale: 4,
+                            ),
+                            Text(
+                              "   ₹ ${widget.price}", // PRICE
+                              style: GoogleFonts.inter(
+                                color: AppTheme.primaryColor,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),

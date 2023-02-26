@@ -6,7 +6,7 @@ import 'package:tech_sprint_hackathon/Routes/routes.dart';
 import 'provider_job_page.dart';
 import '../constants/constants.dart';
 
-int _currentIndex = 0;
+int? _currentIndex = 0;
 
 class ProvidersRoutingPage extends StatefulWidget {
   const ProvidersRoutingPage({Key? key}) : super(key: key);
@@ -47,7 +47,7 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
             ),
           ),
         ),
-        body: ProviderRoutes.allProviderPages.elementAt(_currentIndex),
+        body: ProviderRoutes.allProviderPages.elementAt(_currentIndex!),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -116,7 +116,7 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
                     textSize: 40,
                   ),
                 ],
-                selectedIndex: _currentIndex,
+                selectedIndex: _currentIndex!,
                 onTabChange: (index) {
                   setState(
                     () {

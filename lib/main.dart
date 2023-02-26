@@ -32,7 +32,7 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/jobDetails',
+      initialRoute: '/splash',
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
@@ -44,10 +44,11 @@ class AroundU extends StatelessWidget {
         '/pprofile': (context) => const ProviderProfilePage(),
         '/wprofile': (context) => const WorkerProfilePage(),
         '/wrouting': (context) => const WorkerRoutingPage(),
-        '/prouting': (context) => const ProvidersRoutingPage(),
+        '/prouting': (context) => ProvidersRoutingPage(),
         '/jobPost': (context) => const JobFormPage(),
         '/maps': (context) => const Maps(),
         '/jobDetails': (context) => const JobDetailPage(),
+        '/wjobdetails': (context) => const JobDetailPage(),
       },
     );
   }

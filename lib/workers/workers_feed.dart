@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:tech_sprint_hackathon/Routes/routes.dart';
 import '../constants/constants.dart';
 
 // ENUMS FOR STATUS & PRIORITY
@@ -48,79 +49,43 @@ class _WorkersFeedPageState extends State<WorkersFeedPage> {
           //   "WORKER FEED PAGE",
           // ),
           child: ListView(
-            children: const [
+            children: [
+              InkWell(
+                onTap: () {
+                  Navigator.pushNamed(
+                      context, WorkerRoutes.WorkersJobDetailsPage);
+                },
+                child: JobFeedCard(
+                    heading: "Need of plumber",
+                    status: Status.ACTIVE,
+                    priority: Priority.LOW,
+                    date: "15/02/2023",
+                    price: "280"),
+              ),
               JobFeedCard(
-                  heading: "Designer",
-                  status: Status.ACTIVE,
-                  priority: Priority.LOW,
-                  date: "15/02/2023",
-                  price: "280"),
-              JobFeedCard(
-                  heading: "Chacha",
+                  heading: "Fan Repair",
                   status: Status.COMPLETED,
                   priority: Priority.ULTRA_HIGH,
                   date: "15/02/2023",
                   price: "582"),
               JobFeedCard(
-                  heading: "Harsh",
+                  heading: "Motor Repair",
                   status: Status.ACTIVE,
                   priority: Priority.HIGH,
                   date: "15/02/2023",
                   price: "589"),
               JobFeedCard(
-                  heading: "Pankha",
+                  heading: "Cooler Repair",
                   status: Status.INACTIVE,
                   priority: Priority.MEDIUM,
                   date: "18/01/2023",
                   price: "456"),
               JobFeedCard(
-                  heading: "Cooler",
+                  heading: "Cooler not working",
                   status: Status.ACTIVE,
                   priority: Priority.ULTRA_HIGH,
                   date: "17/02/2023",
                   price: "123"),
-              JobFeedCard(
-                  heading: "Desi",
-                  status: Status.COMPLETED,
-                  priority: Priority.LOW,
-                  date: "15/02/2023",
-                  price: "258"),
-              JobFeedCard(
-                  heading: "Janmejay",
-                  status: Status.ACTIVE,
-                  priority: Priority.MEDIUM,
-                  date: "15/01/2023",
-                  price: "742"),
-              JobFeedCard(
-                  heading: "Aadarsh",
-                  status: Status.INACTIVE,
-                  priority: Priority.LOW,
-                  date: "15/02/2023",
-                  price: "985"),
-              JobFeedCard(
-                  heading: "Developer",
-                  status: Status.COMPLETED,
-                  priority: Priority.HIGH,
-                  date: "15/12/2023",
-                  price: "321"),
-              JobFeedCard(
-                  heading: "Backend",
-                  status: Status.INACTIVE,
-                  priority: Priority.LOW,
-                  date: "15/05/2023",
-                  price: "587"),
-              JobFeedCard(
-                  heading: "OOPS",
-                  status: Status.ACTIVE,
-                  priority: Priority.ULTRA_HIGH,
-                  date: "15/09/2023",
-                  price: "458"),
-              JobFeedCard(
-                  heading: "TESTING",
-                  status: Status.ACTIVE,
-                  priority: Priority.MEDIUM,
-                  date: "15/07/2023",
-                  price: "652"),
             ],
           ),
         ),

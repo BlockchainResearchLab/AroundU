@@ -403,14 +403,14 @@ class _JobFormPageState extends State<JobFormPage> {
                             controller: _state,
                             onChanged: (value) {
                               setState(() {
-                                state = value;
+                                state = value.toUpperCase();
                               });
                             },
                             decoration: InputDecoration(
                               hintStyle: GoogleFonts.inter(
                                 color: const Color(0xff565656),
                               ),
-                              hintText: "High",
+                              hintText: "HIGH",
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -538,7 +538,7 @@ class _JobFormPageState extends State<JobFormPage> {
                               hintStyle: GoogleFonts.inter(
                                 color: const Color(0xff565656),
                               ),
-                              hintText: "₹ 280",
+                              hintText: "₹",
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -556,17 +556,47 @@ class _JobFormPageState extends State<JobFormPage> {
                     height: 25,
                   ),
                   SubmitButton(submitFunction: () async {
-                    log(title.toString() +
-                        startDate.toString() +
-                        job_type.toString() +
-                        dueDate.toString());
+                    log({
+                      "title": title,
+                      "description": description,
+                      "type": description,
+                      "price": price,
+                      "latitude": "dummy",
+                      "longitude": "dummy",
+                      "state": state,
+                      "due_date": dueDate,
+                      "start_date": startDate,
+                    }.toString());
+                    log(email.toString());
+                    log(token.toString());
+                    await createJob(
+                      description: description!,
+                      due_date: dueDate!,
+                      email: email!,
+                      latitude: "35.12478",
+                      longitude: "78.12457",
+                      price: price!,
+                      start_date: startDate!,
+                      state: state!,
+                      title: title!,
+                      token: token!,
+                      type: job_type!,
+                    )
+                        .onError((error, stackTrace) =>
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Job not posted"))))
+                        .whenComplete(() => ScaffoldMessenger.of(context)
+                            .showSnackBar(SnackBar(
+                                content: Text("Job Created test 103"))))
+                        .whenComplete(() => Navigator.pushReplacementNamed(
+                            context, ProviderRoutes.ProviderRoutingPage));
 
-                    Navigator.pushReplacementNamed(
-                        context, ProviderRoutes.ProviderRoutingPage);
+                    // setState(() {
+                    //   isEmptyProvider = false;
+                    // });
+                    // Navigator.pushReplacementNamed(
+                    //     context, ProviderRoutes.ProviderRoutingPage);
 
-                    setState(() {
-                      isEmptyProvider = false;
-                    });
                     // Future.delayed(Duration(seconds: 5), () {
                     //   return showLoaderDialog(context);
                     // });
