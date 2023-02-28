@@ -173,6 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       showLoaderDialog(context);
                       Login? logData = await login(loggedEmail!, password!);
                       if (logData != null) {
+                        Navigator.pop(context);
                         log(logData.token.toString());
                         setState(() {
                           token = logData.token;
@@ -183,12 +184,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         });
                         if (logData.profile == "Worker") {
                           // ignore: use_build_context_synchronously
-                          Navigator.of(context)
-                              .pushNamed(WorkerRoutes.WorkersRoutingPage);
+                          Navigator.of(context).pushReplacementNamed(
+                              WorkerRoutes.WorkersRoutingPage);
                         } else {
                           // ignore: use_build_context_synchronously
-                          Navigator.of(context)
-                              .pushNamed(ProviderRoutes.ProviderRoutingPage);
+                          Navigator.of(context).pushReplacementNamed(
+                              ProviderRoutes.ProviderRoutingPage);
                         }
                       } else {
                         Navigator.pop(context);

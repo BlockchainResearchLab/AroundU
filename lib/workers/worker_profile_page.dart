@@ -196,10 +196,11 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                     var responseFromBack =
                         await workerDetails(name!, address!, tags);
                     if (responseFromBack != null) {
-                      Future.delayed(Duration(seconds: 2), () {
-                        return AlertDialog(
-                          content: Text("Your Profile as $profile is created"),
-                        );
+                      Future.delayed(Duration(seconds: 1), () {
+                        return ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    "Your profile as $profile is created.")));
                       });
                       Navigator.pushReplacementNamed(
                           context, WorkerRoutes.WorkersRoutingPage);

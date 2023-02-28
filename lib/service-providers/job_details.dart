@@ -1,8 +1,17 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tech_sprint_hackathon/auth/registration.dart';
+import 'package:tech_sprint_hackathon/service-providers/provider_job_page.dart';
+import 'package:tech_sprint_hackathon/services/jobDetailsForJobIDForProvider_api.dart';
+import '../auth/profile_option.dart';
 import '../constants/constants.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+
+import '../models/jobDetailForJobIDModel.dart';
+import '../models/jobDetailsOfJobIDForProviderModel.dart';
+
+bool isWorkerListEmpty = true;
 
 class JobDetailPage extends StatefulWidget {
   const JobDetailPage({Key? key}) : super(key: key);
@@ -12,6 +21,15 @@ class JobDetailPage extends StatefulWidget {
 }
 
 class _JobDetailPageState extends State<JobDetailPage> {
+  JobDetailsForJobID jobDetailsForJobID = JobDetailsForJobID();
+  late Future<JobDetailsOfJobIDForProvider?> fetch;
+  @override
+  void initState() {
+    // TODO: implement initState
+    fetch = jobDetailsForJobID.getDetailsForJobID(jobId, token!, email!);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -46,56 +64,78 @@ class _JobDetailPageState extends State<JobDetailPage> {
             );
           },
         ),
-        child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 18.0),
-                    child: Text(
-                      "Job Title",
-                      style: GoogleFonts.inter(
-                          color: Colors.grey.shade600,
-                          fontSize: 35,
-                          fontWeight: FontWeight.w600),
+        child: FutureBuilder<JobDetailsOfJobIDForProvider?>(
+            future: fetch,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                if (snapshot.data!.workersDetails!.isEmpty) {
+                  isWorkerListEmpty = true;
+                } else {
+                  isWorkerListEmpty = false;
+                }
+                return SingleChildScrollView(
+                  child: Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 18.0),
+                            child: Text(
+                              snapshot.data!.jobDetails!.title.toString(),
+                              style: GoogleFonts.inter(
+                                  color: Colors.grey.shade600,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                        ),
+                        JobDetailCard(
+                          jobType: snapshot.data!.jobDetails!.type!.toString(),
+                          jobLocation: "Govindpuram, GZB",
+                          jobDescription: snapshot
+                              .data!.jobDetails!.description!
+                              .toString(),
+                          startDate:
+                              snapshot.data!.jobDetails!.startDate!.toString(),
+                          dueDate:
+                              snapshot.data!.jobDetails!.dueDate!.toString(),
+                          priority:
+                              snapshot.data!.jobDetails!.priority!.toString(),
+                          price: snapshot.data!.jobDetails!.price!.toString(),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 18.0, horizontal: 20),
+                              child: Text(
+                                "Applied Workers",
+                                style: GoogleFonts.inter(
+                                    color: Colors.grey.shade600,
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            isWorkerListEmpty == true
+                                ? Text("No Applied Workers yet")
+                                : const AppliedWorkerCard(
+                                    workerFullName: "Janmejay Singh",
+                                    workerExperience: "Nalla Chhapri Berozgaar",
+                                  ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                ),
-                JobDetailCard(
-                  jobType: "Designer",
-                  jobLocation: "Govindpuram, GZB",
-                  jobDescription: "Lorem Ipsum dolor sit amet " * 20,
-                  startDate: "start date",
-                  dueDate: "due date",
-                  priority: 'ULTRA_HIGH',
-                  price: '280',
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 18.0, horizontal: 20),
-                      child: Text(
-                        "Applied Workers",
-                        style: GoogleFonts.inter(
-                            color: Colors.grey.shade600,
-                            fontSize: 30,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    const AppliedWorkerCard(
-                      workerFullName: "Janmejay Singh",
-                      workerExperience: "Nalla Chhapri Berozgaar",
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+                );
+              }
+            }),
       ),
     );
   }

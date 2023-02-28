@@ -146,10 +146,11 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                   pushToPage: () async {
                     var responseFromBack = await providerDetails(name!);
                     if (responseFromBack != null) {
-                      Future.delayed(Duration(seconds: 3), () {
-                        return AlertDialog(
-                          content: Text("Your Profile as $profile is created"),
-                        );
+                      Future.delayed(Duration(seconds: 1), () {
+                        return ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    "Your profile as $profile is created.")));
                       });
                       Navigator.pushReplacementNamed(
                           context, ProviderRoutes.ProviderRoutingPage);

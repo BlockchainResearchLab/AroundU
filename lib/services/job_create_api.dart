@@ -19,7 +19,7 @@ Future<void> createJob({
       headers: {
         'token': token,
         'email': email,
-        'Accept': 'application/json',
+        // 'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: jsonEncode({
