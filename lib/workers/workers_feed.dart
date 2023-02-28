@@ -1,14 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
+import 'package:tech_sprint_hackathon/services/jobFeedForWorker_api.dart';
+import '../auth/profile_option.dart';
+import '../auth/registration.dart';
 import '../constants/constants.dart';
-
-// ENUMS FOR STATUS & PRIORITY
-
-enum Status { ACTIVE, INACTIVE, COMPLETED }
-
-enum Priority { ULTRA_HIGH, HIGH, MEDIUM, LOW }
+import '../models/JobDetailsForProviderFeedModel.dart';
+import '../models/jobFeedForWorkerModel.dart';
 
 class WorkersFeedPage extends StatefulWidget {
   const WorkersFeedPage({Key? key}) : super(key: key);
@@ -18,10 +19,13 @@ class WorkersFeedPage extends StatefulWidget {
 }
 
 class _WorkersFeedPageState extends State<WorkersFeedPage> {
+  JobDetailsForWorker jobDetailsForWorker = JobDetailsForWorker();
+  late Future<JobsFeedForWorkerModel> fetchForWorker;
+
   @override
   void initState() {
     // TODO: implement initState
-
+    fetchForWorker = jobDetailsForWorker.getJobsForWorker(token!, email!);
     super.initState();
   }
 
@@ -43,53 +47,31 @@ class _WorkersFeedPageState extends State<WorkersFeedPage> {
         },
       ),
       child: Scaffold(
-        backgroundColor: Colors.white,
-        body: Center(
-          // child: Text(
-          //   "WORKER FEED PAGE",
-          // ),
-          child: ListView(
-            children: [
-              InkWell(
-                onTap: () {
-                  Navigator.pushNamed(
-                      context, WorkerRoutes.WorkersJobDetailsPage);
-                },
-                child: JobFeedCard(
-                    heading: "Need of plumber",
-                    status: Status.ACTIVE,
-                    priority: Priority.LOW,
-                    date: "15/02/2023",
-                    price: "280"),
-              ),
-              JobFeedCard(
-                  heading: "Fan Repair",
-                  status: Status.COMPLETED,
-                  priority: Priority.ULTRA_HIGH,
-                  date: "15/02/2023",
-                  price: "582"),
-              JobFeedCard(
-                  heading: "Motor Repair",
-                  status: Status.ACTIVE,
-                  priority: Priority.HIGH,
-                  date: "15/02/2023",
-                  price: "589"),
-              JobFeedCard(
-                  heading: "Cooler Repair",
-                  status: Status.INACTIVE,
-                  priority: Priority.MEDIUM,
-                  date: "18/01/2023",
-                  price: "456"),
-              JobFeedCard(
-                  heading: "Cooler not working",
-                  status: Status.ACTIVE,
-                  priority: Priority.ULTRA_HIGH,
-                  date: "17/02/2023",
-                  price: "123"),
-            ],
-          ),
-        ),
-      ),
+          backgroundColor: Colors.white,
+          body: FutureBuilder<JobsFeedForWorkerModel>(
+            future: fetchForWorker,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.data!.length,
+                  itemBuilder: (context, index) {
+                    return JobFeedCard(
+                        heading: snapshot.data!.data![index].title!,
+                        status: snapshot.data!.data![index].status!,
+                        priority: snapshot.data!.data![index].priority!,
+                        date: snapshot.data!.data![index].dueDate!,
+                        price: snapshot.data!.data![index].price!);
+                  },
+                );
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else {
+                return Center(
+                  child: Text("No Jobs as of now"),
+                );
+              }
+            },
+          )),
     );
   }
 }
@@ -105,10 +87,10 @@ class JobFeedCard extends StatefulWidget {
       : super(key: key);
 
   final String heading;
-  final Status status;
-  final Priority priority;
+  final String status;
+  final String priority;
   final String date;
-  final String price;
+  final int price;
 
   @override
   State<JobFeedCard> createState() => _JobFeedCardState();
@@ -124,46 +106,45 @@ class _JobFeedCardState extends State<JobFeedCard> {
     String? _priority;
     Color? priorityColor;
     switch (widget.status) {
-      case Status.ACTIVE:
+      case "ACTIVE":
         setState(() {
           _status = "Active";
           statusColor = Colors.green;
         });
         break;
-      case Status.COMPLETED:
+      case "COMPLETED":
         setState(() {
           _status = "Completed";
           statusColor = Colors.grey;
         });
         break;
-      case Status.INACTIVE:
+      case "INACTIVE":
         setState(() {
           _status = "Inactive";
           statusColor = Colors.orange;
         });
         break;
     }
-    ;
     switch (widget.priority) {
-      case Priority.LOW:
+      case "LOW":
         setState(() {
           _priority = "Low";
           priorityColor = Colors.green;
         });
         break;
-      case Priority.MEDIUM:
+      case "MEDIUM":
         setState(() {
           _priority = "Medium";
           priorityColor = Colors.yellow;
         });
         break;
-      case Priority.HIGH:
+      case "HIGH":
         setState(() {
           _priority = "High";
           priorityColor = Colors.orange;
         });
         break;
-      case Priority.ULTRA_HIGH:
+      case "ULTRA_HIGH":
         setState(() {
           _priority = "Ultra High";
           priorityColor = Colors.red;
@@ -236,7 +217,7 @@ class _JobFeedCardState extends State<JobFeedCard> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 8.0, vertical: 4),
                                 child: Text(
-                                  _status!,
+                                  _status.toString(),
                                   style: GoogleFonts.inter(
                                     color: Colors.white,
                                     fontSize: 20,

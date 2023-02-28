@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -149,30 +150,73 @@ class _JobFormPageState extends State<JobFormPage> {
                           style: GoogleFonts.inter(
                               fontSize: 20, fontWeight: FontWeight.w500),
                         ),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 0.45,
-                          padding: const EdgeInsets.all(10),
-                          child: TextFormField(
-                            controller: _jobTypeController,
-                            onChanged: (value) {
-                              setState(() {
-                                job_type = value;
-                              });
-                            },
-                            decoration: InputDecoration(
-                              hintStyle: GoogleFonts.inter(
-                                color: const Color(0xff565656),
-                              ),
-                              hintText: "Electrician",
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15),
-                              ),
+                        DropdownButton(
+                          value: job_type,
+                          elevation: 12,
+                          hint: const Text(
+                            'Select Job Type',
+                            style: TextStyle(
+                              color: Colors.black54,
                             ),
                           ),
+                          iconEnabledColor: Colors.black,
+                          dropdownColor: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          items: const [
+                            DropdownMenuItem(
+                              value: "Electrician",
+                              child: Text("Electrician"),
+                            ),
+                            DropdownMenuItem(
+                              value: "Plumber",
+                              child: Text("Plumber"),
+                            ),
+                            DropdownMenuItem(
+                              value: "Mechanic",
+                              child: Text("Mechanic"),
+                            ),
+                            DropdownMenuItem(
+                              value: "Carpenter",
+                              child: Text("Carpenter"),
+                            ),
+                            DropdownMenuItem(
+                              value: "Wiring",
+                              child: Text("Wiring"),
+                            ),
+                          ],
+                          onChanged: (value) {
+                            setState(() {
+                              job_type = value;
+                            });
+                            if (kDebugMode) {
+                              print(value);
+                            }
+                          },
                         ),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width * 0.45,
+                        //   padding: const EdgeInsets.all(10),
+                        //   child: TextFormField(
+                        //     controller: _jobTypeController,
+                        //     onChanged: (value) {
+                        //       setState(() {
+                        //         job_type = value;
+                        //       });
+                        //     },
+                        //     decoration: InputDecoration(
+                        //       hintStyle: GoogleFonts.inter(
+                        //         color: const Color(0xff565656),
+                        //       ),
+                        //       hintText: "Electrician",
+                        //       focusedBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(15),
+                        //       ),
+                        //       enabledBorder: OutlineInputBorder(
+                        //         borderRadius: BorderRadius.circular(15),
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),

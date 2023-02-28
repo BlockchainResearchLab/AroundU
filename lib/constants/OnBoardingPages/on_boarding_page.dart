@@ -81,7 +81,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             FooterButton(
               buttonName: "Get Started",
               pushToPage: () {
-                Navigator.pushNamed(context, Routes.LoginScreen);
+                Navigator.pushReplacementNamed(context, Routes.LoginScreen);
               },
             ),
           ],

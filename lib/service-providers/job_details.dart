@@ -124,10 +124,18 @@ class _JobDetailPageState extends State<JobDetailPage> {
                             ),
                             isWorkerListEmpty == true
                                 ? Text("No Applied Workers yet")
-                                : const AppliedWorkerCard(
-                                    workerFullName: "Janmejay Singh",
-                                    workerExperience: "Nalla Chhapri Berozgaar",
-                                  ),
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount:
+                                        snapshot.data!.workersDetails!.length,
+                                    itemBuilder: (context, index) {
+                                      return AppliedWorkerCard(
+                                        workerFullName: snapshot
+                                            .data!.workersDetails![index].name!
+                                            .toString(),
+                                        workerExperience: "2 years",
+                                      );
+                                    }),
                           ],
                         ),
                       ],
@@ -237,10 +245,12 @@ class _JobDetailCardState extends State<JobDetailCard> {
                       const SizedBox(
                         width: 20,
                       ),
-                      Text(
-                        widget.jobType,
-                        style: GoogleFonts.inter(
-                            color: Colors.grey.shade400, fontSize: 18),
+                      Expanded(
+                        child: Text(
+                          widget.jobType,
+                          style: GoogleFonts.inter(
+                              color: Colors.grey.shade400, fontSize: 18),
+                        ),
                       ),
                     ],
                   ),
