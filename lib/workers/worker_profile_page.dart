@@ -14,10 +14,11 @@ import '../services/auth-api-service/worker_profile_api.dart';
 
 List<String> tags = [];
 List<String> options = [
-  "Fan Repair",
-  "A.C./Cooler Repair",
-  "Motor Repair",
-  "Bikes/Scooty",
+  "Electrician",
+  "Plumber",
+  "Mechanic",
+  "Carpenter",
+  "Wiring"
 ];
 String? name;
 String? address;
