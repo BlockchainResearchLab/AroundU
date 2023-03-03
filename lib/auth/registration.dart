@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:tech_sprint_hackathon/auth/login.dart';
-import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 
 import '../Routes/routes.dart';
 import '../constants/constants.dart';
@@ -89,19 +87,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
               const SizedBox(
                 height: 23,
               ),
-              // TextfieldWidget(
-              //   controller: nameController,
-              //   hintlines: "enter your name",
-              //   prefixIcon: Icon(Icons.account_circle_rounded),
-              //   onChanged: (value) {
-              //     setState(() {
-              //       name = value;
-              //     });
-              //   },
-              // ),
-              TextfieldWidget(
+              TextFieldWidget(
                 controller: emailController,
-                hintlines: "enter your email",
+                hintLines: "enter your email",
                 prefixIcon: Icon(Icons.account_circle_rounded),
                 onChanged: (value) {
                   setState(() {
@@ -109,9 +97,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   });
                 },
               ),
-              TextfieldWidget(
+              TextFieldWidget(
                 controller: phoneController,
-                hintlines: "mobile number",
+                hintLines: "mobile number",
                 prefixIcon: Icon(Icons.call_rounded),
                 onChanged: (value) {
                   setState(() {
@@ -119,9 +107,9 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   });
                 },
               ),
-              TextfieldWidget(
+              TextFieldWidget(
                 controller: passwordController,
-                hintlines: "password",
+                hintLines: "password",
                 prefixIcon: Icon(Icons.lock_outline),
                 onChanged: (value) {
                   setState(() {
@@ -197,16 +185,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 }
 
-class TextfieldWidget extends StatelessWidget {
+class TextFieldWidget extends StatelessWidget {
   // controllers yet to be implemented.....
-  const TextfieldWidget(
+  const TextFieldWidget(
       {super.key,
-      required this.hintlines,
+      required this.hintLines,
       required this.prefixIcon,
       required this.controller,
       required this.onChanged});
 
-  final String hintlines;
+  final String hintLines;
   final Icon prefixIcon;
   final TextEditingController controller;
   final Function(String) onChanged;
@@ -214,7 +202,7 @@ class TextfieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(4),
       child: TextFormField(
         onChanged: onChanged,
         controller: controller,
@@ -223,12 +211,12 @@ class TextfieldWidget extends StatelessWidget {
           hintStyle: GoogleFonts.inter(
             color: const Color(0xff565656),
           ),
-          hintText: hintlines,
+          hintText: hintLines,
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.5),
+            borderRadius: BorderRadius.circular(15),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(32.5),
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
       ),

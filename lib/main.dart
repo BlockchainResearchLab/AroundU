@@ -44,7 +44,7 @@ class AroundU extends StatelessWidget {
         '/pprofile': (context) => const ProviderProfilePage(),
         '/wprofile': (context) => const WorkerProfilePage(),
         '/wrouting': (context) => const WorkerRoutingPage(),
-        '/prouting': (context) => ProvidersRoutingPage(),
+        '/prouting': (context) => const ProvidersRoutingPage(),
         '/jobPost': (context) => const JobFormPage(),
         '/maps': (context) => const Maps(),
         '/jobDetails': (context) => const JobDetailPage(),

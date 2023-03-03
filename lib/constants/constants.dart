@@ -18,7 +18,8 @@ class ImageLink {
   static const String priceTag = "assets/images/PriceTag.png";
   static const String circle = "assets/images/AroundCircle.png";
   static const String plus = "assets/images/Plus.png";
-  static const String providerEmptyScreen = "assets/images/ProviderEmptyScreen.png";
+  static const String providerEmptyScreen =
+      "assets/images/ProviderEmptyScreen.png";
   static const String bookmarkHollow = "assets/images/BookmarkHollow.png";
   static const String chooseLanguage = "assets/images/ChooseLanguage.png";
   static const String helpCenter = "assets/images/HelpCenter.png";
@@ -29,10 +30,12 @@ class ImageLink {
   static const String chatImage = "assets/images/Chat.png";
 }
 
-class MapsConstants{
+class MapsConstants {
   static const String apiKey = "AIzaSyBmqqDVOlVdZLi1mY70I-jDiOn8XZAZXeI";
-  static const LatLng sourceLocation = LatLng(28.676792506635017, 77.50076897100702);
-  static const LatLng destination = LatLng(28.53908747355857, 77.25509413212828);
+  static const LatLng sourceLocation =
+      LatLng(28.676792506635017, 77.50076897100702);
+  static const LatLng destination =
+      LatLng(28.53908747355857, 77.25509413212828);
 }
 
 class AppTheme {
@@ -49,12 +52,13 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
-        margin: const EdgeInsets.only(top: 43),
-        height: 36,
+        margin: const EdgeInsets.only(top: 30),
         width: 177,
-        child: Image.asset(ImageLink.mLogo),
+        child: Image.asset(
+          ImageLink.mLogo,
+          scale: 3,
+        ),
       ),
     );
   }
 }
-
