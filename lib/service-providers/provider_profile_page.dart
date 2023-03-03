@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:tech_sprint_hackathon/constants/widgets/buttons.dart';
+import 'package:tech_sprint_hackathon/services/auth-api-service/provider_profile_api.dart';
+
+import '../Routes/routes.dart';
+import '../auth/profile_option.dart';
+
+String? name;
+String? address;
 
 class ProviderProfilePage extends StatefulWidget {
   const ProviderProfilePage({super.key});
@@ -12,6 +20,8 @@ class ProviderProfilePage extends StatefulWidget {
 }
 
 class _ProviderProfilePageState extends State<ProviderProfilePage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -57,7 +67,7 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                       height: 15,
                     ),
                     Text(
-                      "Welcome, Name",
+                      "Welcome, $name",
                       style: GoogleFonts.inter(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -74,7 +84,7 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     side: BorderSide(width: 2, color: Color(0xff8f8f8f)),
                     borderRadius: BorderRadius.circular(15)),
                 title: Text("Email"),
-                subtitle: Text("name@gmail.com"),
+                subtitle: Text(email.toString()),
                 leading: Icon(Icons.email),
               ),
               const SizedBox(
@@ -85,7 +95,7 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                     side: BorderSide(width: 2, color: Color(0xff8f8f8f)),
                     borderRadius: BorderRadius.circular(15)),
                 title: Text("Phone Number"),
-                subtitle: Text("123456789"),
+                subtitle: Text(phone.toString()),
                 leading: Icon(Icons.phone),
               ),
 
@@ -94,8 +104,28 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
                 height: 30,
               ),
               ProviderHomePageEdittableFields(
+                controller: nameController,
+                icon: Icon(Icons.account_circle_sharp),
+                textBoxfieldtitle: "Name",
+                textBoxfielddesc: "Tell us your name",
+                onChanged: (value) {
+                  setState(() {
+                    name = value;
+                  });
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              ProviderHomePageEdittableFields(
+                controller: addressController,
                 icon: Icon(Icons.location_on_rounded),
-                textBoxfieldtitle: "Address",
+                textBoxfieldtitle: "City",
+                onChanged: (value) {
+                  setState(() {
+                    address = value;
+                  });
+                },
               ),
               SizedBox(
                 height: 30,
@@ -111,8 +141,27 @@ class _ProviderProfilePageState extends State<ProviderProfilePage> {
               SizedBox(
                 height: 30,
               ),
-
-              FooterButton(buttonName: "SUBMIT", pushToPage: () {})
+              FooterButton(
+                  buttonName: "SUBMIT",
+                  pushToPage: () async {
+                    var responseFromBack = await providerDetails(name!);
+                    if (responseFromBack != null) {
+                      Future.delayed(Duration(seconds: 1), () {
+                        return ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    "Your profile as $profile is created.")));
+                      });
+                      Navigator.pushReplacementNamed(
+                          context, ProviderRoutes.ProviderRoutingPage);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Error Ocurred")));
+                    }
+                  }),
+              SizedBox(
+                height: 20,
+              )
             ],
           ),
         ],
@@ -158,10 +207,17 @@ class ProviderHomePageNonEditFields extends StatelessWidget {
 
 class ProviderHomePageEdittableFields extends StatefulWidget {
   const ProviderHomePageEdittableFields(
-      {super.key, this.icon, this.textBoxfieldtitle, this.textBoxfielddesc});
+      {super.key,
+      this.icon,
+      this.textBoxfieldtitle,
+      this.textBoxfielddesc,
+      this.controller,
+      this.onChanged});
   final Icon? icon;
   final String? textBoxfieldtitle;
   final String? textBoxfielddesc;
+  final TextEditingController? controller;
+  final Function(String)? onChanged;
 
   @override
   State<ProviderHomePageEdittableFields> createState() =>
@@ -173,6 +229,8 @@ class _ProviderHomePageEdittableFieldsState
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChanged,
+      controller: widget.controller,
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),

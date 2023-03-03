@@ -48,6 +48,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.72,
               child: PageView.builder(
+                itemCount: pages.length,
                 controller: controller,
                 padEnds: true,
                 itemBuilder: (_, index) {
@@ -80,7 +81,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             FooterButton(
               buttonName: "Get Started",
               pushToPage: () {
-                Navigator.pushNamed(context, Routes.LoginScreen);
+                Navigator.pushReplacementNamed(context, Routes.LoginScreen);
               },
             ),
           ],

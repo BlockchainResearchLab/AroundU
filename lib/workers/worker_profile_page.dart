@@ -3,17 +3,25 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tech_sprint_hackathon/Routes/routes.dart';
+import 'package:tech_sprint_hackathon/auth/profile_option.dart';
 import 'package:tech_sprint_hackathon/constants/constants.dart';
 import 'package:tech_sprint_hackathon/constants/widgets/buttons.dart';
 import 'package:chips_choice_null_safety/chips_choice_null_safety.dart';
 
+import '../auth/registration.dart';
+import '../services/auth-api-service/worker_profile_api.dart';
+
 List<String> tags = [];
 List<String> options = [
-  "Fan Repair",
-  "A.C./Cooler Repair",
-  "Motor Repair",
-  "Bikes/Scooty",
+  "Electrician",
+  "Plumber",
+  "Mechanic",
+  "Carpenter",
+  "Wiring"
 ];
+String? name;
+String? address;
 
 void printTag() {
   for (var tag in tags) {
@@ -29,6 +37,8 @@ class WorkerProfilePage extends StatefulWidget {
 }
 
 class _WorkerProfilePageState extends State<WorkerProfilePage> {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -78,7 +88,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                         height: 15,
                       ),
                       Text(
-                        "Welcome, Name",
+                        "Welcome, $name",
                         style: GoogleFonts.inter(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -99,7 +109,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   title: const Text("Email"),
-                  subtitle: const Text("name@gmail.com"),
+                  subtitle: Text(email.toString()),
                   leading: const Icon(Icons.email),
                 ),
                 const SizedBox(
@@ -113,7 +123,7 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                       ),
                       borderRadius: BorderRadius.circular(15)),
                   title: const Text("Phone Number"),
-                  subtitle: const Text("123456789"),
+                  subtitle: Text(phone.toString()),
                   leading: const Icon(Icons.phone),
                 ),
 
@@ -121,9 +131,25 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                 SizedBox(
                   height: 30,
                 ),
-                const ProviderHomePageEditableFields(
+                ProviderHomePageEditableFields(
+                    icon: Icon(Icons.account_circle_rounded),
+                    controller: nameController,
+                    textBoxFieldTitle: "Name",
+                    onChanged: (value) {
+                      setState(() {
+                        name = value;
+                      });
+                    }),
+                SizedBox(
+                  height: 30,
+                ),
+                ProviderHomePageEditableFields(
+                  controller: addressController,
                   icon: Icon(Icons.location_on_rounded),
                   textBoxFieldTitle: "Address",
+                  onChanged: (value) {
+                    address = value;
+                  },
                 ),
                 const SizedBox(
                   height: 30,
@@ -166,7 +192,24 @@ class _WorkerProfilePageState extends State<WorkerProfilePage> {
                   height: 20,
                 ),
                 FooterButton(
-                  buttonName: "SUBMIT", pushToPage: () {}, //TODO
+                  buttonName: "SUBMIT",
+                  pushToPage: () async {
+                    var responseFromBack =
+                        await workerDetails(name!, address!, tags);
+                    if (responseFromBack != null) {
+                      Future.delayed(Duration(seconds: 1), () {
+                        return ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    "Your profile as $profile is created.")));
+                      });
+                      Navigator.pushReplacementNamed(
+                          context, WorkerRoutes.WorkersRoutingPage);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text("Error Ocurred")));
+                    }
+                  }, //TODO
                 ),
                 // ignore: prefer_const_constructors
                 SizedBox(
@@ -223,12 +266,16 @@ class ProviderHomePageEditableFields extends StatefulWidget {
       this.icon,
       this.textBoxFieldTitle,
       this.textBoxFieldDesc,
-      this.suffixIcon});
+      this.suffixIcon,
+      this.controller,
+      this.onChanged});
 
   final Icon? icon;
   final String? textBoxFieldTitle;
   final String? textBoxFieldDesc;
   final Icon? suffixIcon;
+  final TextEditingController? controller;
+  final Function(String)? onChanged;
 
   @override
   State<ProviderHomePageEditableFields> createState() =>
@@ -240,6 +287,7 @@ class _ProviderHomePageEditableFieldsState
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),

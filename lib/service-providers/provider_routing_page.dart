@@ -3,10 +3,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
-import 'provider_job_page.dart';
 import '../constants/constants.dart';
 
-int _currentIndex = 0;
+int? _currentIndex = 0;
 
 class ProvidersRoutingPage extends StatefulWidget {
   const ProvidersRoutingPage({Key? key}) : super(key: key);
@@ -27,7 +26,9 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
             ? FloatingActionButton(
                 enableFeedback: true,
                 backgroundColor: AppTheme.primaryColor,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, ProviderRoutes.JobFormPage);
+                },
                 child: Image.asset(
                   ImageLink.plus,
                   scale: 3,
@@ -45,7 +46,7 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
             ),
           ),
         ),
-        body: ProviderRoutes.allProviderPages.elementAt(_currentIndex),
+        body: ProviderRoutes.allProviderPages.elementAt(_currentIndex!),
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             color: Colors.white,
@@ -69,12 +70,12 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
                   fontWeight: FontWeight.w500,
                 ),
                 haptic: true,
-                tabBackgroundGradient: LinearGradient(
-                  colors: [
-                    AppTheme.primaryColor,
-                    AppTheme.shadowColor,
-                  ],
-                ),
+                // tabBackgroundGradient: LinearGradient(
+                //   colors: [
+                //     AppTheme.primaryColor,
+                //     AppTheme.shadowColor,
+                //   ],
+                // ),
                 tabBackgroundColor: AppTheme.primaryColor,
                 rippleColor: AppTheme.shadowColor,
                 // hoverColor: Colors.black38,
@@ -87,7 +88,7 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
                 color: AppTheme.primaryColor,
                 tabs: [
                   GButton(
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppTheme.primaryColor,
                     icon: Icons.home_filled,
                     leading: _currentIndex == 0
                         ? Image.asset(
@@ -105,7 +106,7 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
                     textSize: 40,
                   ),
                   GButton(
-                    backgroundColor: Colors.white,
+                    backgroundColor: AppTheme.primaryColor,
                     icon: FontAwesomeIcons.barsStaggered,
                     iconSize: 25,
                     text: 'Menu',
@@ -114,7 +115,7 @@ class _ProvidersRoutingPageState extends State<ProvidersRoutingPage> {
                     textSize: 40,
                   ),
                 ],
-                selectedIndex: _currentIndex,
+                selectedIndex: _currentIndex!,
                 onTabChange: (index) {
                   setState(
                     () {

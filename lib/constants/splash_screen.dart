@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
           setState(
                 () {
               Timer(
-                const Duration(milliseconds: 5770),
+                const Duration(milliseconds: 4250),
                     () => Navigator.pushReplacementNamed(
                   context,
                   Routes.OnBoardingScreen

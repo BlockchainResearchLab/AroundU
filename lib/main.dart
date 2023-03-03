@@ -7,18 +7,18 @@ import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/constants/OnBoardingPages/on_boarding_page.dart';
 import 'package:tech_sprint_hackathon/constants/loading_screen.dart';
 import 'package:tech_sprint_hackathon/constants/splash_screen.dart';
+import 'package:tech_sprint_hackathon/service-providers/job_details.dart';
+import 'package:tech_sprint_hackathon/service-providers/job_post_form_page.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_profile_page.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.dart';
 import 'package:tech_sprint_hackathon/workers/worker_profile_page.dart';
 import 'package:tech_sprint_hackathon/workers/workers_routing_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'maps/google_maps.dart';
 
-var tokenPrefs;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  tokenPrefs = prefs.getString("authTokenPrefs");
-
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(
     const AroundU(),
@@ -32,7 +32,7 @@ class AroundU extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: '/registration', //TODO: CURRENTLY WORKING ON WORKER ROUTING PAGE
+      initialRoute: '/splash',
       routes: {
         '/loading': (context) => const LoadingScreen(),
         '/onboarding': (context) => const OnBoardingPage(),
@@ -44,7 +44,11 @@ class AroundU extends StatelessWidget {
         '/pprofile': (context) => const ProviderProfilePage(),
         '/wprofile': (context) => const WorkerProfilePage(),
         '/wrouting': (context) => const WorkerRoutingPage(),
-        '/prouting': (context) => const ProvidersRoutingPage(),
+        '/prouting': (context) => ProvidersRoutingPage(),
+        '/jobPost': (context) => const JobFormPage(),
+        '/maps': (context) => const Maps(),
+        '/jobDetails': (context) => const JobDetailPage(),
+        '/wjobdetails': (context) => const JobDetailPage(),
       },
     );
   }

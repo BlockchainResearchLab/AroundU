@@ -1,0 +1,23 @@
+import 'package:http/http.dart' as http;
+import 'package:tech_sprint_hackathon/auth/profile_option.dart';
+import 'dart:convert';
+
+import '../../models/worker_profile_model.dart';
+
+Future<WorkerProfileModel?> providerDetails(String name) async {
+  var response = await http.post(
+      Uri.parse("http://43.207.160.124/jobproviderprofile/"),
+      headers: {
+        'Authorization': 'token $token ',
+        'Content-Type': 'application/json'
+      },
+      body: jsonEncode(<String, String>{
+        "name": name,
+      }));
+  if (response.statusCode == 200) {
+    print("workerFeedDataSend " + response.statusCode.toString());
+    return WorkerProfileModel.fromJson(jsonDecode(response.body));
+  } else {
+    return null;
+  }
+}

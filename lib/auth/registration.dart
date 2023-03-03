@@ -1,11 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:tech_sprint_hackathon/auth/login.dart';
+import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 
 import '../Routes/routes.dart';
 import '../constants/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/widgets/buttons.dart';
+import '../models/otp_model.dart';
+import '../services/auth-api-service/otp_api.dart';
+
+String? email;
+String? phone;
+String? password;
+String? otpRecieved;
 
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({super.key});
@@ -15,6 +25,35 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegistrationPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Logging in..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,29 +85,76 @@ class _RegistrationPageState extends State<RegistrationPage> {
                     fontWeight: FontWeight.w200,
                     fontSize: 23),
               ),
-              Image.asset(ImageLink.reg),
+              Image.asset(ImageLink.reg, scale: 4.5),
               const SizedBox(
                 height: 23,
               ),
-              const TextfieldWidget(
+              // TextfieldWidget(
+              //   controller: nameController,
+              //   hintlines: "enter your name",
+              //   prefixIcon: Icon(Icons.account_circle_rounded),
+              //   onChanged: (value) {
+              //     setState(() {
+              //       name = value;
+              //     });
+              //   },
+              // ),
+              TextfieldWidget(
+                controller: emailController,
                 hintlines: "enter your email",
                 prefixIcon: Icon(Icons.account_circle_rounded),
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
               ),
-              const TextfieldWidget(
+              TextfieldWidget(
+                controller: phoneController,
                 hintlines: "mobile number",
                 prefixIcon: Icon(Icons.call_rounded),
+                onChanged: (value) {
+                  setState(() {
+                    phone = value;
+                  });
+                },
               ),
-              const TextfieldWidget(
+              TextfieldWidget(
+                controller: passwordController,
                 hintlines: "password",
                 prefixIcon: Icon(Icons.lock_outline),
+                onChanged: (value) {
+                  setState(() {
+                    password = value;
+                  });
+                },
               ),
               const SizedBox(
                 height: 23,
               ),
               FooterButton(
-                buttonName: "Register",
-                pushToPage: () => Navigator.pushReplacementNamed(context, Routes.OTPScreen),
-              ),
+                  buttonName: "Register",
+                  pushToPage: () async {
+                    if (email == null || phone == null || password == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Please provide all the details"),
+                        ),
+                      );
+                    } else {
+                      Future.delayed(Duration(seconds: 5), () {
+                        showLoaderDialog(context);
+                      });
+                      OTP? otpFromBackend = await verifyOTP(phone!);
+                      setState(() {
+                        otpRecieved = otpFromBackend!.otp;
+                      });
+                      log(otpRecieved!);
+                      // log(otpTyped!);
+                      Navigator.pop(context);
+                      Navigator.pushNamed(context, Routes.OTPScreen);
+                    }
+                  }),
               // ignore: prefer_const_constructors
               SizedBox(
                 height: 23,
@@ -114,16 +200,24 @@ class _RegistrationPageState extends State<RegistrationPage> {
 class TextfieldWidget extends StatelessWidget {
   // controllers yet to be implemented.....
   const TextfieldWidget(
-      {super.key, required this.hintlines, required this.prefixIcon});
+      {super.key,
+      required this.hintlines,
+      required this.prefixIcon,
+      required this.controller,
+      required this.onChanged});
 
   final String hintlines;
   final Icon prefixIcon;
+  final TextEditingController controller;
+  final Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: TextFormField(
+        onChanged: onChanged,
+        controller: controller,
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
           hintStyle: GoogleFonts.inter(

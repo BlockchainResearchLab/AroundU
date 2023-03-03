@@ -1,22 +1,21 @@
 class Login {
-  String? _token;
+  String? token;
+  String? profile;
+  String? email;
 
-  Login({String? token}) {
-    if (token != null) {
-      this._token = token;
-    }
-  }
-
-  String? get token => _token;
-  set token(String? token) => _token = token;
+  Login({this.token, this.profile, this.email});
 
   Login.fromJson(Map<String, dynamic> json) {
-    _token = json['token'];
+    token = json['token'];
+    profile = json['profile'];
+    email = json['email'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['token'] = this._token;
+    data['token'] = this.token;
+    data['profile'] = this.profile;
+    data['email'] = this.email;
     return data;
   }
 }

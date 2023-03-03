@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tech_sprint_hackathon/auth/profile_option.dart';
 import 'package:tech_sprint_hackathon/auth/registration.dart';
 import 'package:tech_sprint_hackathon/services/auth-api-service/login_api.dart';
 
@@ -14,10 +15,9 @@ import '../constants/widgets/buttons.dart';
 import '../models/login_model.dart';
 import 'package:http/http.dart' as http;
 
-String? email;
+String? loggedEmail;
 String? password;
 String? isSuccess = "false";
-var token;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -29,33 +29,6 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  Future<Login?> login(String email, String password) async {
-    var headers = {'Content-Type': 'application/json'};
-    var request =
-        http.Request('POST', Uri.parse('http://43.207.160.124/login/'));
-    request.body = json.encode({"username": email, "password": password});
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      var data = await response.stream.bytesToString();
-      setState(() {
-        token = jsonDecode(data);
-        isSuccess = "true";
-      });
-      var jsontoken = response.stream.bytesToString();
-      log(token);
-    } else {
-      setState(() {
-        isSuccess = "false";
-      });
-      print(response.reasonPhrase);
-      return null;
-    }
-    return null;
-  }
 
   showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
@@ -101,12 +74,12 @@ class _LoginScreenState extends State<LoginScreen> {
   void _printLatestUsername() {
     setState(
       () {
-        email = emailController.text;
+        loggedEmail = emailController.text;
       },
     );
 
     if (kDebugMode) {
-      print(email);
+      print(loggedEmail);
     }
   }
 
@@ -162,23 +135,27 @@ class _LoginScreenState extends State<LoginScreen> {
               TextfieldWidget(
                 cntrl: emailController,
                 onChanged: (value) {
-                  setState(() {
-                    email = value;
-                  });
+                  setState(
+                    () {
+                      loggedEmail = value;
+                    },
+                  );
                 },
                 hintlines: "enter your email",
-                prefixIcon: Icon(Icons.account_circle_rounded),
+                prefixIcon: const Icon(Icons.account_circle_rounded),
               ),
 
               TextfieldWidget(
                 onChanged: (value) {
-                  setState(() {
-                    password = value;
-                  });
+                  setState(
+                    () {
+                      password = value;
+                    },
+                  );
                 },
                 cntrl: passwordController,
                 hintlines: "password",
-                prefixIcon: Icon(Icons.lock_outline),
+                prefixIcon: const Icon(Icons.lock_outline),
               ),
               const SizedBox(
                 height: 23,
@@ -186,47 +163,89 @@ class _LoginScreenState extends State<LoginScreen> {
               FooterButton(
                   buttonName: "LOG IN",
                   pushToPage: () async {
-                    log(email.toString());
-                    log(password.toString());
-                    log(isSuccess.toString());
-                    if (email == null || password == null) {
+                    if (loggedEmail == null || password == null) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text(
-                            "Provide Essential Details",
-                          ),
-                          duration: Duration(seconds: 1),
+                          content: Text("Provide essential details"),
                         ),
                       );
                     } else {
                       showLoaderDialog(context);
-                      await login(email!, password!).then((value) {
-                        if (value != null) {
-                          setState(() {
-                            log("hii");
-                            isSuccess = "true";
-                          });
+                      Login? logData = await login(loggedEmail!, password!);
+                      if (logData != null) {
+                        Navigator.pop(context);
+                        log(logData.token.toString());
+                        setState(() {
+                          token = logData.token;
+                        });
+                        setState(() {
+                          email = loggedEmail;
+                          profile = logData.profile;
+                        });
+                        if (logData.profile == "Worker") {
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context).pushReplacementNamed(
+                              WorkerRoutes.WorkersRoutingPage);
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          Navigator.of(context).pushReplacementNamed(
+                              ProviderRoutes.ProviderRoutingPage);
                         }
-                      }).catchError((e) {
-                        log(e.toString());
-                      });
-                      if (isSuccess == "false") {
-                        Navigator.of(context, rootNavigator: true).pop();
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text(
-                              "Unauthorized Access",
-                            ),
-                            duration: Duration(seconds: 1),
-                          ),
-                        );
                       } else {
                         Navigator.pop(context);
-                        Navigator.pushReplacementNamed(
-                            context, Routes.LoadingScreen);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text("Incorrect Credentials."),
+                          ),
+                        );
+                        // emailController.dispose();
+                        // passwordController.dispose();
                       }
                     }
-                  }),
+                  }
+
+                  //   log(email.toString());
+                  //   log(password.toString());
+                  //   log(isSuccess.toString());
+                  //   if (email == null || password == null) {
+                  //     ScaffoldMessenger.of(context).showSnackBar(
+                  //       const SnackBar(
+                  //         content: Text(
+                  //           "Provide Essential Details",
+                  //         ),
+                  //         duration: Duration(seconds: 1),
+                  //       ),
+                  //     );
+                  //   } else {
+                  //     showLoaderDialog(context);
+                  //     await login(email!, password!).then((value) {
+                  //       if (value != null) {
+                  //         setState(() {
+                  //           log("hii");
+                  //           isSuccess = "true";
+                  //         });
+                  //       }
+                  //     }).catchError((e) {
+                  //       log(e.toString());
+                  //     });
+                  //     if (isSuccess == "false") {
+                  //       Navigator.of(context, rootNavigator: true).pop();
+                  //       ScaffoldMessenger.of(context).showSnackBar(
+                  //         const SnackBar(
+                  //           content: Text(
+                  //             "Unauthorized Access",
+                  //           ),
+                  //           duration: Duration(seconds: 1),
+                  //         ),
+                  //       );
+                  //     } else {
+                  //       Navigator.pop(context);
+                  //       Navigator.pushReplacementNamed(
+                  //           context, Routes.LoadingScreen);
+                  //     }
+                  //   }
+                  // }
+                  ),
               // ignore: prefer_const_constructors
               SizedBox(
                 height: 23,
@@ -277,6 +296,7 @@ class TextfieldWidget extends StatefulWidget {
       required this.prefixIcon,
       required this.cntrl,
       required this.onChanged});
+
   final String hintlines;
   final Icon prefixIcon;
   final TextEditingController cntrl;

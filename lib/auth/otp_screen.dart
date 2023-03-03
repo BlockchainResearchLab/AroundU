@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tech_sprint_hackathon/auth/profile_option.dart';
 import 'package:tech_sprint_hackathon/auth/registration.dart';
 
 import '../Routes/routes.dart';
@@ -8,6 +9,13 @@ import 'package:google_fonts/google_fonts.dart';
 import '../constants/widgets/buttons.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
+import '../models/otp_model.dart';
+import '../models/registration_model.dart';
+import '../services/auth-api-service/otp_api.dart';
+import '../services/auth-api-service/registration_api.dart';
+
+String? otpTyped;
+
 class OTPScreen extends StatefulWidget {
   const OTPScreen({super.key});
 
@@ -16,6 +24,30 @@ class OTPScreen extends StatefulWidget {
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: Row(
+        children: [
+          const CircularProgressIndicator(),
+          const SizedBox(
+            width: 10,
+          ),
+          Container(
+            margin: const EdgeInsets.only(left: 7),
+            child: const Text("Logging in..."),
+          ),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +62,7 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               Image.asset(
                 ImageLink.otp,
-                scale: 3,
+                scale: 2,
               ),
               const SizedBox(
                 height: 24,
@@ -54,18 +86,31 @@ class _OTPScreenState extends State<OTPScreen> {
                 numberOfFields: 4,
                 borderColor: const Color(0xfff0f0f0),
                 showFieldAsBox: true,
-                onCodeChanged: (String code) {},
-                onSubmit: (String verificationCode) {
-                  null;
-                }, // end onSubmit
+                onCodeChanged: (String code) {
+                  setState(() {
+                    otpTyped = code;
+                  });
+                },
+                onSubmit: (value) {
+                  otpTyped = value;
+                },
+                // end onSubmit
               ),
               const SizedBox(
                 height: 23,
               ),
               FooterButton(
-                  buttonName: "LOG IN",
-                  pushToPage: () {
-                    Navigator.pushNamed(context, Routes.ProfileChoose);
+                  buttonName: "VERIFY",
+                  pushToPage: () async {
+                    // Navigator.pushNamed(context, Routes.ProfileChoose);
+                    if (otpTyped == null || otpRecieved != otpTyped) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text("Wrong OTP")));
+                    } else {
+                      Navigator.pushReplacementNamed(
+                          context, Routes.ProfileChoose);
+                    }
+                    // OTP? otpFromBackend = await verifyOTP(phone!);
                   }),
               // ignore: prefer_const_constructors
               SizedBox(
