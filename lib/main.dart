@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:tech_sprint_hackathon/auth/login.dart';
 import 'package:tech_sprint_hackathon/auth/otp_screen.dart';
 import 'package:tech_sprint_hackathon/auth/profile_option.dart';
@@ -11,10 +12,14 @@ import 'package:tech_sprint_hackathon/service-providers/job_details.dart';
 import 'package:tech_sprint_hackathon/service-providers/job_post_form_page.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_profile_page.dart';
 import 'package:tech_sprint_hackathon/service-providers/provider_routing_page.dart';
+import 'package:tech_sprint_hackathon/workers/worker_job_details.dart';
 import 'package:tech_sprint_hackathon/workers/worker_profile_page.dart';
 import 'package:tech_sprint_hackathon/workers/workers_routing_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'locale/LanguageChangeProvider.dart';
 import 'maps/google_maps.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,26 +35,44 @@ class AroundU extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/splash',
-      routes: {
-        '/loading': (context) => const LoadingScreen(),
-        '/onboarding': (context) => const OnBoardingPage(),
-        '/profile-choose': (context) => const ProfileOption(),
-        '/splash': (context) => const SplashScreen(),
-        '/otp': (context) => const OTPScreen(),
-        '/login': (context) => const LoginScreen(),
-        '/registration': (context) => const RegistrationPage(),
-        '/pprofile': (context) => const ProviderProfilePage(),
-        '/wprofile': (context) => const WorkerProfilePage(),
-        '/wrouting': (context) => const WorkerRoutingPage(),
-        '/prouting': (context) => ProvidersRoutingPage(),
-        '/jobPost': (context) => const JobFormPage(),
-        '/maps': (context) => const Maps(),
-        '/jobDetails': (context) => const JobDetailPage(),
-        '/wjobdetails': (context) => const JobDetailPage(),
-      },
+    return ChangeNotifierProvider<LanguageChangeProvider>(
+      create: (context) => LanguageChangeProvider(),
+      child: Builder(builder: (context) {
+        return MaterialApp(
+          supportedLocales: [
+            const Locale('en', 'US'),
+            const Locale('hi', 'IN')
+          ],
+          locale: Provider.of<LanguageChangeProvider>(context, listen: true)
+              .currentLocale,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/splash',
+          routes: {
+            '/loading': (context) => const LoadingScreen(),
+            '/onboarding': (context) => const OnBoardingPage(),
+            '/profile-choose': (context) => const ProfileOption(),
+            '/splash': (context) => const SplashScreen(),
+            '/otp': (context) => const OTPScreen(),
+            '/login': (context) => const LoginScreen(),
+            '/registration': (context) => const RegistrationPage(),
+            '/pprofile': (context) => const ProviderProfilePage(),
+            '/wprofile': (context) => const WorkerProfilePage(),
+            '/wrouting': (context) => const WorkerRoutingPage(),
+            '/prouting': (context) => ProvidersRoutingPage(),
+            '/jobPost': (context) => const JobFormPage(),
+            '/maps': (context) => const Maps(),
+            '/jobDetails': (context) => const JobDetailPage(),
+            '/wjobdetails': (context) => const JobDetailPage(),
+            '/wjobdetailforjobID': (context) => WorkerJobDetails()
+          },
+        );
+      }),
     );
   }
 }

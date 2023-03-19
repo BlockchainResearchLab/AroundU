@@ -5,6 +5,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/constants.dart';
 
+final List localeLanguages = [
+  {'name': 'ENGLISH', 'locale': Locale('en', 'US')},
+  {'name': 'हिंदी', 'locale': Locale('hi', 'IN')},
+  {'name': 'ગુજરાતી', 'lacale': Locale('guj', 'IN')},
+];
+
 class ProviderMenuPage extends StatefulWidget {
   const ProviderMenuPage({Key? key}) : super(key: key);
 
@@ -13,6 +19,43 @@ class ProviderMenuPage extends StatefulWidget {
 }
 
 class _ProviderMenuPageState extends State<ProviderMenuPage> {
+  buildDialog(BuildContext cntx) {
+    showDialog(
+      context: context,
+      builder: (buider) {
+        return AlertDialog(
+          title: Text("Choose your language",
+              style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView.separated(
+              shrinkWrap: true,
+              itemBuilder: (cntx, index) {
+                return Text(localeLanguages[index]['name']);
+              },
+              separatorBuilder: (cntx, index) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Divider(
+                      color: Colors.grey,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                );
+              },
+              itemCount: 3, //english, rajasthani, hindi
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double baseWidth = 375;
@@ -29,9 +72,12 @@ class _ProviderMenuPageState extends State<ProviderMenuPage> {
             menuImageLink: ImageLink.profileUpdate,
             menuTitle: "Profile Update",
           ),
-          const ProviderMenuCard(
-              menuImageLink: ImageLink.chooseLanguage,
-              menuTitle: "Choose Language"),
+          InkWell(
+            onTap: () => buildDialog(context),
+            child: const ProviderMenuCard(
+                menuImageLink: ImageLink.chooseLanguage,
+                menuTitle: "Choose Language"),
+          ),
           const ProviderMenuCard(
               menuImageLink: ImageLink.history, menuTitle: "History"),
           const ProviderMenuCard(
@@ -40,7 +86,7 @@ class _ProviderMenuPageState extends State<ProviderMenuPage> {
             height: MediaQuery.of(context).size.height * 0.14,
           ),
           LogoutButton(
-            logoutFunction: (){
+            logoutFunction: () {
               log("Provider Logout Pressed");
             },
           ),
