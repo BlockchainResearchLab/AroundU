@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:tech_sprint_hackathon/Routes/routes.dart';
-import 'provider_job_page.dart';
 import '../constants/constants.dart';
 
 int? _currentIndex = 0;

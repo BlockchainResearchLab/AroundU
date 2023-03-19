@@ -35,6 +35,7 @@ class AroundU extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return ChangeNotifierProvider<LanguageChangeProvider>(
       create: (context) => LanguageChangeProvider(),
       child: Builder(builder: (context) {
@@ -73,6 +74,28 @@ class AroundU extends StatelessWidget {
           },
         );
       }),
+=======
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/splash',
+      routes: {
+        '/loading': (context) => const LoadingScreen(),
+        '/onboarding': (context) => const OnBoardingPage(),
+        '/profile-choose': (context) => const ProfileOption(),
+        '/splash': (context) => const SplashScreen(),
+        '/otp': (context) => const OTPScreen(),
+        '/login': (context) => const LoginScreen(),
+        '/registration': (context) => const RegistrationPage(),
+        '/pprofile': (context) => const ProviderProfilePage(),
+        '/wprofile': (context) => const WorkerProfilePage(),
+        '/wrouting': (context) => const WorkerRoutingPage(),
+        '/prouting': (context) => const ProvidersRoutingPage(),
+        '/jobPost': (context) => const JobFormPage(),
+        '/maps': (context) => const Maps(),
+        '/jobDetails': (context) => const JobDetailPage(),
+        '/wjobdetails': (context) => const JobDetailPage(),
+      },
+>>>>>>> 41b00f39096053562150a5051b611165d871b4ad
     );
   }
 }

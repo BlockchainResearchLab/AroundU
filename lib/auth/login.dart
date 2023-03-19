@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
@@ -102,12 +101,11 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Container(
           padding: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
-            children: <Widget>[
+            children: [
               const Header(),
-
               Image.asset(ImageLink.login),
               const SizedBox(
-                height: 24,
+                height: 10,
               ),
               Center(
                 child: Text(
@@ -119,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
               const SizedBox(
-                height: 12,
+                height: 5,
               ),
               Text(
                 "Log in to your existing account",
@@ -128,11 +126,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontWeight: FontWeight.w200,
                     fontSize: 23),
               ),
-
               const SizedBox(
-                height: 23,
+                height: 15,
               ),
-              TextfieldWidget(
+              TextFieldWidget(
                 cntrl: emailController,
                 onChanged: (value) {
                   setState(
@@ -141,11 +138,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                   );
                 },
-                hintlines: "enter your email",
+                hintlines: "Enter your email",
                 prefixIcon: const Icon(Icons.account_circle_rounded),
               ),
-
-              TextfieldWidget(
+              TextFieldWidget(
                 onChanged: (value) {
                   setState(
                     () {
@@ -288,9 +284,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-class TextfieldWidget extends StatefulWidget {
+class TextFieldWidget extends StatefulWidget {
   // controllers yet to be implemented.....
-  const TextfieldWidget(
+  const TextFieldWidget(
       {super.key,
       required this.hintlines,
       required this.prefixIcon,
@@ -303,24 +299,29 @@ class TextfieldWidget extends StatefulWidget {
   final Function(String) onChanged;
 
   @override
-  State<TextfieldWidget> createState() => _TextfieldWidgetState();
+  State<TextFieldWidget> createState() => _TextFieldWidgetState();
 }
 
-class _TextfieldWidgetState extends State<TextfieldWidget> {
+class _TextFieldWidgetState extends State<TextFieldWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(4),
       child: TextFormField(
         onChanged: widget.onChanged,
         decoration: InputDecoration(
-            prefixIcon: widget.prefixIcon,
-            hintStyle: GoogleFonts.inter(color: Color(0xff565656)),
-            hintText: widget.hintlines,
-            focusedBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.5)),
-            enabledBorder:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(32.5))),
+          prefixIcon: widget.prefixIcon,
+          hintStyle: GoogleFonts.inter(
+            color: const Color(0xff565656),
+          ),
+          hintText: widget.hintlines,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        ),
       ),
     );
   }
