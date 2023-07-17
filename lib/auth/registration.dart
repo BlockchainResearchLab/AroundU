@@ -90,7 +90,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               TextFieldWidget(
                 controller: emailController,
                 hintLines: "enter your email",
-                prefixIcon: Icon(Icons.account_circle_rounded),
+                prefixIcon: const Icon(Icons.account_circle_rounded),
                 onChanged: (value) {
                   setState(() {
                     email = value;
@@ -100,7 +100,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               TextFieldWidget(
                 controller: phoneController,
                 hintLines: "mobile number",
-                prefixIcon: Icon(Icons.call_rounded),
+                prefixIcon: const Icon(Icons.call_rounded),
                 onChanged: (value) {
                   setState(() {
                     phone = value;
@@ -110,7 +110,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
               TextFieldWidget(
                 controller: passwordController,
                 hintLines: "password",
-                prefixIcon: Icon(Icons.lock_outline),
+                prefixIcon: const Icon(Icons.lock_outline),
                 onChanged: (value) {
                   setState(() {
                     password = value;
@@ -130,7 +130,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                         ),
                       );
                     } else {
-                      Future.delayed(Duration(seconds: 5), () {
+                      Future.delayed(const Duration(seconds: 1), () {
                         showLoaderDialog(context);
                       });
                       OTP? otpFromBackend = await verifyOTP(phone!);

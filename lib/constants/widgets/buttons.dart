@@ -30,7 +30,6 @@ class _FooterButtonState extends State<FooterButton> {
           widget.pushToPage();
         },
         child: Container(
-          // group2TAA (3:103)
           margin: EdgeInsets.fromLTRB(14 * fem, 0 * fem, 15 * fem, 0 * fem),
           width: double.infinity,
           height: 50 * fem,
@@ -50,7 +49,6 @@ class _FooterButtonState extends State<FooterButton> {
               widget.buttonName,
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(
-                // 'Inter',
                 fontSize: 18 * ffem,
                 fontWeight: FontWeight.w600,
                 height: 1.2125 * ffem / fem,

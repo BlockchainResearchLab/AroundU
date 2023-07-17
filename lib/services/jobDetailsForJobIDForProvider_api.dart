@@ -10,7 +10,7 @@ class JobDetailsForJobID {
     String email,
   ) async {
     var res = await http.get(
-        Uri.parse("http://18.181.248.183:5000/view_job_details/$jobId"),
+        Uri.parse("http://13.231.10.139:5000/view_job_details/$jobId"),
         headers: {"token": token, "email": email});
     if (res.statusCode == 200) {
       return JobDetailsOfJobIDForProvider.fromJson(jsonDecode(res.body));

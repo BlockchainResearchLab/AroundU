@@ -171,13 +171,17 @@ class _LoginScreenState extends State<LoginScreen> {
                       if (logData != null) {
                         Navigator.pop(context);
                         log(logData.token.toString());
-                        setState(() {
-                          token = logData.token;
-                        });
-                        setState(() {
-                          email = loggedEmail;
-                          profile = logData.profile;
-                        });
+                        setState(
+                          () {
+                            token = logData.token;
+                          },
+                        );
+                        setState(
+                          () {
+                            email = loggedEmail;
+                            profile = logData.profile;
+                          },
+                        );
                         if (logData.profile == "Worker") {
                           // ignore: use_build_context_synchronously
                           Navigator.of(context).pushReplacementNamed(

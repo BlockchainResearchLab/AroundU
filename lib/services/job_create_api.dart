@@ -15,7 +15,7 @@ Future<void> createJob({
   required String due_date,
   required String start_date,
 }) async {
-  var res = await http.post(Uri.parse("http://18.181.248.183:5000/create_job"),
+  var res = await http.post(Uri.parse("http://13.231.10.139:5000/create_job"),
       headers: {
         'token': token,
         'email': email,

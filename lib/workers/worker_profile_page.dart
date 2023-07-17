@@ -20,7 +20,7 @@ List<String> options = [
   "Carpenter",
   "Wiring"
 ];
-String? name;
+String name = "";
 String? address;
 
 void printTag() {

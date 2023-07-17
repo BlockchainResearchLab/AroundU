@@ -60,6 +60,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  cloud_firestore: ^4.4.3
  
 
 dev_dependencies:

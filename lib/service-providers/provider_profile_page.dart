@@ -9,7 +9,7 @@ import 'package:tech_sprint_hackathon/services/auth-api-service/provider_profile
 import '../Routes/routes.dart';
 import '../auth/profile_option.dart';
 
-String? name;
+String name="";
 String? address;
 
 class ProviderProfilePage extends StatefulWidget {

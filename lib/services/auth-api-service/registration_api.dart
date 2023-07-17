@@ -9,7 +9,7 @@ import '../../models/registration_model.dart';
 Future<Registered?> register(
     String email, String password, String phone, String profile) async {
   var response = await http.post(
-    Uri.parse("http://43.207.160.124/registration/"),
+    Uri.parse("http://18.182.46.196/registration/"),
     headers: <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
     },
