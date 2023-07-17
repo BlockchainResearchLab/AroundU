@@ -10,7 +10,7 @@ class JobDetails {
     String email,
   ) async {
     var response = await http.get(
-        Uri.parse("http://18.181.248.183:5000/view_created_jobs"),
+        Uri.parse("http://13.231.10.139:5000/view_created_jobs"),
         headers: {
           'token': token,
           'email': email,

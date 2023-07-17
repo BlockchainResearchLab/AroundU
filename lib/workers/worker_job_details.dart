@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../constants/constants.dart';
 
-
 class WorkerJobDetails extends StatefulWidget {
   const WorkerJobDetails({Key? key}) : super(key: key);
 
@@ -13,13 +12,17 @@ class WorkerJobDetails extends StatefulWidget {
 class _WorkerJobDetailsState extends State<WorkerJobDetails> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return ProviderNameCard(
+      providerName: "Harsh",
+      jobDescription: "lorem lorem lorem lorem lorem lorem",
+    );
   }
 }
 
-
 class ProviderNameCard extends StatefulWidget {
-  const ProviderNameCard({Key? key, required this.providerName, required this.jobDescription}) : super(key: key);
+  const ProviderNameCard(
+      {Key? key, required this.providerName, required this.jobDescription})
+      : super(key: key);
 
   final String providerName;
   final String jobDescription;

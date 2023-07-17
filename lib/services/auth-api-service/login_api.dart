@@ -4,7 +4,7 @@ import '../../models/login_model.dart';
 import 'package:http/http.dart' as http;
 
 Future<Login?> login(String username, String password) async {
-  var response = await http.post(Uri.parse("http://43.207.160.124/login/"),
+  var response = await http.post(Uri.parse("http://18.182.46.196/login/"),
       body: {"username": username, "password": password});
 
   if (response.statusCode == 200) {

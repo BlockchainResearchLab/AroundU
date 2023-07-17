@@ -10,6 +10,7 @@ import '../constants/constants.dart';
 import '../models/JobDetailsForProviderFeedModel.dart';
 import '../services/jobDetailsForProviderAPI.dart';
 import 'job_post_form_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 late String jobId = "";
 
@@ -227,7 +228,8 @@ class _JobPostCardState extends State<JobPostCard> {
                         Row(
                           children: [
                             Text(
-                              "Status: ",
+                              // "Status: ",
+                              AppLocalizations.of(context)!.status,
                               style: GoogleFonts.inter(
                                 fontSize: 20,
                                 fontWeight: FontWeight.w600,
@@ -265,7 +267,7 @@ class _JobPostCardState extends State<JobPostCard> {
                         Row(
                           children: [
                             Text(
-                              "Priority:",
+                              AppLocalizations.of(context)!.priority,
                               style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
@@ -306,7 +308,8 @@ class _JobPostCardState extends State<JobPostCard> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Due Date: ${widget.date}", // DATE
+                          // "Due Date: ${widget.date}", // DATE
+                          "${AppLocalizations.of(context)!.duedate} : ${widget.date}",
                           style: GoogleFonts.inter(
                             fontSize: 18.0,
                             fontWeight: FontWeight.w600,

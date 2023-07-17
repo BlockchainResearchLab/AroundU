@@ -7,7 +7,7 @@ import '../../models/worker_profile_model.dart';
 Future<WorkerProfileModel?> workerDetails(
     String name, String address, List<String> tags) async {
   var response = await http.post(
-      Uri.parse("http://43.207.160.124/jobworkerprofile/"),
+      Uri.parse("http://18.182.46.196/jobworkerprofile/"),
       headers: {
         'Authorization': 'token $token ',
         'Content-Type': 'application/json'
