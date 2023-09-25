@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="readmefiles/logo.png" alt="AroundU Logo">
+  <img src="logo.png" alt="AroundU Logo" width="200" height="200">
 </p>
 
 # AroundU - Connecting Skilled Workers with Jobs
